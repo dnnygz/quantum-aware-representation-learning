@@ -1,0 +1,63 @@
+project_id: TCGA-BRCA
+
+gdc:
+  api_base_url: https://api.gdc.cancer.gov
+  files_endpoint: /files
+  cases_endpoint: /cases
+  data_endpoint: /data
+  status_endpoint: /status
+  timeout_seconds: 120
+  max_retries: 5
+  page_size: 2000
+
+query:
+  data_category: Transcriptome Profiling
+  data_type: Gene Expression Quantification
+  experimental_strategy: RNA-Seq
+  workflow_type: STAR - Counts
+  sample_type: Primary Tumor
+  access: open
+
+clinical:
+  er_gene_symbol: ESR1
+  er_method: IHC
+  positive_values: [Positive]
+  negative_values: [Negative]
+  ambiguous_values:
+    - Equivocal
+    - Indeterminate
+    - Not Evaluated
+    - Not Reported
+    - Unknown
+    - Not Available
+  conflict_policy: exclude
+
+expression:
+  value_column: unstranded
+  gene_id_column: gene_id
+  gene_name_column: gene_name
+  gene_type_column: gene_type
+  technical_row_prefix: N_
+  expected_gene_model: GENCODE v36
+  output_dtype: int64
+
+sample_selection:
+  strategy: tcga_barcode_lexicographic
+  sort_keys:
+    - sample_submitter_id
+    - portion_number
+    - aliquot_submitter_id
+    - sample_id
+    - file_id
+
+splits:
+  random_seed: 1729
+  test_size: 0.20
+  n_splits: 5
+  shuffle: true
+
+paths:
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
+  reports_dir: reports/data

@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+.venv/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+
+# GDC and generated data. Raw is immutable and intentionally never versioned.
+data/raw/**
+data/interim/**
+data/processed/**
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# Generated reports; retain the directory and documentation only.
+reports/data/*.json
+reports/data/*.parquet
+reports/data/*.tsv
+!reports/data/.gitkeep
+
+# Partial downloads must never be mistaken for complete raw files.
+*.part
