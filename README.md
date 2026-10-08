@@ -1,7 +1,7 @@
 # Reproducible TCGA-BRCA ER-status cohort for NISQ VQC research
 
 This repository supports a thesis on variational quantum classifiers (VQCs)
-under NISQ constraints. The current implementation is **Phase 1 only**.
+under NISQ constraints. The current implementation covers **Phase 1 and Phase 1B**.
 Canonical cohort **v1** constructs an auditable, patient-level dataset for
 predicting baseline estrogen receptor status (ER-positive versus ER-negative)
 of the primary breast tumour from RNA expression.
@@ -56,11 +56,14 @@ unstranded. Technical summary rows (`N_*`) are excluded from the feature matrix
 and recorded by the parser. Versioned Ensembl gene IDs are the feature keys;
 gene symbols and gene types are stored separately in `genes.parquet`.
 
-No PCA, supervised feature selection, dataset-wide scaling, or learned
-normalization occurs in this phase. Any transformation that estimates
-parameters must later be fit inside each training fold. Split files contain
-patient IDs, so every classical and quantum model can reuse identical
-partitions.
+The canonical matrix remains raw and immutable. Phase 1B implements a reusable
+training-fold transform: genes with CPM >= 1 in at least 10% of training
+patients, frozen-reference TMM, log2-CPM with a library-size-adjusted prior,
+and exact-zero-variance removal. The threshold is a prespecified scientific
+decision, not optimized from ER or model performance. Every learned parameter
+uses `fit(training)` and is frozen for `transform(validation/test)`; no global
+normalized modeling matrix is created. Estimator-specific scaling is available
+but is fit later inside each model pipeline.
 
 ## Reproduce Phase 1
 
@@ -80,6 +83,9 @@ python -m src.data.download
 
 # Link clinical data, build the patient matrix, validate it and create splits
 python -m src.data.cohort
+
+# Fit and audit fold-local RNA-seq preprocessing states (no models)
+python -m src.data.preprocessing
 
 # Equivalent complete workflow
 make data
@@ -109,6 +115,11 @@ Successful cohort construction writes:
 - `reports/data/provenance.json` — queries, release, hashes and software;
 - `reports/data/old_cohort_vs_baseline_er_cohort.json` — version comparison;
 - `data/processed/versions/superseded/v0_harmonized_esr1_ihc/` — prior cohort.
+- `data/interim/preprocessing/phase1b_primary_v1/<partition>/` — fitted masks,
+  frozen TMM state and per-training-sample QC, but no normalized matrix;
+- `reports/data/preprocessing_qc.json` — per-partition Phase-1B QC and runtimes;
+- `reports/data/preprocessing_provenance.json` — Phase-1B hashes and provenance;
+- `reports/data/preprocessing/ma_plots/` — training-only MA diagnostics.
 
 Generated counts are deliberately not stated in source code or documentation;
 they belong to the release-specific reports.
@@ -133,6 +144,7 @@ tests/data/              synthetic unit tests; no TCGA download required
 python -m pytest
 python -m src.data.download --help
 python -m src.data.cohort --help
+python -m src.data.preprocessing --help
 ```
 
 Notebooks do not contain hidden cohort logic. `01_tcga_cohort.ipynb` inspects
@@ -144,11 +156,11 @@ and library-size QC only.
 Phase 1 canonical v1 implements acquisition, baseline Clinical Supplement ER
 labeling, XML/Biotab/harmonized-source checks, clinical/expression linkage,
 patient-level deduplication, QC, reusable splits, version comparison and
-provenance. It does not
-implement VQCs, PennyLane, Qiskit, feature selection, model tuning, or a
+provenance. Phase 1B adds leakage-safe RNA-seq preprocessing components and
+per-partition fitted state. It does not implement predictive models, PCA,
+supervised feature selection, VQCs, PennyLane, Qiskit, model tuning, or a
 dashboard.
 
-The next recommended phase is a leakage-safe classical baseline: define
-fold-local count transformation/filtering and preprocessing, then evaluate
-regularized logistic regression and SVM on the frozen patient splits before
-designing any quantum feature budget or circuit.
+The next phase begins only after review of Phase-1B QC. It should define the
+nested validation protocol for classical baselines while keeping the canonical
+test partition untouched.

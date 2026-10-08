@@ -111,12 +111,48 @@ Deferred to fold-local training pipelines: gene filtering informed by training
 data, normalization with cohort-estimated statistics, scaling, PCA, mutual
 information, ANOVA, LASSO and all outcome-guided feature selection.
 
+## Phase 1B primary RNA-seq preprocessing specification
+
+Approved on 2026-10-07, the primary preprocessing sequence is:
+
+`training-fold CPM filter -> training-fitted TMM -> log2-CPM with prior count -> exact-zero-variance removal -> estimator-specific scaling`.
+
+The expression filter retains a gene when it has `CPM >= 1` in at least 10% of
+the training patients. This is a prespecified transcriptomic criterion, not a
+threshold selected from ER labels or predictive performance. Alternative CPM
+or prevalence values may later be supplied declaratively for sensitivity
+analysis, but choosing among them using model performance requires nested
+training-only validation.
+
+Every operation that depends on the patient distribution follows
+`fit(training) / transform(validation or test)`. The gene mask, TMM reference
+and geometric-mean calibration, exact-zero-variance mask, and any
+model-specific scaler are learned without validation/test patients. A new
+patient receives a TMM factor independently against the frozen training
+reference; test patients are never jointly recentred. No global normalized
+matrix is a valid modeling input.
+
+TMM uses the Robinson--Oshlack weighted trimmed mean with edgeR-compatible
+defaults: 30% log-ratio trimming, 5% absolute-expression trimming and a
+training-selected reference whose upper-quartile expression is closest to the
+training mean. Log2-CPM uses prior count 2, scaled in proportion to the
+effective library size. Remaining zeros are not imputed. Only features with
+exactly zero transformed variance in training are removed; no top-variance or
+near-zero-variance feature budget is imposed.
+
+Scaling is deliberately outside the shared count transform. Linear models and
+SVMs may fit a `StandardScaler` on their training partition, tree models may
+omit it, and a later VQC encoding scaler must be learned only after fold-local
+feature selection. PCA, MI, ANOVA, LASSO, model fitting, and reduction to
+4/6/8 features are outside Phase 1B.
+
 ## Known limitations / pending scientific choices
 
 1. Baseline IHC values are site-submitted TCGA clinical data and do not imply a
    centralized pathology re-review or uniform historical positivity threshold.
 2. Barcode-order sample selection is neutral and reproducible but not based on
    RNA quality metrics, which are not uniformly exposed with these count files.
-3. Whether downstream models should use a count-specific transform, TPM, or a
-   carefully fitted normalization method is intentionally deferred until the
-   modeling protocol is defined inside training folds.
+3. TMM assumes that most genes are not dominated by unbalanced global shifts.
+   Phase-1B QC therefore reports factor distributions, robust outliers and MA
+   diagnostics, but test-set diagnostics must never change the primary
+   specification.

@@ -66,6 +66,34 @@ splits:
   n_splits: 5
   shuffle: true
 
+preprocessing:
+  specification_id: phase1b_primary_v1
+  expression_filter:
+    cpm_threshold: 1.0
+    min_training_prevalence: 0.10
+    selection_basis: prespecified_methodological_not_performance_optimized
+  tmm:
+    logratio_trim: 0.30
+    sum_trim: 0.05
+    weighted: true
+    reference_selection: upper_quartile_closest_to_training_mean
+  log_cpm:
+    prior_count: 2.0
+    prior_scaling: proportional_to_effective_library_size
+  variance_filter:
+    strategy: exact_zero_training_variance
+  scaling:
+    strategy: estimator_specific
+    default_enabled: false
+  diagnostics:
+    extreme_factor_lower: 0.5
+    extreme_factor_upper: 2.0
+    robust_outlier_iqr_multiplier: 3.0
+    ma_plot_max_points: 5000
+  artifacts_dir: data/interim/preprocessing/phase1b_primary_v1
+  qc_report: reports/data/preprocessing_qc.json
+  provenance_report: reports/data/preprocessing_provenance.json
+
 paths:
   raw_dir: data/raw
   interim_dir: data/interim

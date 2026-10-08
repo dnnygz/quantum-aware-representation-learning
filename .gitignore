@@ -24,6 +24,7 @@ data/processed/**
 reports/data/*.json
 reports/data/*.parquet
 reports/data/*.tsv
+reports/data/**/*.svg
 !reports/data/.gitkeep
 
 # Partial downloads must never be mistaken for complete raw files.
