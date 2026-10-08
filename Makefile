@@ -1,7 +1,7 @@
 PYTHON ?= python
 CONFIG ?= configs/data.yaml
 
-.PHONY: data metadata cohort audit-er compare-cohorts preprocess test clean-generated
+.PHONY: data metadata cohort audit-er compare-cohorts preprocess phase1c-protocol test clean-generated
 
 data:
 	$(PYTHON) -m src.data.download --config $(CONFIG)
@@ -21,6 +21,9 @@ compare-cohorts:
 
 preprocess:
 	$(PYTHON) -m src.data.preprocessing --config $(CONFIG)
+
+phase1c-protocol:
+	$(PYTHON) -m src.data.phase1c_protocol --config $(CONFIG)
 
 test:
 	$(PYTHON) -m pytest

@@ -87,6 +87,9 @@ python -m src.data.cohort
 # Fit and audit fold-local RNA-seq preprocessing states (no models)
 python -m src.data.preprocessing
 
+# Create/audit Phase-1C development-only inner CV (still no models)
+python -m src.data.phase1c_protocol
+
 # Equivalent complete workflow
 make data
 
@@ -120,6 +123,11 @@ Successful cohort construction writes:
 - `reports/data/preprocessing_qc.json` — per-partition Phase-1B QC and runtimes;
 - `reports/data/preprocessing_provenance.json` — Phase-1B hashes and provenance;
 - `reports/data/preprocessing/ma_plots/` — training-only MA diagnostics.
+- `data/processed/splits/phase1c_inner_cv.json` — official development-only
+  inner folds for classical model selection;
+- `reports/data/phase1c_protocol_qc.json` — locked-test isolation and split QC;
+- `docs/phase1c_protocol.md` — prespecified model-selection protocol awaiting
+  approval before benchmark execution.
 
 Generated counts are deliberately not stated in source code or documentation;
 they belong to the release-specific reports.
@@ -145,6 +153,7 @@ python -m pytest
 python -m src.data.download --help
 python -m src.data.cohort --help
 python -m src.data.preprocessing --help
+python -m src.data.phase1c_protocol --help
 ```
 
 Notebooks do not contain hidden cohort logic. `01_tcga_cohort.ipynb` inspects

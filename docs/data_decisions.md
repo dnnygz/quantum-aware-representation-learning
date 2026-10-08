@@ -146,6 +146,22 @@ omit it, and a later VQC encoding scaler must be learned only after fold-local
 feature selection. PCA, MI, ANOVA, LASSO, model fitting, and reduction to
 4/6/8 features are outside Phase 1B.
 
+## Phase 1C validation boundary
+
+The original `stratified_kfold` entry in the canonical Phase-1 split file spans
+all patients and is retained for provenance, but it is not valid for tuning
+when the canonical 20% holdout is treated as a locked final test. Phase 1C
+therefore creates a separate, versioned five-fold stratified split using only
+the canonical development patient IDs. It does not rewrite the canonical split
+artifact.
+
+These development-only folds are the sole partitions authorized for
+preprocessing fitting, hyperparameter comparison and model selection. The
+locked test is evaluated once after the full pipeline and hyperparameters have
+been frozen. The protocol, search spaces, default classification thresholds
+and bootstrap procedure are preregistered in `docs/phase1c_protocol.md` before
+any classifier is trained.
+
 ## Known limitations / pending scientific choices
 
 1. Baseline IHC values are site-submitted TCGA clinical data and do not imply a
