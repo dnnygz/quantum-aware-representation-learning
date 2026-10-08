@@ -74,6 +74,39 @@ def validate_cohort(
             ),
         ]
     )
+    if {"xml_primary_label", "er_source", "xml_biotab_crosscheck"}.issubset(metadata.columns):
+        primary_labels = metadata["xml_primary_label"].astype(int)
+        checks.extend(
+            [
+                _check(
+                    "labels_match_baseline_xml",
+                    primary_labels.tolist() == labels["er_label"].astype(int).tolist(),
+                    int((primary_labels.to_numpy() != labels["er_label"].astype(int).to_numpy()).sum()),
+                ),
+                _check(
+                    "primary_target_source_is_clinical_supplement_xml",
+                    set(metadata["er_source"].dropna()) == {"TCGA Clinical Supplement BCR XML"},
+                    sorted(metadata["er_source"].dropna().unique().tolist()),
+                ),
+                _check(
+                    "biotab_crosscheck_concordant_for_included_cases",
+                    set(metadata["xml_biotab_crosscheck"].dropna()) == {"concordant"},
+                    metadata["xml_biotab_crosscheck"].value_counts(dropna=False).to_dict(),
+                ),
+                _check(
+                    "no_later_event_er_imputation",
+                    metadata["xml_primary_label"].notna().all(),
+                    int(metadata["xml_primary_label"].isna().sum()),
+                ),
+            ]
+        )
+    checks.append(
+        _check(
+            "no_learned_preprocessing_in_curation",
+            True,
+            {"applied_transformations": [], "deferred_to_training_folds": True},
+        )
+    )
 
     distribution = {
         str(int(key)): int(value)

@@ -1,0 +1,153 @@
+{
+  "artifacts": {
+    "comparison": "data/interim/er_source_comparison.parquet",
+    "raw_snapshot": "data/raw/gdc_release_46.0/er_source_audit_b5df3c6ef16d",
+    "xml_observations": "data/interim/er_xml_observations.parquet"
+  },
+  "frozen_cohort_comparison": {
+    "cases": 1036,
+    "concordant": 1035,
+    "discordant": 0,
+    "xml_missing": 1
+  },
+  "frozen_cohort_unchanged": true,
+  "frozen_processed_sha256_after": {
+    ".gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "expression.parquet": "e4bf9dc03bbc09f1f4688b0b1b23cf356785542c442a1a8d2c9898885b8c4b01",
+    "genes.parquet": "c1d8b0d7d7aed08540fbc09e3713bf4efaced7cc036735bb15b623426c4984f0",
+    "labels.parquet": "11633e7148a3f7ce15bd6309fb354c3fdcf801337ab4b52e9a4484e94ff82fb7",
+    "metadata.parquet": "33ebe708d136c3d37e13164e657546752d2b292868244287e45fbd577e59b012",
+    "splits.json": "088e9d94894f0b46031f71ef2fcaff898197752177c9cb9773d2e03ccfad5257"
+  },
+  "frozen_processed_sha256_before": {
+    ".gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "expression.parquet": "e4bf9dc03bbc09f1f4688b0b1b23cf356785542c442a1a8d2c9898885b8c4b01",
+    "genes.parquet": "c1d8b0d7d7aed08540fbc09e3713bf4efaced7cc036735bb15b623426c4984f0",
+    "labels.parquet": "11633e7148a3f7ce15bd6309fb354c3fdcf801337ab4b52e9a4484e94ff82fb7",
+    "metadata.parquet": "33ebe708d136c3d37e13164e657546752d2b292868244287e45fbd577e59b012",
+    "splits.json": "088e9d94894f0b46031f71ef2fcaff898197752177c9cb9773d2e03ccfad5257"
+  },
+  "gdc_release": {
+    "major": 46,
+    "minor": 0,
+    "release_date": "2026-08-10"
+  },
+  "generated_at": "2026-10-07T22:13:14.621163+00:00",
+  "harmonized_conflicts": {
+    "cases": 8,
+    "xml_primary_known": 8,
+    "xml_primary_values": [
+      {
+        "case_id": "796b593f-5886-4a27-bf94-7ea8df325e1a",
+        "case_submitter_id": "TCGA-A2-A0YJ",
+        "er_raw_values": "[\"Negative\", \"Positive\"]",
+        "xml_primary_raw_values": "[\"Positive\"]"
+      },
+      {
+        "case_id": "a8e7d8a4-bbf0-496b-b387-8e014cfdcea6",
+        "case_submitter_id": "TCGA-A2-A3XU",
+        "er_raw_values": "[\"Negative\", \"Positive\", \"Negative\", \"Negative\"]",
+        "xml_primary_raw_values": "[\"Negative\"]"
+      },
+      {
+        "case_id": "8c7e74e0-71ef-49b8-9217-94b8ef740ef9",
+        "case_submitter_id": "TCGA-A7-A13E",
+        "er_raw_values": "[\"Negative\", \"Positive\"]",
+        "xml_primary_raw_values": "[\"Positive\"]"
+      },
+      {
+        "case_id": "9435447e-d65f-408b-863b-6576b1d652dd",
+        "case_submitter_id": "TCGA-AO-A03N",
+        "er_raw_values": "[\"Positive\", \"Negative\"]",
+        "xml_primary_raw_values": "[\"Positive\"]"
+      },
+      {
+        "case_id": "86b7b206-8e69-432d-acc9-bccce710955e",
+        "case_submitter_id": "TCGA-AO-A0JA",
+        "er_raw_values": "[\"Positive\", \"Negative\", \"Negative\"]",
+        "xml_primary_raw_values": "[\"Positive\"]"
+      },
+      {
+        "case_id": "75b3fe55-1a63-426e-867e-2ef52f54778d",
+        "case_submitter_id": "TCGA-B6-A402",
+        "er_raw_values": "[\"Negative\", \"Negative\", \"Positive\"]",
+        "xml_primary_raw_values": "[\"Negative\"]"
+      },
+      {
+        "case_id": "f801aeed-dc43-49d7-a319-84c8851979d9",
+        "case_submitter_id": "TCGA-E2-A10B",
+        "er_raw_values": "[\"Positive\", \"Negative\"]",
+        "xml_primary_raw_values": "[\"Positive\"]"
+      },
+      {
+        "case_id": "a8015490-9740-45c9-8bd2-eb6d1beefc2e",
+        "case_submitter_id": "TCGA-E2-A152",
+        "er_raw_values": "[\"Positive\", \"Negative\"]",
+        "xml_primary_raw_values": "[\"Positive\"]"
+      }
+    ]
+  },
+  "harmonized_only_known": [
+    {
+      "biotab_primary_raw": "[Not Evaluated]",
+      "case_id": "d4a1ecdc-399c-4f82-aa7a-68a0c82ded3f",
+      "case_submitter_id": "TCGA-E9-A243",
+      "er_raw_values": "[\"Negative\"]",
+      "xml_primary_raw_values": "[null]"
+    }
+  ],
+  "patient_level_comparison": {
+    "biotab_primary_known": 1046,
+    "categories": {
+      "concordant": 1037,
+      "harmonized_only_known": 1,
+      "neither_known": 51,
+      "xml_only_known": 9
+    },
+    "concordance_among_known_both": 1.0,
+    "harmonized_distribution": {
+      "0": 237,
+      "1": 801
+    },
+    "harmonized_known": 1038,
+    "known_in_both": 1037,
+    "xml_primary_distribution": {
+      "0": 238,
+      "1": 808
+    },
+    "xml_primary_known": 1046
+  },
+  "potential_cohort_impact_not_applied": {
+    "applied": false,
+    "harmonized_only_known_with_eligible_rna": 1,
+    "projected_case_count_if_baseline_xml_were_adopted": 1044,
+    "projected_er_negative_if_baseline_xml_were_adopted": 237,
+    "projected_er_positive_if_baseline_xml_were_adopted": 807,
+    "xml_only_known_with_eligible_rna": 9
+  },
+  "project_id": "TCGA-BRCA",
+  "retrieval": {
+    "data_endpoint": "https://api.gdc.cancer.gov/data",
+    "downloaded_files_md5_verified": 1098,
+    "files_endpoint": "https://api.gdc.cancer.gov/files",
+    "query_fingerprint": "b5df3c6ef16d"
+  },
+  "scope": {
+    "bcr_biotab_files": 9,
+    "bcr_omf_xml_files": 77,
+    "bcr_xml_cases": 1097,
+    "bcr_xml_files": 1097,
+    "clinical_supplement_files": 1183,
+    "project_cases": 1098
+  },
+  "xml_context_counts": {
+    "follow_up": 751,
+    "new_tumor_event": 1045,
+    "new_tumor_event_patient_template": 1097,
+    "primary_patient": 1097
+  },
+  "xml_vs_biotab_categories": {
+    "concordant": 1046,
+    "neither_known": 52
+  }
+}

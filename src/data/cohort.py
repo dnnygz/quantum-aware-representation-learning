@@ -12,9 +12,9 @@ from typing import Any, Iterable, Mapping
 
 import pandas as pd
 
-from .clinical import build_clinical_table
+from .baseline_er import build_baseline_clinical_table
 from .expression import assemble_expression_matrix
-from .splits import generate_splits
+from .splits import generate_splits, validate_splits
 from .utils import (
     configure_logging,
     dependency_versions,
@@ -219,7 +219,7 @@ def _build_summary(
         "flow": {
             "total_project_cases": int(len(all_cases)),
             "cases_with_eligible_primary_tumor_rna_seq": int(len(rna_case_ids)),
-            "project_cases_with_known_concordant_er": int(project_known.sum()),
+            "project_cases_with_known_baseline_er": int(project_known.sum()),
             "rna_cases_with_valid_er": int(len(final_labels)),
             "cases_with_multiple_expression_candidates": int(
                 audit.loc[audit["case_candidate_count"] > 1, "case_id"].nunique()
@@ -257,6 +257,10 @@ def _build_provenance(
     interim_dir = resolve_path(repo_root, config["paths"]["interim_dir"])
     receipts_path = interim_dir / "download_receipts.json"
     receipts = json.loads(receipts_path.read_text(encoding="utf-8"))
+    run_context = json.loads((interim_dir / "run_context.json").read_text(encoding="utf-8"))
+    baseline_context = run_context["baseline_er"]
+    baseline_snapshot = Path(baseline_context["snapshot_dir"])
+    baseline_metadata_dir = baseline_snapshot / "metadata"
     receipts_by_id = {receipt["file_id"]: receipt for receipt in receipts}
     selected_ids = set(selected_metadata["file_id"].astype(str))
     if set(receipts_by_id) != selected_ids:
@@ -270,6 +274,8 @@ def _build_provenance(
     return {
         "timestamp": utc_now(),
         "project": config["project_id"],
+        "cohort_version": config["cohort_version"],
+        "cohort_status": config["cohort_status"],
         "gdc_status": status,
         "gdc_endpoints": {
             key: f"{config['gdc']['api_base_url']}{value}"
@@ -282,10 +288,28 @@ def _build_provenance(
         "sample_type": config["query"]["sample_type"],
         "expression_measure": config["expression"]["value_column"],
         "er_source": {
-            "location": "cases.follow_ups.molecular_tests",
-            "gene_symbol": config["clinical"]["er_gene_symbol"],
-            "method": config["clinical"]["er_method"],
-            "conflict_policy": config["clinical"]["conflict_policy"],
+            "primary": {
+                "source": config["clinical"]["primary_source"],
+                "field": config["clinical"]["primary_field"],
+                "xml_element": config["clinical"]["primary_xml_element"],
+                "cde": config["clinical"]["primary_cde"],
+                "timepoint": config["clinical"]["clinical_timepoint"],
+                "later_event_imputation_prohibited": config["clinical"]["prohibit_later_event_imputation"],
+            },
+            "crosscheck": "TCGA BCR patient Biotab er_status_by_ihc",
+            "secondary_validation": {
+                "location": "cases.follow_ups.molecular_tests",
+                "gene_symbol": config["clinical"]["er_gene_symbol"],
+                "method": config["clinical"]["er_method"],
+            },
+        },
+        "methodological_change": {
+            "decision": "Approved baseline ER ground truth from Clinical Supplement XML",
+            "supersedes": "v0_harmonized_esr1_ihc",
+            "superseded_manifest": "data/processed/versions/superseded/v0_harmonized_esr1_ihc/manifest.json",
+            "audit_report": "reports/data/er_source_audit.md",
+            "audit_machine_readable_prechange": "reports/data/audit/er_source_audit_release46_prechange.json",
+            "comparison_report": "reports/data/old_cohort_vs_baseline_er_cohort.json",
         },
         "counts": summary["flow"],
         "files": [
@@ -308,6 +332,19 @@ def _build_provenance(
         "raw_metadata_sha256": {
             path.name: sha256_file(path)
             for path in sorted(metadata_dir.glob("*.json"))
+        },
+        "baseline_clinical_supplement": {
+            **baseline_context,
+            "metadata_sha256": {
+                path.name: sha256_file(path)
+                for path in sorted(baseline_metadata_dir.glob("*.json"))
+            },
+            "source_comparison_sha256": sha256_file(
+                interim_dir / "baseline_er_source_comparison.parquet"
+            ),
+            "xml_observations_sha256": sha256_file(
+                interim_dir / "baseline_er_xml_observations.parquet"
+            ),
         },
         "download_receipts_sha256": sha256_file(receipts_path),
         "code": code_state,
@@ -339,11 +376,17 @@ def run(config_path: str | Path) -> None:
     clinical_response = json.loads(
         (metadata_dir / "clinical_response.json").read_text(encoding="utf-8")
     )
+    if config["clinical"].get("primary_source") != "clinical_supplement_bcr_xml":
+        raise ValueError("Canonical v1 requires clinical.primary_source=clinical_supplement_bcr_xml")
+    baseline_source_path = interim_dir / "baseline_er_source_comparison.parquet"
+    if not baseline_source_path.is_file():
+        raise FileNotFoundError("Missing baseline ER source table; rerun src.data.download")
+    baseline_sources = pd.read_parquet(baseline_source_path)
 
     candidates = flatten_file_hits(file_response["data"]["hits"], config["query"]["sample_type"])
     selected, audit = select_patient_files(candidates, config["sample_selection"])
-    all_clinical, er_records = build_clinical_table(
-        clinical_response["data"]["hits"], config["clinical"]
+    all_clinical, er_records = build_baseline_clinical_table(
+        clinical_response["data"]["hits"], baseline_sources, config["clinical"]
     )
     merged = selected.merge(all_clinical, on=["case_id", "case_submitter_id"], how="left", validate="one_to_one")
     final_metadata = merged.loc[merged["er_label"].notna()].copy()
@@ -359,6 +402,7 @@ def run(config_path: str | Path) -> None:
     qc_report = validate_cohort(expression, labels, metadata, genes)
     qc_report["expression_file_qc"] = expression_qc.to_dict("records")
     splits = generate_splits(labels, config["splits"])
+    qc_report["split_qc"] = validate_splits(splits, labels)
     summary = _build_summary(all_clinical, candidates, labels, audit)
     provenance = _build_provenance(
         config, repo_root, config_path, snapshot_dir, final_metadata, summary
@@ -374,6 +418,12 @@ def run(config_path: str | Path) -> None:
     write_json_atomic(processed_dir / "splits.json", splits)
     write_json_atomic(reports_dir / "cohort_summary.json", summary)
     write_json_atomic(reports_dir / "qc_report.json", qc_report)
+    write_json_atomic(reports_dir / "provenance.json", provenance)
+    provenance["processed_artifacts_sha256"] = {
+        path.name: sha256_file(path)
+        for path in sorted(processed_dir.glob("*"))
+        if path.is_file() and path.name != ".gitkeep"
+    }
     write_json_atomic(reports_dir / "provenance.json", provenance)
     LOGGER.info("Final patient cohort: %d cases x %d genes", *expression.shape)
 

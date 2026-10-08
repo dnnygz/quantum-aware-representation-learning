@@ -53,3 +53,67 @@ def generate_splits(labels: pd.DataFrame, split_config: dict[str, Any]) -> dict[
         },
         "stratified_kfold": {"n_splits": n_splits, "shuffle": shuffle, "folds": folds},
     }
+
+
+def validate_splits(splits: dict[str, Any], labels: pd.DataFrame) -> dict[str, Any]:
+    """Validate patient coverage, disjointness and stratification artifacts."""
+
+    universe = set(labels["case_id"].astype(str))
+    by_id = labels.set_index(labels["case_id"].astype(str))["er_label"].astype(int)
+    train = set(splits["stratified_train_test"]["train_case_ids"])
+    test = set(splits["stratified_train_test"]["test_case_ids"])
+    checks = [
+        {"check": "train_test_disjoint", "passed": not bool(train & test), "evidence": len(train & test)},
+        {"check": "train_test_exhaustive", "passed": train | test == universe, "evidence": len(train | test)},
+    ]
+    validation_counts = {case_id: 0 for case_id in universe}
+    fold_disjoint = True
+    fold_exhaustive = True
+    fold_distribution = []
+    for fold in splits["stratified_kfold"]["folds"]:
+        fold_train = set(fold["train_case_ids"])
+        validation = set(fold["validation_case_ids"])
+        fold_disjoint &= not bool(fold_train & validation)
+        fold_exhaustive &= fold_train | validation == universe
+        for case_id in validation:
+            validation_counts[case_id] += 1
+        fold_distribution.append(
+            {
+                "fold": fold["fold"],
+                "validation_size": len(validation),
+                "validation_er_positive": int(by_id.loc[list(validation)].eq(1).sum()),
+                "validation_er_negative": int(by_id.loc[list(validation)].eq(0).sum()),
+            }
+        )
+    checks.extend(
+        [
+            {"check": "kfold_train_validation_disjoint", "passed": fold_disjoint, "evidence": None},
+            {"check": "kfold_each_fold_exhaustive", "passed": fold_exhaustive, "evidence": None},
+            {
+                "check": "each_patient_once_in_kfold_validation",
+                "passed": set(validation_counts.values()) == {1},
+                "evidence": {
+                    str(int(key)): int(value)
+                    for key, value in pd.Series(validation_counts).value_counts().sort_index().items()
+                },
+            },
+        ]
+    )
+    failures = [check["check"] for check in checks if not check["passed"]]
+    if failures:
+        raise ValueError(f"Split QC failed: {failures}")
+    return {
+        "status": "pass",
+        "checks": checks,
+        "train_test_distribution": {
+            "train": {
+                str(int(key)): int(value)
+                for key, value in by_id.loc[list(train)].value_counts().sort_index().items()
+            },
+            "test": {
+                str(int(key)): int(value)
+                for key, value in by_id.loc[list(test)].value_counts().sort_index().items()
+            },
+        },
+        "fold_distribution": fold_distribution,
+    }

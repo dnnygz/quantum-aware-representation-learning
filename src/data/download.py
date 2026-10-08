@@ -6,11 +6,12 @@ import argparse
 import hashlib
 import json
 import logging
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
-from .clinical import build_clinical_table
+from .baseline_er import acquire_baseline_er_sources, build_baseline_clinical_table
 from .cohort import flatten_file_hits, select_patient_files
 from .gdc_client import GDCClient
 from .utils import (
@@ -87,7 +88,11 @@ def build_case_query(config: dict[str, Any]) -> dict[str, Any]:
 
 
 def acquire_metadata(
-    client: GDCClient, config: dict[str, Any], raw_dir: Path, interim_dir: Path
+    client: GDCClient,
+    config: dict[str, Any],
+    raw_dir: Path,
+    interim_dir: Path,
+    workers: int,
 ) -> tuple[Path, list[dict[str, Any]]]:
     """Query live metadata and create/reuse an immutable release snapshot."""
 
@@ -116,8 +121,11 @@ def acquire_metadata(
 
     candidates = flatten_file_hits(file_response["data"]["hits"], config["query"]["sample_type"])
     selected, audit = select_patient_files(candidates, config["sample_selection"])
-    clinical_labels, _ = build_clinical_table(
-        case_response["data"]["hits"], config["clinical"]
+    baseline_sources, xml_observations, baseline_context = acquire_baseline_er_sources(
+        client, config, raw_dir, status, workers=max(workers, 8)
+    )
+    clinical_labels, _ = build_baseline_clinical_table(
+        case_response["data"]["hits"], baseline_sources, config["clinical"]
     )
     selected = selected.merge(
         clinical_labels[["case_id", "case_submitter_id", "er_label", "er_exclusion_reason"]],
@@ -131,6 +139,8 @@ def acquire_metadata(
     audit.to_parquet(interim_dir / "sample_selection_audit.parquet", index=False)
     selected.to_parquet(interim_dir / "selected_download_manifest.parquet", index=False)
     clinical_labels.to_parquet(interim_dir / "clinical_labels_preview.parquet", index=False)
+    baseline_sources.to_parquet(interim_dir / "baseline_er_source_comparison.parquet", index=False)
+    xml_observations.to_parquet(interim_dir / "baseline_er_xml_observations.parquet", index=False)
     selected_records = selected.to_dict("records")
 
     context = {
@@ -140,9 +150,41 @@ def acquire_metadata(
         "query_fingerprint": query_fingerprint,
         "metadata_only": True,
         "selected_file_count": len(selected_records),
+        "baseline_er": baseline_context,
     }
     write_json_atomic(interim_dir / "run_context.json", context)
     return snapshot_dir, selected_records
+
+
+def reuse_verified_expression_files(
+    client: GDCClient,
+    selected_records: list[dict[str, Any]],
+    snapshot_dir: Path,
+) -> int:
+    """Hardlink matching MD5-verified files from compatible release snapshots."""
+
+    release_dir = snapshot_dir.parent
+    reused = 0
+    for record in selected_records:
+        destination = snapshot_dir / "files" / record["file_id"] / record["file_name"]
+        if destination.exists():
+            continue
+        candidates = sorted(
+            release_dir.glob(f"query_*/files/{record['file_id']}/{record['file_name']}")
+        )
+        source = next((path for path in candidates if snapshot_dir not in path.parents), None)
+        if source is None:
+            continue
+        client._validate_file(source, str(record["md5sum"]), int(record["file_size"]))
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            os.link(source, destination)
+        except FileExistsError:
+            pass
+        client._validate_file(destination, str(record["md5sum"]), int(record["file_size"]))
+        reused += 1
+    LOGGER.info("Reused %d verified expression files from compatible snapshots", reused)
+    return reused
 
 
 def download_selected_files(
@@ -185,11 +227,14 @@ def run(config_path: str | Path, metadata_only: bool = False, workers: int = 4) 
         timeout_seconds=int(config["gdc"]["timeout_seconds"]),
         max_retries=int(config["gdc"]["max_retries"]),
     )
-    snapshot_dir, selected_records = acquire_metadata(client, config, raw_dir, interim_dir)
+    snapshot_dir, selected_records = acquire_metadata(
+        client, config, raw_dir, interim_dir, workers
+    )
     if metadata_only:
         LOGGER.info("Metadata snapshot ready at %s", snapshot_dir)
         return
 
+    reused_compatible = reuse_verified_expression_files(client, selected_records, snapshot_dir)
     receipts = download_selected_files(
         client,
         selected_records,
@@ -200,7 +245,13 @@ def run(config_path: str | Path, metadata_only: bool = False, workers: int = 4) 
     write_json_atomic(interim_dir / "download_receipts.json", receipts)
     context_path = interim_dir / "run_context.json"
     context = json.loads(context_path.read_text(encoding="utf-8"))
-    context.update({"metadata_only": False, "download_completed_at": utc_now()})
+    context.update(
+        {
+            "metadata_only": False,
+            "download_completed_at": utc_now(),
+            "reused_from_compatible_snapshot": reused_compatible,
+        }
+    )
     write_json_atomic(context_path, context)
     LOGGER.info("Raw acquisition complete: %d files", len(receipts))
 

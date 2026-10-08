@@ -1,4 +1,6 @@
 project_id: TCGA-BRCA
+cohort_version: v1
+cohort_status: canonical
 
 gdc:
   api_base_url: https://api.gdc.cancer.gov
@@ -19,6 +21,14 @@ query:
   access: open
 
 clinical:
+  primary_source: clinical_supplement_bcr_xml
+  primary_field: er_status_by_ihc
+  primary_xml_element: breast_carcinoma_estrogen_receptor_status
+  primary_cde: "2957359"
+  clinical_timepoint: baseline_primary_tumor
+  prohibit_later_event_imputation: true
+  biotab_crosscheck: true
+  harmonized_role: secondary_validation
   er_gene_symbol: ESR1
   er_method: IHC
   positive_values: [Positive]

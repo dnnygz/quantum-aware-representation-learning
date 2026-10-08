@@ -31,24 +31,46 @@ individual files also retain `data_release`, timestamps, UUID, size and MD5.
    It would redefine a clinical IHC outcome from the predictors and create a
    circular target.
 
-### Decision
+### Superseded decision: harmonized ESR1/IHC aggregation
 
-Use the harmonized GDC case graph, restricted to `gene_symbol=ESR1` and the
-configured assay (`IHC`). This is the current, machine-readable GDC clinical
-representation and avoids choosing among multiple historical supplement files.
-The full returned case JSON is retained, so the decision is auditable.
+The original Phase-1 cohort used every harmonized GDC molecular-test node with
+`gene_symbol=ESR1` and `molecular_analysis_method=IHC`, excluding cases when
+known results conflicted. This definition is preserved as
+`v0_harmonized_esr1_ihc` and is no longer canonical.
 
-Case-level resolution is conservative:
+The targeted source audit found 100% agreement when the harmonized and baseline
+sources were both known, but also showed that unrestricted aggregation mixed
+the baseline result with ER measurements from recurrence, metastasis or new
+tumour events. Eight apparently conflicting cases had a valid baseline ER, and
+one patient with baseline ER not evaluated had been labeled from a later event.
+The evidence is retained in `reports/data/er_source_audit.md` and its
+machine-readable artifacts.
 
-- all known values concordant: retain the binary label;
-- only missing/ambiguous/unsupported values: exclude;
-- both positive and negative, or known mixed with ambiguous: exclude as a
-  conflict/ambiguity rather than choosing a majority or record order.
+### Approved decision: canonical v1 baseline ER
 
-This matters because some GDC cases contain multiple ESR1 nodes without
-clinical dates or a documented precedence field. A future sensitivity analysis
-may adjudicate these cases against original Clinical Supplement XML, but such an
-adjudication must be explicit and versioned.
+On 2026-10-07 the primary target was changed to the baseline Clinical
+Supplement field `er_status_by_ihc` /
+`breast_carcinoma_estrogen_receptor_status` (CDE 2957359). This directly matches
+the scientific estimand: **baseline ER status of the primary tumour**.
+
+The source hierarchy is now:
+
+1. per-case BCR Clinical Supplement XML direct patient field as ground truth;
+2. BCR patient Biotab `er_status_by_ihc` as a mandatory consistency cross-check;
+3. harmonized GDC ESR1/IHC molecular tests as secondary validation only.
+
+Positive maps to 1 and Negative to 0. Missing, not evaluated, indeterminate,
+equivocal or unsupported baseline values remain missing. ER measurements from
+follow-up, recurrence, metastasis or new tumour events must never fill a missing
+baseline result. XML/Biotab disagreement is a fail-fast integrity error rather
+than a precedence decision.
+
+The prior cohort and its original provenance, reports, splits and SHA-256
+hashes are retained under
+`data/processed/versions/superseded/v0_harmonized_esr1_ihc/`. The canonical v1
+provenance links both the audit and the superseded manifest. Patient-level
+entries, exits and any label changes are recorded in
+`reports/data/old_cohort_vs_baseline_er_cohort.json`.
 
 ## Expression measure
 
@@ -91,8 +113,8 @@ information, ANOVA, LASSO and all outcome-guided feature selection.
 
 ## Known limitations / pending scientific choices
 
-1. Conflicting ESR1 IHC records cannot be objectively prioritized with the
-   harmonized fields currently returned; the primary pipeline excludes them.
+1. Baseline IHC values are site-submitted TCGA clinical data and do not imply a
+   centralized pathology re-review or uniform historical positivity threshold.
 2. Barcode-order sample selection is neutral and reproducible but not based on
    RNA quality metrics, which are not uniformly exposed with these count files.
 3. Whether downstream models should use a count-specific transform, TPM, or a
