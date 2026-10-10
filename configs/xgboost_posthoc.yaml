@@ -1,0 +1,187 @@
+protocol_version: xgboost_posthoc_complementary_v1
+status: frozen_approved_2026-10-09
+role: post-hoc complementary classical baseline
+must_not_replace_primary_reference: true
+primary_reference:
+  model: logistic_l1
+  metric: locked_test_roc_auc
+  value: 0.9659837142106645
+  displayed_value: 0.9660
+
+software:
+  package: xgboost
+  version: 3.4.1
+  interface: xgboost.XGBClassifier
+  installation_state_at_execution: installed_and_verified
+  execution_python_requirement: ">=3.12,<3.15"
+
+inputs:
+  data_config: configs/data.yaml
+  raw_counts: data/processed/expression.parquet
+  labels: data/processed/labels.parquet
+  canonical_split: data/processed/splits.json
+  inner_cv: data/processed/splits/phase1c_inner_cv.json
+  bootstrap_indices: data/processed/phase1c_classical_baseline_v1/bootstrap_indices.npz
+  bootstrap_patient_order: data/processed/phase1c_classical_baseline_v1/bootstrap_patient_order.parquet
+  label_semantics: configs/label_semantics.yaml
+
+target:
+  ER_positive: 1
+  ER_negative: 0
+  positive_class: ER_positive
+
+preprocessing:
+  specification_id: phase1b_primary_v1
+  fit_scope: inner_train_only
+  sequence:
+    - CPM_filter_1_in_at_least_10_percent_training
+    - training_fitted_TMM
+    - log2_CPM_prior_2
+    - exact_training_zero_variance_filter
+  standard_scaler: false
+  supervised_feature_selection: false
+
+imbalance:
+  strategy: exact_fold_local_sklearn_balanced_sample_weight
+  scale_pos_weight: 1.0
+  training_weight_formula: n_training / (2 * n_training_class)
+  validation_or_test_weighting: none
+  rationale: preserve_equal_total_class_weight_and_match_prior_baselines
+  prohibited_alternative_selection: do_not_tune_weighting_strategy
+
+fixed_model_parameters:
+  objective: binary:logistic
+  booster: gbtree
+  tree_method: hist
+  device: cpu
+  grow_policy: depthwise
+  max_bin: 256
+  eval_metric: auc
+  random_state: 1729
+  n_jobs: 4
+  input_dtype: float32
+  scale_pos_weight: 1.0
+  early_stopping: false
+  missing: .nan
+  threshold: 0.5
+  calibration: false
+
+candidates:
+  - id: xgb_c01_shallow_strong_reg
+    n_estimators: 250
+    max_depth: 2
+    learning_rate: 0.03
+    min_child_weight: 10
+    subsample: 0.8
+    colsample_bytree: 0.10
+    reg_alpha: 1.0
+    reg_lambda: 10.0
+  - id: xgb_c02_depth3_strong_reg
+    n_estimators: 300
+    max_depth: 3
+    learning_rate: 0.03
+    min_child_weight: 10
+    subsample: 0.8
+    colsample_bytree: 0.10
+    reg_alpha: 1.0
+    reg_lambda: 10.0
+  - id: xgb_c03_depth3_moderate
+    n_estimators: 250
+    max_depth: 3
+    learning_rate: 0.05
+    min_child_weight: 5
+    subsample: 0.8
+    colsample_bytree: 0.10
+    reg_alpha: 0.5
+    reg_lambda: 5.0
+  - id: xgb_c04_depth3_wider_columns
+    n_estimators: 300
+    max_depth: 3
+    learning_rate: 0.03
+    min_child_weight: 10
+    subsample: 0.8
+    colsample_bytree: 0.20
+    reg_alpha: 1.0
+    reg_lambda: 10.0
+  - id: xgb_c05_depth4_high_regularization
+    n_estimators: 300
+    max_depth: 4
+    learning_rate: 0.03
+    min_child_weight: 15
+    subsample: 0.8
+    colsample_bytree: 0.10
+    reg_alpha: 2.0
+    reg_lambda: 20.0
+  - id: xgb_c06_shallow_faster
+    n_estimators: 150
+    max_depth: 2
+    learning_rate: 0.05
+    min_child_weight: 5
+    subsample: 1.0
+    colsample_bytree: 0.20
+    reg_alpha: 0.5
+    reg_lambda: 5.0
+
+selection:
+  source: five_frozen_development_inner_folds_only
+  primary_metric: mean_inner_validation_ROC_AUC
+  numerical_tie_tolerance_auc: 1.0e-12
+  rule: strict_argmax_mean_inner_validation_ROC_AUC_then_numerical_tie_break
+  complexity_tie_break_order:
+    - lower_max_depth
+    - lower_n_estimators_times_two_to_max_depth
+    - lower_colsample_bytree
+    - higher_min_child_weight
+    - higher_reg_lambda
+    - higher_reg_alpha
+    - lower_learning_rate
+    - lexicographic_candidate_id
+  locked_test_in_selection: false
+
+evaluation:
+  locked_test_inference_count: 1
+  threshold: 0.5
+  primary_metric: ROC_AUC
+  descriptive_metrics:
+    - ER_positive_average_precision
+    - ER_negative_average_precision
+    - balanced_accuracy
+    - ER_positive_recall
+    - ER_negative_recall_specificity
+    - macro_F1
+    - accuracy
+    - named_confusion_matrix
+  bootstrap:
+    mode: reuse_frozen_indices_exactly
+    n_resamples: 5000
+    indices_seed_origin: 2718
+    regenerate: false
+
+feature_importance:
+  persist: true
+  types: [gain, cover, weight]
+  descriptive_only: true
+  prohibited_as_phase2_or_vqc_selector: true
+
+expected_execution:
+  candidate_count: 6
+  inner_fold_count: 5
+  cv_model_fits: 30
+  final_model_fits: 1
+  total_model_fits: 31
+  preprocessing_fits: 6
+  estimated_cpu_wall_time: 5_to_20_minutes
+  estimated_peak_memory: 1_to_4_GB
+
+outputs:
+  artifacts_dir: data/interim/xgboost_posthoc_v1
+  processed_dir: data/processed/xgboost_posthoc_v1
+  gate_report: reports/data/xgboost_posthoc_protocol_gate.json
+  cv_results: reports/data/xgboost_posthoc_cv_results.csv
+  selected_configuration: reports/data/xgboost_posthoc_selected_configuration.json
+  oof_predictions: data/processed/xgboost_posthoc_v1/oof_predictions.parquet
+  locked_test_predictions: data/processed/xgboost_posthoc_v1/locked_test_predictions.parquet
+  locked_test_performance: reports/data/xgboost_posthoc_locked_test_performance.json
+  feature_importance: data/processed/xgboost_posthoc_v1/feature_importance.parquet
+  leakage_qc: reports/data/xgboost_posthoc_leakage_qc.json
+  provenance: reports/data/xgboost_posthoc_provenance.json

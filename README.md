@@ -1,7 +1,8 @@
 # Reproducible TCGA-BRCA ER-status cohort for NISQ VQC research
 
 This repository supports a thesis on variational quantum classifiers (VQCs)
-under NISQ constraints. The current implementation covers **Phase 1A--1C**.
+under NISQ constraints. The current implementation covers the frozen **Phase
+1A--1C**, including the post-hoc complementary XGBoost baseline.
 Canonical cohort **v1** constructs an auditable, patient-level dataset for
 predicting baseline estrogen receptor status (ER-positive versus ER-negative)
 of the primary breast tumour from RNA expression.
@@ -100,6 +101,11 @@ python -m src.data.classical_baseline --stage final
 # Audit class semantics from persisted predictions; no fitting or inference
 python -m src.data.phase1c_semantic_audit
 
+# Reproduce the separately labelled post-hoc XGBoost baseline
+python -m src.data.xgboost_protocol
+python -m src.data.xgboost_baseline --stage cv
+python -m src.data.xgboost_baseline --stage final
+
 # Equivalent complete workflow
 make data
 
@@ -147,6 +153,10 @@ Successful cohort construction writes:
 - `reports/data/phase1c_label_metric_semantic_audit.json` — read-only
   reconciliation of `ER+=1`, `ER−=0`, class-specific AP and named confusion
   cells.
+- `reports/data/xgboost_posthoc_locked_test_performance.json` — separately
+  labelled post-hoc XGBoost performance and paired bootstrap comparisons;
+- `reports/data/phase1_final_freeze.md` — final Phase-1 freeze, integrity
+  checks, versions and reconstruction hashes.
 
 Generated counts are deliberately not stated in source code or documentation;
 they belong to the release-specific reports.
@@ -175,6 +185,8 @@ python -m src.data.preprocessing --help
 python -m src.data.phase1c_protocol --help
 python -m src.data.classical_baseline --help
 python -m src.data.phase1c_semantic_audit --help
+python -m src.data.xgboost_protocol --help
+python -m src.data.xgboost_baseline --help
 ```
 
 Notebooks do not contain hidden cohort logic. `01_tcga_cohort.ipynb` inspects
@@ -189,7 +201,10 @@ patient-level deduplication, QC, reusable splits, version comparison and
 provenance. Phase 1B adds leakage-safe RNA-seq preprocessing components and
 per-partition fitted state. Phase 1C adds four regularized classical reference
 models selected exclusively by development-only inner CV and evaluated once on
-the locked test. See the [Phase-1C report](reports/data/phase1c_classical_baseline.md).
+the locked test. Logistic L1 remains the primary full-representation reference
+(`ROC-AUC=0.9660`). Phase 1C-XGB adds a separately labelled post-hoc
+complementary tree baseline without retroactively changing that choice. See
+the [final freeze](reports/data/phase1_final_freeze.md).
 PCA, supervised feature-budget selection, VQCs, PennyLane, Qiskit, quantum
 circuits, noise models and QEM remain unimplemented.
 

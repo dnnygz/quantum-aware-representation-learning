@@ -193,6 +193,22 @@ Parquet type error in the sparsity audit. No second test inference occurred.
 The recovery, missing final per-step timings, repaired type, and one-use access
 receipt are recorded in Phase-1C provenance and the durable results report.
 
+## Phase 1C-XGB post-hoc complementary baseline
+
+XGBoost was added only after the four original locked-test results had been
+observed. It is permanently labelled `post-hoc complementary classical
+baseline` and cannot redefine `P_classical-full(primary)`, which remains
+Logistic L1 with locked-test ROC-AUC 0.9660. Six configurations and their
+strict argmax selection rule were frozen before fitting; a complexity
+tie-break is allowed only for numerical equality within `1e-12`.
+
+The experiment reused the original development/test patients, inner folds and
+5,000 bootstrap samples. It omitted StandardScaler, used fold-local balanced
+sample weights, and performed one locked-test inference after selection. The
+selected C06 configuration and complete audit are documented in
+`docs/xgboost_posthoc_protocol.md`. Its tree importance is descriptive only
+and is prohibited as a Phase-2 or VQC feature selector.
+
 ## ER class and metric semantics
 
 The project-wide encoding is `ER_positive = 1` and `ER_negative = 0`. ER+ is
