@@ -24,6 +24,7 @@ data/processed/**
 reports/data/*.json
 reports/data/*.parquet
 reports/data/*.tsv
+reports/data/*.csv
 reports/data/**/*.svg
 !reports/data/.gitkeep
 

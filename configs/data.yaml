@@ -96,7 +96,7 @@ preprocessing:
 
 phase1c:
   protocol_version: phase1c_classical_baseline_v1
-  status: proposed_pending_experiment_approval
+  status: frozen_approved_2026-10-08
   locked_test_policy: evaluate_once_after_inner_cv_model_selection
   inner_cv:
     n_splits: 5
@@ -109,6 +109,8 @@ phase1c:
     primary_metric: roc_auc
     aggregation: mean_across_inner_validation_folds
     tie_breaker: smallest_C_then_lexicographic_parameter_order
+    classical_reference_family: highest_selected_model_mean_cv_roc_auc
+    classical_reference_tie_breaker: lexicographic_model_name
   class_imbalance:
     strategy: balanced_class_weight
     fit_scope: inner_training_labels_only
@@ -192,6 +194,15 @@ phase1c:
       - predicted_class
       - model
       - fold
+  outputs:
+    artifacts_dir: data/interim/phase1c_classical_baseline_v1
+    processed_dir: data/processed/phase1c_classical_baseline_v1
+    cv_results: reports/data/phase1c_cv_results.csv
+    cv_summary: reports/data/phase1c_cv_summary.csv
+    selected_hyperparameters: reports/data/phase1c_selected_hyperparameters.json
+    locked_test_performance: reports/data/phase1c_locked_test_performance.json
+    leakage_qc: reports/data/phase1c_leakage_qc.json
+    provenance: reports/data/phase1c_provenance.json
 
 paths:
   raw_dir: data/raw

@@ -172,3 +172,39 @@ any classifier is trained.
    Phase-1B QC therefore reports factor distributions, robust outliers and MA
    diagnostics, but test-set diagnostics must never change the primary
    specification.
+
+## Phase 1C classical reference decision
+
+Phase 1C was executed on 2026-10-08 under the approved frozen protocol. Model
+families and regularization values were selected only by mean ROC-AUC across
+the five development-only folds. Logistic L1 at `C=0.01` had the largest mean
+CV ROC-AUC and therefore defines `P_classical-full`; this decision predates
+locked-test access. The numerically highest test ROC-AUC belongs to RBF-SVM by
+only about 0.001, with overlapping uncertainty, and does not override the
+predeclared selection rule.
+
+The selected L1 model is extremely sparse, but its nonzero coefficients are a
+property of a supervised fitted classifier. They must not be treated as a
+preapproved 4/6/8-gene feature selector or reused outside a properly nested
+Phase-2 selection pipeline.
+
+The final report was recovered from atomic checkpoints after a post-inference
+Parquet type error in the sparsity audit. No second test inference occurred.
+The recovery, missing final per-step timings, repaired type, and one-use access
+receipt are recorded in Phase-1C provenance and the durable results report.
+
+## ER class and metric semantics
+
+The project-wide encoding is `ER_positive = 1` and `ER_negative = 0`. ER+ is
+the positive class for Phase-1C model scores, ROC-AUC and the frozen legacy
+`pr_auc` field. The legacy keys therefore mean:
+
+- `pr_auc`: ER+ PR-AUC / average precision;
+- `sensitivity`: ER+ sensitivity / recall;
+- `specificity`: ER− specificity / recall;
+- confusion order `[ER_negative=0, ER_positive=1]`: `(TN, FP, FN, TP)`.
+
+Generic keys remain only in frozen Phase-1C artifacts for hash stability. New
+reports and future phases must name the class explicitly and report ER+ and
+ER− average precision with their prevalence baselines. ROC-AUC remains the
+unchanged primary model-selection metric.

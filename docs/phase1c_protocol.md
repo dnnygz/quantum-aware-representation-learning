@@ -1,6 +1,6 @@
 # Phase 1C protocol gate: leakage-safe classical baseline
 
-Status: **proposed and implemented for review; benchmark not executed**.
+Status: **approved, executed and frozen on 2026-10-08**.
 
 ## Scientific question
 
@@ -51,11 +51,15 @@ features cannot be reused as a VQC feature selector in Phase 1C.
 
 ## Selection, imbalance and classification thresholds
 
+The fixed target convention is `ER_positive = 1` and `ER_negative = 0`. ER+
+is the positive class for ROC-AUC, average precision, probabilities and the
+orientation of SVM decision scores.
+
 - Primary selection metric: mean validation ROC-AUC across the five inner
   folds.
-- Secondary metrics: average precision (reported as PR-AUC), balanced
-  accuracy, ER+ sensitivity, ER- specificity, ER+ F1, accuracy and confusion
-  matrix.
+- Secondary metrics: ER+ average precision (reported as ER+ PR-AUC), balanced
+  accuracy, ER+ sensitivity/recall, ER− specificity/recall, ER+ F1, accuracy
+  and the explicitly named ER−/ER+ confusion matrix.
 - Deterministic tie break: smallest C, then lexicographic parameter order.
 - Class imbalance: fixed `class_weight="balanced"`, calculated independently
   within every training fold.
@@ -69,6 +73,12 @@ patients and evaluated once on locked test. Inner-CV metrics for the selected
 hyperparameter are tuning estimates and can be optimistic from selection; the
 locked test is the primary unbiased generalization estimate.
 
+The classical reference family is selected before test access as the model
+family whose selected configuration has the highest mean inner-CV ROC-AUC.
+An exact tie is resolved lexicographically by model name. Its locked-test
+performance defines `P_classical-full`; the family is never reselected from
+locked-test results.
+
 ## Predictions and uncertainty
 
 The approved experiment will persist one out-of-fold row per development
@@ -76,15 +86,23 @@ patient and one final row per locked-test patient with:
 
 `patient_id, y_true, score, predicted_class, model, fold`.
 
-Logistic models use positive-class probability as score; SVMs use the decision
-function. No probability calibration is introduced solely to harmonize scores.
+Logistic models use ER+ (`label=1`) probability as score; SVM decision scores
+increase toward ER+. No probability calibration is introduced solely to
+harmonize scores.
 
 Locked-test confidence intervals use 5,000 patient-level stratified bootstrap
 resamples with seed 2718. ER+ and ER- patients are sampled with replacement
 within class, preserving test class counts. Percentile 95% intervals are
 reported for scalar metrics. The same saved bootstrap indices are reused
 across models so future comparisons remain paired. The confusion matrix itself
-is reported as observed counts; sensitivity and specificity receive intervals.
+is ordered `[ER_negative=0, ER_positive=1]`: `TN=true ER− predicted ER−`,
+`FP=true ER− predicted ER+`, `FN=true ER+ predicted ER−`, and `TP=true ER+
+predicted ER+`. ER+ sensitivity and ER− specificity receive intervals.
+
+Because ER+ is the majority class, its no-skill average-precision baseline is
+its prevalence in the evaluated partition. ER+ PR-AUC is interpreted together
+with prevalence and ER− PR-AUC, computed by reversing both labels and score
+orientation. ROC-AUC remains the unchanged primary selection metric.
 
 ## Leakage guard and stopping rule
 
@@ -100,8 +118,10 @@ development ordering and canonical cohort ordering. Automated checks require:
 - byte-equivalent regeneration from the same inputs and seed.
 
 The code exposes a fail-fast locked-test guard for preprocessing fit, model
-fit, model selection, threshold selection and calibration. Benchmark execution
-remains blocked pending approval of this protocol.
+fit, model selection, threshold selection and calibration. The completed
+benchmark is summarized in
+[`reports/data/phase1c_classical_baseline.md`](../reports/data/phase1c_classical_baseline.md).
+The access receipt prevents a second final-stage execution.
 
 ## Out of scope
 

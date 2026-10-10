@@ -1,7 +1,7 @@
 # Reproducible TCGA-BRCA ER-status cohort for NISQ VQC research
 
 This repository supports a thesis on variational quantum classifiers (VQCs)
-under NISQ constraints. The current implementation covers **Phase 1 and Phase 1B**.
+under NISQ constraints. The current implementation covers **Phase 1A--1C**.
 Canonical cohort **v1** constructs an auditable, patient-level dataset for
 predicting baseline estrogen receptor status (ER-positive versus ER-negative)
 of the primary breast tumour from RNA expression.
@@ -24,6 +24,9 @@ TCGA Clinical Supplement XML field `er_status_by_ihc` /
 `1` and `Negative` to `0`; missing, not-evaluated, indeterminate, equivocal or
 unsupported baseline values are excluded. Measurements from recurrence,
 metastasis, follow-up or new-tumour events never impute a missing baseline ER.
+The immutable binary convention is `ER_positive = 1` as the positive class and
+`ER_negative = 0`; its machine-readable contract is
+[`configs/label_semantics.yaml`](configs/label_semantics.yaml).
 
 The BCR patient Biotab is an exact consistency cross-check. Harmonized GDC
 `ESR1`/`IHC` molecular-test nodes are retained only as secondary validation.
@@ -90,6 +93,13 @@ python -m src.data.preprocessing
 # Create/audit Phase-1C development-only inner CV (still no models)
 python -m src.data.phase1c_protocol
 
+# After protocol approval: development-only selection, then one locked-test run
+python -m src.data.classical_baseline --stage cv
+python -m src.data.classical_baseline --stage final
+
+# Audit class semantics from persisted predictions; no fitting or inference
+python -m src.data.phase1c_semantic_audit
+
 # Equivalent complete workflow
 make data
 
@@ -126,8 +136,17 @@ Successful cohort construction writes:
 - `data/processed/splits/phase1c_inner_cv.json` — official development-only
   inner folds for classical model selection;
 - `reports/data/phase1c_protocol_qc.json` — locked-test isolation and split QC;
-- `docs/phase1c_protocol.md` — prespecified model-selection protocol awaiting
-  approval before benchmark execution.
+- `docs/phase1c_protocol.md` — frozen prespecified model-selection protocol;
+- `reports/data/phase1c_classical_baseline.md` — durable Phase-1C results and
+  interpretation;
+- `reports/data/phase1c_cv_results.csv` — every model/C/fold result;
+- `data/processed/phase1c_classical_baseline_v1/oof_predictions.parquet` and
+  `locked_test_predictions.parquet` — reusable patient-level predictions;
+- `reports/data/phase1c_provenance.json` and `phase1c_leakage_qc.json` — hashes,
+  software, split identity and leakage controls.
+- `reports/data/phase1c_label_metric_semantic_audit.json` — read-only
+  reconciliation of `ER+=1`, `ER−=0`, class-specific AP and named confusion
+  cells.
 
 Generated counts are deliberately not stated in source code or documentation;
 they belong to the release-specific reports.
@@ -154,6 +173,8 @@ python -m src.data.download --help
 python -m src.data.cohort --help
 python -m src.data.preprocessing --help
 python -m src.data.phase1c_protocol --help
+python -m src.data.classical_baseline --help
+python -m src.data.phase1c_semantic_audit --help
 ```
 
 Notebooks do not contain hidden cohort logic. `01_tcga_cohort.ipynb` inspects
@@ -162,14 +183,16 @@ and library-size QC only.
 
 ## Project status and next phases
 
-Phase 1 canonical v1 implements acquisition, baseline Clinical Supplement ER
+Phase 1 is closed and frozen. Canonical v1 implements acquisition, baseline Clinical Supplement ER
 labeling, XML/Biotab/harmonized-source checks, clinical/expression linkage,
 patient-level deduplication, QC, reusable splits, version comparison and
 provenance. Phase 1B adds leakage-safe RNA-seq preprocessing components and
-per-partition fitted state. It does not implement predictive models, PCA,
-supervised feature selection, VQCs, PennyLane, Qiskit, model tuning, or a
-dashboard.
+per-partition fitted state. Phase 1C adds four regularized classical reference
+models selected exclusively by development-only inner CV and evaluated once on
+the locked test. See the [Phase-1C report](reports/data/phase1c_classical_baseline.md).
+PCA, supervised feature-budget selection, VQCs, PennyLane, Qiskit, quantum
+circuits, noise models and QEM remain unimplemented.
 
-The next phase begins only after review of Phase-1B QC. It should define the
-nested validation protocol for classical baselines while keeping the canonical
-test partition untouched.
+The next phase, only after explicit review, is Phase 2: quantify the
+representation bottleneck under leakage-safe 4/6/8-feature selection. The
+locked-test predictions and paired bootstrap indices remain frozen references.
