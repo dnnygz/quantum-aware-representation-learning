@@ -41,3 +41,6 @@ reports/data/**/*.svg
 /reports/phase*/**/verification.json
 /reports/phase*/**/figure_selection.json
 /reports/phase*/**/analysis_source.py
+
+# Retain the small, reviewed D0 verification record with the report.
+!/reports/phase2/d0_v1_verified/verification.json

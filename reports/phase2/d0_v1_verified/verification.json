@@ -1,0 +1,72 @@
+{
+  "status": "Completed exploratory D0-A/D0-B; no model fitting",
+  "authoritative_run": "runs/phase2/d0_v1_verified",
+  "prior_diagnostic_execution_preserved": false,
+  "numerical_correction": "Training PC scales use direct centered SVD, not covariance eigendecomposition; no training repeated",
+  "historical_files_checked": 462,
+  "historical_files_changed": 0,
+  "historical_manifest": "runs/phase2/d0_historical_manifest_v1.json",
+  "source_sha256": {
+    "src/phase2/d0.py": "3ca2aa585004699efcf00f551d4008309563677cb79b06b5dce5c99ab56ea49c",
+    "src/phase2/run_d0.py": "130d0f9d71d1b60d03d3d6bf583d524768c363b2f98419e0b71b9642fb0c2efb",
+    "src/phase2/d0_views.py": "bd97de1be928a5b7efe5f29e87087af57b81eb3d24e6eca0a2fe439543fcec0e",
+    "src/phase2/summarize_d0.py": "72ca2d63f38d4259d9cbfb98a90b7d0060f1be0692c010adf6007cb0f594b737",
+    "src/phase2/data.py": "1601f6d763dbf9ab4b16084ffd4c5aa230a21a791662897cb8ddf2d68e9206dc",
+    "src/phase2/models.py": "9cdf3169224605afcc7f9b41f7ec8276f93ad8ba1ac3220c2d81a085beb4883f",
+    "src/phase2/evaluation.py": "0debfdf9c6fc17ebe576f41d08ca50dd21c4f40dd05da2b074edf890b790f6d5",
+    "src/phase2/analyze_cv.py": "6c96c7b21d7a35854b9f8c816ee2ba76fa5ead14e248d92354a2842cb6558080",
+    "src/phase2/analysis_views.py": "62d02cf6188afdb04c332f1ea5f4ee3804ab0dd8caef70e0eb6e97ed59d0a807",
+    "tests/phase2/test_d0.py": "20b8e7ca0c044212d4afa75b25ddb02694ffedf7567322b7d653ff49b7c6648b",
+    "notebooks/03_d0_compatibility.ipynb": "d70df0db927f5f909ecf15026e850754f839a7647c88b61e92135cd9a7594783",
+    "reports/phase2/d0_protocol_v1.md": "9b51324162491b25f96d77a4ce79225fef51eee042789851ece0ba430026a6fd"
+  },
+  "summary_sha256": {
+    "baseline_metrics.csv": "7e0c2da8ffad1ca4f5e65b1461461d69a6f8ef054273c13d992f6ad548bee690",
+    "paired_interventions.csv": "f39c52215ad5ad07de6beee9bde9ec91321da660d97bbe46c5553444957b3043",
+    "shared_encoder.csv": "82f02be7f3087f9d80ac2669809e0396593a800d51a019c3532ba1b46b54a5a3",
+    "geometry.csv": "f17f5e3aebf7c06f30a62ea0d23f3228d8386800541bc48952fc2fd88a28adc9",
+    "checks.csv": "5e6b66dbefcaa5488b3be21240dd3bd658f6ed52ae63700484cac5f79c9df357",
+    "intervention_summary.csv": "cc52a3e38d79138c5dcec1260c6abcfa369df1a716dec10efadd394078b3af88",
+    "coordinates.csv": "13b11106fe52f33fd488c9c9cba2c6e855675989bf8e37d38075a0450df2ee3a",
+    "effect_distribution.csv": "49833d13c6469b65782d59dc4de3767cf06826785883b36c0e261184126b268d",
+    "coordinate_ablation.csv": "22d73555d363874a5ae78555eea59914162ac866297341cce08c563005d5ec27",
+    "functional.csv": "bdf1f6b36574db5230c2358058fbd6025fd1080f4af1dc9ade35e1c028a6e056",
+    "directions.csv": "e395fb89f7196522753a791389b6acea1b3d2df4228dea1721c21cacd0feadc5",
+    "shared_scaled.csv": "ddd4cada067fc4950ab4dfdab38c6780e88cd8cf570ba3b4f7f0584687552fea"
+  },
+  "report_sha256": "3b1b093c6a057c7bdd936e0add7e6a2973a93efcb213d7db9aa685fda95b8ba1",
+  "D0_A_groups": 210,
+  "D0_B_groups": 120,
+  "intervention_cells": 8160,
+  "cells_per_model_split": 68,
+  "numerical_checks_max": {
+    "fd_probability_max_abs_error": 1.2631207191304838e-10,
+    "chain_max_abs_error": 1.0894063429134349e-15,
+    "final_rz_perturbation_max_abs_error": 1.1102230246251565e-15
+  },
+  "tests": {
+    "command": "MPLCONFIGDIR=/tmp/qarl-mpl .venv/bin/python -m pytest --ignore=tests/data/test_xgboost_baseline.py -q",
+    "passed": 116,
+    "new_D0_tests": 10,
+    "excluded_reason": "xgboost is not installed; the historical XGBoost baseline test module cannot be collected"
+  },
+  "notebook": {
+    "executed_top_to_bottom": true,
+    "rendered_and_visually_inspected_figures": 7,
+    "source_outputs_cleared": true,
+    "executed_copy": "runs/phase2/d0_notebook_verification_v1/executed.ipynb",
+    "read_only_guard_test_passed": true
+  },
+  "training_only_perturbation_scales": true,
+  "validation_selected_perturbations": false,
+  "discovery_recurrence_rule": null,
+  "raw_cohort_loaded": false,
+  "locked_test_features_or_labels_accessed": false,
+  "C0_implemented": false,
+  "C1_implemented": false,
+  "commit_or_push_performed": false,
+  "working_tree_note": "Historical notebook 01 had output-only changes at task start and was preserved",
+  "prior_diagnostic_execution": "runs/phase2/d0_v1",
+  "prior_diagnostic_summaries_preserved": false,
+  "artifact_cleanup_note": "Superseded d0_v1 run and summaries were removed during subsequent cleanup; the authoritative d0_v1_verified run and summaries remain available. Numerical checks and source hashes record the original completed verification, not a new experiment."
+}
