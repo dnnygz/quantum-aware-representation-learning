@@ -1,8 +1,13 @@
-# Reproducible TCGA-BRCA ER-status cohort for NISQ VQC research
+# Quantum-Aware Representation Learning
 
-This repository supports a thesis on variational quantum classifiers (VQCs)
-under NISQ constraints. The current implementation covers the frozen **Phase
-1A--1C**, including the post-hoc complementary XGBoost baseline.
+This repository studies quantum-aware representation learning for TCGA-BRCA
+ER-status classification using small variational quantum classifiers (VQCs).
+The Python distribution is named `quantum-aware-representation-learning`;
+the existing `src.data` and `src.phase2` module paths are unchanged.
+The frozen **Phase 1A--1C** includes the post-hoc complementary XGBoost baseline.
+Phase 2 explores fixed PCA and trainable encoder representations with VQCs and
+classical controls; see the [A/B protocol](docs/phase2_ab.md) and
+[pilot report](reports/phase2/pilot_fold0_50e_verified/report.md).
 Canonical cohort **v1** constructs an auditable, patient-level dataset for
 predicting baseline estrogen receptor status (ER-positive versus ER-negative)
 of the primary breast tumour from RNA expression.
@@ -205,9 +210,8 @@ the locked test. Logistic L1 remains the primary full-representation reference
 (`ROC-AUC=0.9660`). Phase 1C-XGB adds a separately labelled post-hoc
 complementary tree baseline without retroactively changing that choice. See
 the [final freeze](reports/data/phase1_final_freeze.md).
-PCA, supervised feature-budget selection, VQCs, PennyLane, Qiskit, quantum
-circuits, noise models and QEM remain unimplemented.
-
-The next phase, only after explicit review, is Phase 2: quantify the
-representation bottleneck under leakage-safe 4/6/8-feature selection. The
-locked-test predictions and paired bootstrap indices remain frozen references.
+Phase 2 implements the development A/B pilot with PCA representations, a
+trainable encoder, and ideal small VQCs. See the [analysis guide](notebooks/README_representation_analysis.md)
+for read-only exploration of saved results. These pilot observations do not
+establish quantum advantage. The locked-test predictions and paired bootstrap
+indices remain frozen references.
