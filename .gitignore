@@ -30,3 +30,6 @@ reports/data/**/*.svg
 
 # Partial downloads must never be mistaken for complete raw files.
 *.part
+
+# Phase 2 generated checkpoints and predictions
+runs/phase2/
