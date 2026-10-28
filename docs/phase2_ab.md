@@ -1,67 +1,72 @@
-# Experimentos A y B: protocolo de development
+# Experiments A and B: development protocol
 
-## Auditoría y alcance
+## Audit and scope
 
-Auditoría 2026-10-28: Git inicialmente limpio. Fase 1 usa `src/data/`, pytest,
-scikit-learn y un entorno uv/Python 3.12. No había implementación de PCA, VQC o
-Fase 2. Se encontraron counts canónicos (1044 × 60660), etiquetas ER+=1/ER−=0 y
-`data/processed/splits/phase1c_inner_cv.json`: 835 development, 209 locked test,
-cinco folds y semilla 1729. No falta ningún artefacto indispensable local.
-Estos datos no están versionados y deben obtenerse con el procedimiento de Fase 1
-al reproducir en otro equipo. No se modifican los pipelines ni resultados de Fase 1.
+Audit on 2026-10-28: Git was initially clean. Phase 1 uses `src/data/`, pytest,
+scikit-learn, and a uv/Python 3.12 environment. No PCA, VQC, or Phase 2 implementation
+was present. The canonical counts (1044 × 60660), ER+=1/ER−=0 labels, and
+`data/processed/splits/phase1c_inner_cv.json` were available: 835 development
+patients, 209 locked-test patients, five folds, and seed 1729. No essential local
+artifact was missing. These data are not versioned and must be obtained through
+the Phase 1 procedure when reproducing the work on another machine.
+Phase 1 pipelines and results are unchanged.
 
-La carga nueva aplica un filtro Arrow por IDs de development antes de materializar
-counts y etiquetas. Sólo se consultan los IDs locked para verificar aislamiento;
-no se transforman sus observaciones ni se evalúan sus etiquetas. Los hashes de
-archivos completos son exclusivamente trazabilidad, sin calcular estadísticas.
+The new loader applies an Arrow filter to development IDs before materializing
+counts and labels. Locked-test IDs are consulted only to verify isolation;
+locked observations are not transformed and their labels are not evaluated.
+Whole-file hashes provide provenance only, without calculating statistics.
 
-## Arquitecturas congeladas para el piloto
+## Frozen pilot architectures
 
-Todas las transformaciones se ajustan desde los counts de training de cada fold:
-filtro CPM, referencia TMM congelada, log2-CPM, eliminación de varianza exactamente
-cero y StandardScaler génico, reutilizando `_build_preprocessor` de Fase 1.
-No se reutiliza una matriz normalizada sobre la cohorte completa.
+All transformations are fitted on training counts within each fold: CPM filtering,
+frozen-reference TMM, log2-CPM, exact zero-variance removal, and gene-wise
+StandardScaler, reusing Phase 1 `_build_preprocessor`. No matrix normalized over
+the entire cohort is reused.
 
-- A: PCA aleatorizado k=4 → StandardScaler de scores → ángulos → VQC.
-- B: PCA aleatorizado k=32 → StandardScaler de scores → Linear(32,8), Tanh,
-  Linear(8,4) → ángulos → el mismo VQC. El encoder tiene 300 parámetros;
-  AdamW aplica weight decay 0.001. No se entrena un MLP sobre todos los genes.
-- A clásico: los mismos cuatro scores estandarizados → LogisticRegression
-  C=1, intercepto, sin ponderación de clases, máximo 2000 iteraciones.
-- B clásico: exactamente la representación intermedia y arquitectura de encoder
-  de B, entrenados desde cero → Linear(4,1), Sigmoid.
-- Diagnóstico B congelado: encoder del último epoch de B en modo eval, sin
-  gradientes; LogisticRegression C=1 nueva se ajusta sólo en z de training y se
-  evalúa en z de validation. No se seleccionan encoder, C o umbral con validation.
-  Su checkpoint referencia el encoder y la representación de B.
+- A: randomized PCA k=4 → score StandardScaler → angles → VQC.
+- B: randomized PCA k=32 → score StandardScaler → Linear(32,8), Tanh,
+  Linear(8,4) → angles → the same VQC. The encoder has 300 parameters;
+  AdamW uses weight decay 0.001. An MLP is not trained over all genes.
+- A_classical: the same four standardized scores → LogisticRegression,
+  C=1, with an intercept, no class weighting, and at most 2000 iterations.
+- B_classical: exactly B's intermediate representation and encoder architecture,
+  trained from scratch → Linear(4,1), Sigmoid.
+- B_frozen_probe: B's final-epoch encoder in evaluation mode, without gradients;
+  a new LogisticRegression C=1 is fitted only on training z and evaluated on
+  validation z. Neither encoder, C, nor threshold is selected using validation.
+  Its checkpoint reference identifies B's encoder and representation.
 
-PCA tiene semilla fija 1729 independiente de la inicialización de redes. Se guarda
-la varianza explicada, estado completo de transformaciones e IDs de ajuste.
-El escalado angular es `pi*tanh(z/2)` en [−π,π]. En A, la media y escala de z
-provienen sólo de training; en B se aprende z conjuntamente y la función angular
-es fija, diferenciable y no requiere estadísticas de validation. Los controles
-clásicos usan los scores/z antes de la función angular; esta diferencia de cabeza
-forma parte de la comparación y no implica equivalencia de capacidad.
+PCA uses fixed seed 1729, independently of network initialization. Explained
+variance, the complete transformation state, and fitting IDs are saved.
+Angular scaling is `pi*tanh(z/2)` in [−π,π]. For A, the mean and scale of z come
+only from training; for B, z is learned jointly and the angular function is fixed,
+differentiable, and does not require validation statistics. Classical controls
+use scores/z before the angular function; this head difference is part of the
+comparison and does not establish capacity equivalence.
 
-Circuito único: cuatro qubits, una codificación RY de los cuatro ángulos, dos
-capas RY/RZ por qubit y CNOT 0→1, 1→2, 2→3 en cada capa. Se mide ⟨Z₃⟩.
-`p(ER+) = clip((1+⟨Z₃⟩)/2, 1e-7, 1-1e-7)`, BCE no ponderada, umbral fijo 0.5.
-No hay calibración entrenable adicional. Simulación CPU float64, `default.qubit`,
-shots=None, sin ruido, diferenciación `interface=torch, diff_method=backprop`,
-según la [documentación oficial](https://docs.pennylane.ai/en/stable/introduction/interfaces/torch.html).
+The single circuit uses four qubits, one RY encoding of the four angles, two
+RY/RZ layers per qubit, and CNOT gates 0→1, 1→2, 2→3 in each layer. It measures
+⟨Z₃⟩. `p(ER+) = clip((1+⟨Z₃⟩)/2, 1e-7, 1-1e-7)`, with unweighted BCE and a
+fixed threshold of 0.5. There is no additional trainable calibration.
+Simulation uses CPU float64, `default.qubit`, shots=None, no noise, and
+`interface=torch, diff_method=backprop`, following the
+[official documentation](https://docs.pennylane.ai/en/stable/introduction/interfaces/torch.html).
 
-El VQC tiene 16 parámetros; la cabeza lineal tiene 5. El recuento nominal no
-implica igual capacidad: por ejemplo, algunas rotaciones pueden ser redundantes
-respecto al observable. El diagnóstico LR usa un optimizador y presupuesto
-diferentes. Su tiempo excluye el costo previo del encoder, que debe sumarse al
-comparar costos totales. B y B clásico tienen el mismo encoder (300 parámetros),
-épocas, tamaño de minibatch, lr y regularización; no necesariamente idéntica
-trayectoria de optimización. A/B comparten configuración de VQC pero sus sorteos
-de inicialización pueden diferir porque B inicializa primero el encoder.
+The VQC has 16 parameters; the linear head has 5. Nominal counts do not imply
+equal capacity: some rotations may be redundant for the observable. The LR
+diagnostic uses a different optimizer and budget. Its timing excludes the prior
+encoder cost, which must be added when comparing total costs. B and B_classical
+share their encoder architecture (300 parameters), epochs, minibatch size,
+learning rate, and regularization, but not necessarily the same optimization
+trajectory. In the original smoke test, A/B shared a configuration but had
+different initialization draws. This was corrected for the 50-epoch pilot:
+encoder construction forks the CPU RNG, and A/B share exactly the initial VQC
+weights and RNG state at the start of shuffling for each seed. The encoder
+matches B_classical. See the pilot report for the audit and limitations.
 
-## Ejecución
+## Execution
 
-Desde la raíz, con Python 3.12 (extra quantum requiere Python >=3.11):
+From the repository root using Python 3.12 (the quantum extra requires Python >=3.11):
 
 ```bash
 uv sync --extra dev --extra quantum --locked
@@ -70,51 +75,66 @@ uv run --extra quantum python -m src.phase2.run --smoke --output runs/phase2/smo
 uv run --extra quantum python -m src.phase2.run --config configs/phase2_ab.yaml --output runs/phase2/cv_ab
 ```
 
-Configuraciones independientes: `configs/phase2_a.yaml`, `configs/phase2_b.yaml`;
-ambas usan la misma infraestructura y ejecutan sus controles. Cada salida debe
-ser nueva: nunca se sobreescriben ejecuciones. No hay comando para locked test.
+Independent configurations are `configs/phase2_a.yaml` and `configs/phase2_b.yaml`;
+both use the same infrastructure and execute their controls. Every output
+directory must be new: existing executions are never overwritten. There is no
+locked-test command. Existing path names are retained for compatibility.
 
-`--smoke` fuerza fold 0, semilla 1729 y dos épocas, conservando TODOS los pacientes
-del fold. Para múltiples semillas en una partición, copiar el YAML y usar
-`folds: [0]`, `seeds: [1729,1730,1731]`. El protocolo completo usa cinco folds,
-tres semillas y 50 épocas. Las redes tienen el mismo presupuesto de épocas y
-pasos de optimización (21 minibatches/época en fold 0). Se evalúa el último epoch;
-no hay early stopping, búsqueda de hiperparámetros ni selección exploratoria.
-Se registra validation cada epoch únicamente para diagnóstico.
+`--smoke` forces fold 0, seed 1729, and two epochs while retaining ALL patients
+in the fold. For multiple seeds in one partition, copy the YAML and use
+`folds: [0]`, `seeds: [1729,1730,1731]`. The full protocol uses five folds,
+three seeds, and 50 epochs. Networks receive the same epoch and optimizer-step
+budget (21 minibatches/epoch in fold 0). The final epoch is evaluated; there is
+no early stopping, hyperparameter search, or exploratory selection.
+Validation is recorded each epoch for diagnostics only.
 
-## Artefactos y métricas
+## Artifacts and metrics
 
-Cada carpeta de ejecución contiene config expandida, versiones, entorno completo, copia del código de Fase 2, commit y patch
-de cambios rastreados, hashes de datos/splits, tabla `comparison.csv`, y por
-fold/experimento el preprocesador/PCA persistido. Por modelo/semilla: checkpoint,
-métricas JSON, predicciones de validation CSV y curvas (redes). Las curvas guardan
-BCE train/validation y media de norma L2 de gradientes por minibatch para encoder
-y cabeza; el encoder identidad de A tiene norma cero por definición.
+Each execution directory contains the expanded configuration, versions, full
+environment, Phase 2 source snapshot, commit and tracked-change patch, data/split
+hashes, and `comparison.csv`. Each fold/experiment retains its fitted
+preprocessor/PCA. Each model/seed retains a checkpoint, JSON metrics, validation
+prediction CSV, and learning curves for networks. Curves record training/validation
+BCE and the mean minibatch L2 gradient norm for encoder and head; A's identity
+encoder has zero norm by definition.
 
-ROC-AUC, AP ER+ y AP ER−, balanced accuracy, accuracy, log-loss y matriz de confusión
-ordenada [ER−,ER+]. Los segundos por modelo cubren entrenamiento con evaluación
-por época; el preprocesamiento se registra aparte. Las llamadas QNode cuentan
-batches, y `circuit_sample_evaluations` cuenta estados por paciente incluidos
-train y validaciones. Backprop reutiliza simulación diferenciable: estos números
-no equivalen a ejecuciones de hardware ni a evaluaciones parameter-shift.
-`resources.json` contiene tiempo total y pico RSS del proceso con unidades.
+Metrics include ROC-AUC, AP ER+, AP ER−, balanced accuracy, accuracy, log-loss,
+and a confusion matrix ordered [ER−,ER+]. Per-model seconds cover training and
+per-epoch evaluation; preprocessing is recorded separately. QNode calls count
+batches, and `circuit_sample_evaluations` counts patient states including training
+and validation evaluations. Backpropagation reuses differentiable simulation:
+these counts do not represent hardware executions or parameter-shift evaluations.
+`resources.json` contains total time and process peak RSS with units.
 
-Los checkpoints se guardan bajo `runs/phase2/`, ignorado por Git. Los pickle y
-state_dict permiten restaurar con `Representation`, `Model(inputs, encoder=...)`
-y las versiones registradas; cargar únicamente artefactos propios confiables.
-No se guarda una copia de la matriz de expresión. El estado PCA puede ocupar
-varios MB y se comparte entre semillas. La copia `source/` y sus hashes conservan también el código de Fase 2 aún no
-añadido a Git; el preprocesamiento de Fase 1 se referencia mediante el commit.
+Checkpoints are saved under `runs/phase2/`, ignored by Git. Pickle and state_dict
+artifacts permit restoration using `Representation`, `Model(inputs, encoder=...)`,
+and the recorded versions; load only trusted artifacts. No copy of the expression
+matrix is saved. PCA state may occupy several MB and is shared across seeds.
+The `source/` snapshot and its hashes also preserve Phase 2 code not yet added
+to Git; Phase 1 preprocessing is referenced through the commit.
 
-## Niveles de evidencia
+## Levels of evidence
 
-1. Pruebas sintéticas: integridad de software, no evidencia biomédica.
-2. Smoke real de una partición y dos épocas: funcionamiento, no estimación final.
-3. Piloto de una partición y múltiples semillas: estabilidad preliminar.
-4. Cinco folds y múltiples semillas: evaluación de development. Comparar de
-   forma pareada por fold/semilla; semillas y folds no son réplicas independientes.
-5. Confirmatorios futuros: protocolo preregistrado y eventual locked test sólo
-   cuando esté autorizado científicamente. Ninguno de estos pasos demuestra ventaja cuántica.
+1. Synthetic tests: software integrity, not biomedical evidence.
+2. Real two-epoch smoke test on one partition: functionality, not a final estimate.
+3. Single-partition pilot with multiple seeds: preliminary stability.
+4. Five folds and multiple seeds: development evaluation. Compare paired results
+   by fold/seed; folds and seeds are not independent replicates.
+5. Future confirmatory experiments: a preregistered protocol and eventual locked
+   test only when scientifically authorized. None of these steps demonstrates
+   quantum advantage.
 
-Ver `docs/phase2_ab_results.md` para lo realmente ejecutado y siguientes pasos.
-C0 no está implementado; NQE/QPMeL quedan fuera del alcance actual.
+See `docs/phase2_ab_results.md` for the original executed smoke test and next
+steps. C0 is not implemented; NQE/QPMeL remain outside the current scope.
+
+## Completed 50-epoch pilot
+
+Configuration: `configs/phase2_pilot_fold0.yaml`, fold 0, seeds 1729/1730/1731.
+The [technical report](../reports/phase2/pilot_fold0_50e_verified/report.md) includes
+results by seed, descriptive SDs, paired comparisons, diagnostic interpretations, and costs.
+Evaluation still uses the final checkpoint; epochs and hyperparameters were not
+selected using the new results.
+
+Additional diagnostics and analysis can be reproduced using the report commands.
+`latent_diagnostics.npz` stores initial/final training and validation z; the curves
+record angular saturation and per-parameter quantum gradient RMS.

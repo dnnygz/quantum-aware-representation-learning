@@ -1,0 +1,8 @@
+{
+  "A_first_two_epochs_match": true,
+  "smoke_roc_auc": 0.7441860465116279,
+  "pilot_roc_auc": 0.9275805793553652,
+  "smoke_validation_loss": 0.5250922054332732,
+  "pilot_validation_loss": 0.4004932124159195,
+  "B_smoke_not_directly_comparable": "quantum initialization policy changed"
+}

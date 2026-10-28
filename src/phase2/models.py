@@ -45,7 +45,10 @@ class VQC(nn.Module):
 class Model(nn.Module):
     def __init__(self, inputs, encoder=False, quantum=True):
         super().__init__()
-        self.encoder = Encoder(inputs) if encoder else nn.Identity()
+        # Keep the quantum RNG stream identical to A while retaining the
+        # encoder's seed-specific initialization. CPU-only protocol.
+        with torch.random.fork_rng(devices=[]):
+            self.encoder = Encoder(inputs) if encoder else nn.Identity()
         self.head = VQC() if quantum else nn.Sequential(nn.Linear(4, 1), nn.Sigmoid())
         self.quantum = quantum
         self.double()

@@ -120,3 +120,81 @@ def test_persistence(tmp_path, monkeypatch):
     assert len(list((tmp_path/'run').rglob('validation_predictions.csv'))) == 5
     assert len(list((tmp_path/'run').rglob('model.pt'))) == 3
     with pytest.raises(FileExistsError): run(config, tmp_path/'run')
+
+
+@pytest.mark.parametrize('seed', [1729, 1730, 1731])
+def test_paired_quantum_initialization(seed):
+    seed_all(seed)
+    a = Model(4)
+    state_a = torch.random.get_rng_state()
+    seed_all(seed)
+    b = Model(32, encoder=True)
+    assert torch.equal(a.head.weights, b.head.weights)
+    # Thus A/B also start minibatch shuffling at the same RNG state.
+    assert torch.equal(state_a, torch.random.get_rng_state())
+    seed_all(seed)
+    classical = Model(32, encoder=True, quantum=False)
+    for x, y in zip(b.encoder.parameters(), classical.encoder.parameters()):
+        assert torch.equal(x, y)
+
+
+def test_relevant_and_redundant_quantum_parameters():
+    from src.phase2.diagnostics import circuit_sensitivity
+    result = circuit_sensitivity()
+    rms = np.array(result['jacobian_rms'])
+    assert (rms[0] > 1e-5).all()
+    assert (rms[1, :, 0] > 1e-5).all()
+    assert (rms[1, :, 1] < 1e-12).all()
+    assert result['max_finite_difference_error'] < 1e-8
+
+
+def test_circuit_can_learn_synthetic_task():
+    from src.phase2.diagnostics import synthetic_learning
+    result = synthetic_learning()
+    assert result['final_loss'] < .15
+    assert result['final_loss'] < result['initial_loss'] * .4
+    assert result['accuracy'] == 1.
+
+
+def test_angular_saturation_definition():
+    from src.phase2.diagnostics import angular_summary
+    result = angular_summary(torch.tensor([[0., 1., 10., -10.]], dtype=torch.float64))
+    assert result['angular_saturation_95'] == .5
+    assert result['angular_saturation_99'] == .5
+    assert result['tanh_derivative_below_001'] == .5
+
+
+def test_final_rz_invariance_for_finite_perturbations():
+    from src.phase2.models import VQC, angles
+    seed_all(1729)
+    model = VQC()
+    x = angles(torch.randn(13, 4, dtype=torch.float64))
+    w = torch.randn_like(model.weights)
+    baseline = model.circuit(x, w)
+    perturbed = w.clone()
+    perturbed[1, :, 1] += torch.tensor([.8, -1.2, 2.7, -.4], dtype=torch.float64)
+    torch.testing.assert_close(model.circuit(x, perturbed), baseline, atol=1e-12, rtol=0)
+
+
+def test_score_pairing_uses_patient_ids():
+    from src.phase2.analyze_pilot import paired_predictions
+    frame = pd.DataFrame(dict(case_id=['a','b','c'],er_label=[0,1,1],
+                              probability_er_positive=[.1,.9,.6]))
+    joined,rho = paired_predictions(frame,frame.iloc[::-1])
+    assert len(joined) == 3 and rho == 1.
+    with pytest.raises(ValueError): paired_predictions(frame,frame.iloc[:2])
+    changed = frame.copy()
+    changed.loc[0,'er_label'] = 1
+    with pytest.raises(ValueError): paired_predictions(frame,changed)
+
+
+def test_probability_csv_round_trip_preserves_log_loss(tmp_path):
+    from src.phase2.analyze_pilot import read_csv
+    from src.phase2.evaluation import metrics
+    p = np.array([.01,.6,.9999999999999991])
+    y = np.array([0,1,0])
+    path = tmp_path/'probabilities.csv'
+    pd.DataFrame(dict(probability=p)).to_csv(path,index=False)
+    restored = read_csv(path).probability.to_numpy()
+    np.testing.assert_array_equal(restored,p)
+    assert metrics(y,p)['log_loss'] == metrics(y,restored)['log_loss']

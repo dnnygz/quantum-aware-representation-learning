@@ -48,6 +48,7 @@ def run(config, output, smoke=False):
         angular='pi*tanh(z/2)', probability='clip((1+expectation)/2,1e-7,1-1e-7)',
         encoder_hidden=8, representation_seed=1729, dtype='float64', device='default.qubit',
         shots=None, differentiation='backprop', loss='unweighted BCE', threshold=0.5,
+        initialization='CPU encoder RNG fork; A/B VQC and shuffle streams paired by seed',
         optimizer='AdamW', selection='fixed final epoch', classical_C=1.0)
     versions = {n: importlib.metadata.version(n) for n in
                 ['torch', 'pennylane', 'numpy', 'pandas', 'scikit-learn', 'pyarrow']}
@@ -119,10 +120,21 @@ def run(config, output, smoke=False):
                         save('A_classical', lr.predict_proba(xv)[:, 1], time.perf_counter()-start, estimator=lr)
                         continue
                     model = Model(components, encoder=experiment == 'B', quantum=quantum)
+                    initial_state = {k: value.detach().clone() for k,value in model.state_dict().items()}
+                    with torch.no_grad():
+                        initial_z = dict(train=model.encoder(xt).numpy().copy(),
+                                         validation=model.encoder(vt).numpy().copy())
                     curves, seconds = train(model, xt, yt, vt, vyt, config)
                     with torch.no_grad():
                         probability = model(vt).numpy()
-                    save(experiment if quantum else 'B_classical', probability, seconds, model, curves)
+                    name = experiment if quantum else 'B_classical'
+                    save(name, probability, seconds, model, curves)
+                    target = folder / f'{name}_seed_{seed}'
+                    torch.save(initial_state, target / 'initial_model.pt')
+                    with torch.no_grad():
+                        np.savez_compressed(target / 'latent_diagnostics.npz',
+                            initial_train=initial_z['train'], initial_validation=initial_z['validation'],
+                            final_train=model.encoder(xt).numpy(), final_validation=model.encoder(vt).numpy())
                     if experiment == 'B' and quantum:
                         # Encoder has never fitted validation. Head C is prespecified, no tuning.
                         model.eval()

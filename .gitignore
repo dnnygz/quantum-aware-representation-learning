@@ -31,5 +31,13 @@ reports/data/**/*.svg
 # Partial downloads must never be mistaken for complete raw files.
 *.part
 
-# Phase 2 generated checkpoints and predictions
-runs/phase2/
+# Experimental runs, generated figures, and executed notebook caches stay local.
+/runs/
+**/.ipynb_checkpoints/
+/reports/phase*/**/figures/
+
+# Historical presentation reviews and source snapshots are retained locally.
+/reports/phase*/**/language_review.json
+/reports/phase*/**/verification.json
+/reports/phase*/**/figure_selection.json
+/reports/phase*/**/analysis_source.py
