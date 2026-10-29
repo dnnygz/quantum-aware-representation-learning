@@ -1,0 +1,15 @@
+protocol_id: C0-v1
+arms: [C0-NQE-Q, C0-NQE-E, C0-Hybrid-Q, C0-Hybrid-E]
+folds: [0, 1, 2, 3, 4]
+seeds: [1729, 1730, 1731]
+epochs: 50
+batch_size: 32
+pair_count: 64
+pair_strata: [16, 16, 32]
+lambda_aux: 1.0
+lr: 0.01
+weight_decay: 0.001
+gaussian_denominator: 4.0
+selection: fixed_final_epoch
+two_stage_encoder: frozen
+primary_contrasts: [C0-NQE-Q_minus_C0-NQE-E, C0-Hybrid-Q_minus_C0-Hybrid-E]

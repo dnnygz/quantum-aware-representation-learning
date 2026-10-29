@@ -1,0 +1,38 @@
+{
+  "status": "synthetic_identity_verification_only",
+  "cases": 48,
+  "seeds": [
+    1729,
+    1730,
+    1731
+  ],
+  "dtype": "float64/complex128",
+  "max_absolute_errors": {
+    "fidelity": 7.771561172376096e-16,
+    "terminal_invariance": 1.3322676295501878e-15,
+    "unitarity": 1.3322943669925873e-15,
+    "input_gradient": 8.326672684688674e-16,
+    "finite_difference": 3.6700165014170326e-11,
+    "terminal_gradient": 3.885780586188048e-16,
+    "observable_reconstruction": 8.881784197001252e-16
+  },
+  "different_head_effect": 0.44658105781931856,
+  "nonzero_local_observable_head_response": 0.9890043639136922,
+  "python": "3.12.11",
+  "numpy": "2.5.3",
+  "torch": "2.9.0",
+  "pennylane": "0.43.0",
+  "training_executed": false,
+  "patient_data_accessed": false,
+  "pytest_result": {
+    "passed": 2,
+    "seconds": 3.14,
+    "exit_code": 0
+  },
+  "command": "MPLCONFIGDIR=/tmp/qarl-c0-mpl XDG_CACHE_HOME=/tmp/qarl-c0-cache .venv/bin/python -m pytest -q -s tests/phase2/test_ry_fidelity_identity.py",
+  "record_origin": "Exact numerical values transcribed from the completed synthetic verification stdout and pytest tool output; no experiment estimates.",
+  "absolute_tolerances": {
+    "finite_difference": 1e-08,
+    "other_identity_checks": 1e-10
+  }
+}

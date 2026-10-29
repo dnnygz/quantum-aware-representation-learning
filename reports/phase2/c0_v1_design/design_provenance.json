@@ -1,0 +1,47 @@
+{
+  "protocol_id": "C0-v1",
+  "status": "Design proposed; no training implementation or execution authorized",
+  "date": "2026-10-28",
+  "timezone": "America/Lima",
+  "git_head": "bb9b7937d41114eecdf16a1fcad73014dee39774",
+  "preservation": {
+    "preexisting_files_checked": 226,
+    "changed_or_missing_files": [],
+    "caches_excluded": true,
+    "run_archives_opened": false,
+    "scope": "Aggregate preservation audit; local-only file inventory omitted from this shareable record."
+  },
+  "consulted_inputs_sha256": {
+    "src/phase2/models.py": "9cdf3169224605afcc7f9b41f7ec8276f93ad8ba1ac3220c2d81a085beb4883f",
+    "src/phase2/training.py": "2bcde1e1f6b17474356fe5d15c0e49f97e4991b6057dd821608258baf1d2a387",
+    "src/phase2/data.py": "1601f6d763dbf9ab4b16084ffd4c5aa230a21a791662897cb8ddf2d68e9206dc",
+    "src/phase2/run.py": "59a55cc73f6d9c6c9c3677c7444c4d94610ed4eb28a335c4dc1bb15b70c3dc9e",
+    "src/phase2/evaluation.py": "0debfdf9c6fc17ebe576f41d08ca50dd21c4f40dd05da2b074edf890b790f6d5",
+    "configs/phase2_b.yaml": "f4ec8a96075ea47add6c9c57635be0f7430d3c37c88f2fb27b077aa7412db1a8",
+    "configs/phase2_ab.yaml": "6e728d4486aaed7c04f0e90b70c5708aebb0e8bb325369cc06f97ab909cd8a73",
+    "reports/phase2/cv_5fold_50e_v1/report.md": "c7990a834b4cf8a98a291b84a61e3f94d6ab11bf5620c996ae283365154d9a9f",
+    "reports/phase2/d0_v1_verified/report.md": "3b1b093c6a057c7bdd936e0add7e6a2973a93efcb213d7db9aa685fda95b8ba1",
+    "reports/phase2/e0_v1/report.md": "13410b36fce2129a7d5f743f4d8b4a5291ebda99ce42a15fb377e6faa95c0583",
+    "reports/phase2/e0_protocol_v1.md": "d7b6daa5b01c055fea002cd6fb3dec21528ee670cf50783fcd0c7a35c015f9ec",
+    "reports/phase2/e0_v1/costs.csv": "5d0b9339df9d87972822b288860b11f33d8880f8bd30ee06add5384a1ced3085",
+    "reports/phase2/e0_v1/primary_summary.csv": "e8a0c68174b0125f57c25d38aa8d88fbbbf745dfe0bba080729123150051019c"
+  },
+  "new_artifacts_sha256": {
+    "reports/phase2/c0_protocol_v1.md": "f166d168e1ceadb7ded89dccaa905cd97a379ab0e3f4237d404f05f78ffde4ae",
+    "tests/phase2/test_ry_fidelity_identity.py": "b4087df7134816dea07f74ae8309a2defcb7157d6b9261240a98bef3838d0c09",
+    "reports/phase2/c0_v1_design/ry_identity_check.json": "328ee4dac7a9a9b94677a00757061320e6aab3201b34d0a0e4764af5bc4406e1"
+  },
+  "executed": [
+    "Synthetic identity verification of existing map/circuit",
+    "Two dedicated pytest cases",
+    "Local Markdown links and preservation checks"
+  ],
+  "not_executed": [
+    "C0 objective or training implementation",
+    "Any model fitting, including probes",
+    "A/B/D0/E0 reruns",
+    "Patient-data access",
+    "Locked-test evaluation",
+    "Commit or push"
+  ]
+}
