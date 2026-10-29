@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "successful_primary_pipelines_verified": 60,
+  "failed_primary_pipelines": [],
+  "metric_rows_recomputed": 870,
+  "probe_estimators_verified": 150,
+  "max_absolute_errors": {
+    "initial_tensor": 0.0,
+    "encoder_embedding": 0.0,
+    "primary_probability": 0.0,
+    "probe_probability": 7.771561172376096e-16,
+    "metrics": 4.440892098500626e-16,
+    "trace_distance": 8.881784197001252e-16
+  },
+  "initial_and_frozen_block_tensors_verified": true,
+  "epochs_and_updates_verified": true,
+  "pair_and_patient_stream_pairing_verified": true,
+  "classification_and_geometry_distinct": true,
+  "preexisting_files_checked": 1950,
+  "changed_or_missing_preexisting_files": [],
+  "execution_sources_unchanged": true,
+  "run_artifact_files_hashed": 803,
+  "locked_features_or_labels_loaded": false,
+  "model_fitting_during_verification": false,
+  "scope": "All 60 saved checkpoints and all saved metric rows; not an independent replication or proof of scientific generalization"
+}

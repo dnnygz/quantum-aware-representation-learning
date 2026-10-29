@@ -1,0 +1,441 @@
+{
+  "status": {
+    "mode": "development_cv",
+    "planned_primary_pipelines": 60,
+    "completed": 60,
+    "failures": [],
+    "statuses": [
+      {
+        "fold": 0,
+        "seed": 1729,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1729,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1729,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1729,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1730,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1730,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1730,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1730,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1731,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1731,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1731,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 0,
+        "seed": 1731,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1729,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1729,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1729,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1729,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1730,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1730,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1730,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1730,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1731,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1731,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1731,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 1,
+        "seed": 1731,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1729,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1729,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1729,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1729,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1730,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1730,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1730,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1730,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1731,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1731,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1731,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 2,
+        "seed": 1731,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1729,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1729,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1729,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1729,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1730,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1730,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1730,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1730,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1731,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1731,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1731,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 3,
+        "seed": 1731,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1729,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1729,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1729,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1729,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1730,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1730,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1730,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1730,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1731,
+        "arm": "C0-NQE-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1731,
+        "arm": "C0-NQE-E",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1731,
+        "arm": "C0-Hybrid-Q",
+        "status": "completed",
+        "mode": "development_cv"
+      },
+      {
+        "fold": 4,
+        "seed": 1731,
+        "arm": "C0-Hybrid-E",
+        "status": "completed",
+        "mode": "development_cv"
+      }
+    ],
+    "wall_seconds": 216.87450954096857,
+    "peak_rss": 553811968,
+    "peak_rss_unit": "bytes",
+    "torch_threads": 1,
+    "historical_experiments_rerun": false,
+    "locked_test_evaluated": false
+  },
+  "source_run": "runs/phase2/c0_v1_full_cv",
+  "scope": "development_cv_not_locked_test",
+  "summary_unit": "seed_mean_within_fold_then_five_fold_means",
+  "standard_deviation": "descriptive_between_fold_not_confidence_interval",
+  "patient_level_outputs_exported": false
+}

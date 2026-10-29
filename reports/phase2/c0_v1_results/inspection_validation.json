@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "source_notebook": "notebooks/05_c0_development_results.ipynb",
+  "source_outputs_empty": true,
+  "executed_code_cells": 12,
+  "rendered_figures": 9,
+  "all_figures_visually_inspected": true,
+  "fitting_and_patient_array_loading_blocked": true,
+  "tests_passed": 44,
+  "training_repeated_for_figures": false
+}
