@@ -1,0 +1,15 @@
+protocol_id: E0-v1-approved-closed
+folds: [0, 1, 2, 3, 4]
+encoder_seeds: [1729, 1730, 1731]
+head_seeds: [1729, 1730, 1731]
+epochs: 50
+batch_size: 32
+lr: 0.01
+weight_decay: 0.001
+initialization_std: 0.1
+shuffle_seed: encoder_seed
+primary_e01: [train_log_loss_refit_minus_historical_B, validation_log_loss_refit_minus_historical_B]
+primary_e02: [validation_roc_auc_LR_angle_minus_LR_z, validation_log_loss_LR_angle_minus_LR_z]
+diagonal_comparison: prespecified_h_equals_s_subset
+selection: fixed_final_epoch_all_initializations
+phase_closed: true

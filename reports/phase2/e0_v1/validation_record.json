@@ -1,0 +1,80 @@
+{
+  "status": "Completed approved E0.1/E0.2; closed phase",
+  "authoritative_run": "runs/phase2/e0_v1",
+  "planned_new_fits": 60,
+  "completed_new_fits": 60,
+  "failed_fits": 0,
+  "extra_fits_or_searches": 0,
+  "convergence_or_other_warnings": 0,
+  "vqc_head_fits": 45,
+  "lr_angle_fits": 15,
+  "diagonal_subset_fits": 15,
+  "historical_reference_heads": 30,
+  "final_evaluation_epoch": 50,
+  "optimizer_steps_per_vqc": 1050,
+  "primary_e01": [
+    "train_log_loss_refit_minus_historical_B",
+    "validation_log_loss_refit_minus_historical_B"
+  ],
+  "primary_e02": [
+    "validation_roc_auc_LR_angle_minus_LR_z",
+    "validation_log_loss_LR_angle_minus_LR_z"
+  ],
+  "historical_files_checked": 909,
+  "historical_files_changed": 0,
+  "historical_manifest": "runs/phase2/e0_historical_manifest_v1.json",
+  "source_sha256": {
+    "src/phase2/e0.py": "56494f3e34402c8ba5d8d5261267b5dda847caf96a4c0ea55dfeba7a3eed747c",
+    "src/phase2/e0_data.py": "7b620c95e70d1889dad2085cbefb051a01962d6eb4ae618eba51ec18d8086633",
+    "src/phase2/run_e0.py": "4b33a9019c9a576516e356b1d611080d204192a14f87c5fa84f8a82118248e74",
+    "src/phase2/analyze_e0.py": "1312d3287ed31ef137d81dd350bd10c7611af0977f347d048cf9b7e9cbdee3d4",
+    "src/phase2/e0_views.py": "0e738e0b29a76c3e227947669e54c7a70229a43a066e72967c96a5cb9ffa1766",
+    "src/phase2/models.py": "9cdf3169224605afcc7f9b41f7ec8276f93ad8ba1ac3220c2d81a085beb4883f",
+    "src/phase2/evaluation.py": "0debfdf9c6fc17ebe576f41d08ca50dd21c4f40dd05da2b074edf890b790f6d5",
+    "src/phase2/data.py": "1601f6d763dbf9ab4b16084ffd4c5aa230a21a791662897cb8ddf2d68e9206dc",
+    "tests/phase2/test_e0.py": "8cb2b197716baa673d4d3e85a535164d082dedb6e583ae815871a941cadd166d",
+    "configs/e0_v1.yaml": "4ef47fa01d4ee5c9a2676caf77d75b430671546b7f2721d909c0da1e4ad47ceb",
+    "reports/phase2/e0_protocol_v1.md": "d7b6daa5b01c055fea002cd6fb3dec21528ee670cf50783fcd0c7a35c015f9ec",
+    "notebooks/04_e0_head_compatibility.ipynb": "095d988b17eb6f338e42eb9e2050c8fa6052e014666ed85ab6f02ade1edcf7a9"
+  },
+  "summary_sha256": {
+    "summary.csv": "90e3c0701c9159e340906fde93767b2906cd879eed25ea70d171c5a00e43f89b",
+    "e02_paired.csv": "ebe9259fae6824daccab71d8aaf9b3f3e5367ace98a79da7ed3bd715c8e19c55",
+    "metrics.csv": "585e7ec8845d5fd6c4b72e39474994613a5417d578b4c02452e8051a64482b98",
+    "head_results.csv": "a564984f402d9df501ed3500c02ce350bd48b3c1bea5699642a15ff4ae147529",
+    "primary_summary.csv": "e8a0c68174b0125f57c25d38aa8d88fbbbf745dfe0bba080729123150051019c",
+    "costs.csv": "5d0b9339df9d87972822b288860b11f33d8880f8bd30ee06add5384a1ced3085",
+    "e01_diagonal.csv": "0abc2428182ad2cea06cb30f8544d6faa4fa52817969ec086cdcc9985f3019db",
+    "initialization_spread.csv": "8dfde15b9ceeff8ad0c8572a5c2f00b0d1ed06d4804d2f8e51f88a1b7be80afb",
+    "fold_primary.csv": "226142688b177c0f129eecf2e8fa5b45cda60ad4de4c1899404825d702ed0efe",
+    "curves.csv": "6ca13cb25f61ff3b3359e202028dfb577f1c6a46688e65fd75d2cef27104fad5",
+    "e01_paired.csv": "21712c46c83a6707699a16c3c4382fe831f95974bd061c8922670242cf86ca50"
+  },
+  "report_sha256": "13410b36fce2129a7d5f743f4d8b4a5291ebda99ce42a15fb377e6faa95c0583",
+  "registered_protocol_sha256": "d7b6daa5b01c055fea002cd6fb3dec21528ee670cf50783fcd0c7a35c015f9ec",
+  "all_180_metric_sets_recomputed": true,
+  "all_120_new_split_predictions_reproduced": true,
+  "all_45_initializations_verified": true,
+  "all_15_shuffle_groups_paired": true,
+  "tests": {
+    "command": "MPLCONFIGDIR=/tmp/qarl-mpl .venv/bin/python -m pytest --ignore=tests/data/test_xgboost_baseline.py -q",
+    "passed": 127,
+    "new_E0_cases": 11,
+    "exclusion": "Historical XGBoost baseline module cannot be collected because xgboost is not installed"
+  },
+  "notebook": {
+    "executed_top_to_bottom": true,
+    "source_outputs_cleared": true,
+    "rendered_and_visually_inspected_figures": 8,
+    "read_only_guard_test_passed": true,
+    "executed_copy": "runs/phase2/e0_notebook_verification_v1/executed.ipynb"
+  },
+  "encoder_or_preprocessing_fitted": false,
+  "raw_cohort_loaded": false,
+  "locked_test_features_or_labels_accessed": false,
+  "E03_implemented": false,
+  "C0_implemented": false,
+  "C1_implemented": false,
+  "commit_or_push_performed": false,
+  "working_tree_note": "Historical notebook 01 had output changes at task start and was preserved"
+}
