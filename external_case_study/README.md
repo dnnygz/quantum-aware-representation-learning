@@ -1,3 +1,5 @@
+> Part of the repository described in the [root README](../README.md). Run every command of this README from this directory (`external_case_study/`).
+
 # Quantum-Aware Representation Learning
 
 This repository studies quantum-aware representation learning for TCGA-BRCA
