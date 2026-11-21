@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering
+\caption{Paired difference between the VQC (base setting) and the MLP, trained for the same number of epochs (columns), mean over 30 seeds. A dagger marks a 95\% bootstrap interval that excludes zero (no multiple-comparison correction).}
+\label{tab:h5}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{llcccccc}
+\hline
+Dataset & Metric & 25 & 50 & 100 & 200 & 400 & 800 \\
+\hline
+WDBC & $\Delta$ test AUC & 0.002 & $-$0.011$^{\dagger}$ & $-$0.009$^{\dagger}$ & $-$0.006$^{\dagger}$ & $-$0.004$^{\dagger}$ & $-$0.002 \\
+ & $\Delta$ gap & 0.005$^{\dagger}$ & 0.003$^{\dagger}$ & 0.004$^{\dagger}$ & 0.003$^{\dagger}$ & 0.001 & $-$0.000 \\
+Ionosphere & $\Delta$ test AUC & $-$0.060$^{\dagger}$ & $-$0.063$^{\dagger}$ & $-$0.050$^{\dagger}$ & $-$0.033$^{\dagger}$ & $-$0.018$^{\dagger}$ & $-$0.019$^{\dagger}$ \\
+ & $\Delta$ gap & 0.006 & 0.018$^{\dagger}$ & 0.018$^{\dagger}$ & 0.006 & $-$0.000 & 0.001 \\
+Synthetic & $\Delta$ test AUC & 0.053$^{\dagger}$ & 0.040$^{\dagger}$ & 0.003 & $-$0.006 & $-$0.006 & 0.000 \\
+ & $\Delta$ gap & 0.009 & 0.007 & 0.014$^{\dagger}$ & 0.009 & 0.005 & $-$0.000 \\
+Transfusion & $\Delta$ test AUC & 0.067$^{\dagger}$ & 0.046$^{\dagger}$ & 0.016 & $-$0.004 & $-$0.002 & $-$0.001 \\
+ & $\Delta$ gap & 0.000 & 0.011 & 0.015$^{\dagger}$ & 0.015$^{\dagger}$ & 0.014$^{\dagger}$ & 0.015$^{\dagger}$ \\
+\hline
+\end{tabular}
+\end{table*}

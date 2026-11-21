@@ -1,0 +1,6 @@
+{
+ "note": "Full run was interrupted 3 times (low system RAM) and resumed with the same command; timings.json only holds the last session. Minutes per stage reconstructed from the [done] lines of all sessions (work lost in interrupted sessions not counted).",
+ "jobs": 4,
+ "minutes": {"e1": 9.6, "h5": 53.2, "h3": 48.8, "h4": 13.1, "h1": 5.7, "h2": 65.9, "h6": 5.0},
+ "total_minutes": 201.3
+}

@@ -1,0 +1,6 @@
+{
+ "validate:check_enc.py": 5,
+ "validate:check_pennylane.py": 4,
+ "pilot:pilot.py": 304,
+ "total_minutes": 5.2
+}

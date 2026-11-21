@@ -1,0 +1,44 @@
+\subsubsection{Input representation (H1)}
+
+To test how much of the difference between the VQC and the classical models comes from reducing the input to four variables, we ran the same models on three inputs for the datasets with more than four native features: four principal components (the base setting), the four features with the highest ANOVA F-value on the training part, and, for the classical models only, all the features (Table~\ref{tab:h1}). Blood Transfusion, which has four native variables, was already covered by the base experiment. Because the three inputs were not tuned for the VQC, these results show the sensitivity of the VQC to the representation rather than its best possible performance.
+
+\textit{Reducing to four components costs the classical models, depending on the dataset.} On WDBC, the classical models lost at most 0.005 of test AUC with respect to all the features. On Ionosphere, the loss was 0.066 for the SVM, 0.053 for XGBoost, 0.048 for the Random Forest, 0.025 for the MLP, and 0.019 for logistic regression. On the synthetic data, it was 0.186 for XGBoost and 0.174 for the Random Forest, and small for the SVM ($0.001$) and logistic regression ($0.044$); the MLP, in contrast, did better with four components than with all the features ($-0.066$), because its gap with 30 inputs was 0.225.
+
+\begin{table*}[t]
+\centering
+\caption{Representation (H1): test AUC and generalization gap (means over 30 seeds) with four inputs obtained by PCA, with the four features with the highest ANOVA F-value, and with all the features (classical models only; the VQC always receives four inputs).}
+\label{tab:h1}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccccc}
+\hline
+ & & \multicolumn{3}{c}{Test AUC} & \multicolumn{3}{c}{Gap} \\
+Dataset & Model & PCA-4 & ANOVA-4 & All & PCA-4 & ANOVA-4 & All \\
+\hline
+WDBC & VQC & 0.985 & 0.982 & -- & 0.007 & 0.006 & -- \\
+ & LR & 0.991 & 0.986 & 0.994 & 0.003 & 0.003 & 0.004 \\
+ & SVM & 0.991 & 0.981 & 0.994 & 0.004 & 0.006 & 0.005 \\
+ & RF & 0.984 & 0.977 & 0.988 & 0.016 & 0.023 & 0.012 \\
+ & XGBoost & 0.985 & 0.971 & 0.990 & 0.015 & 0.029 & 0.010 \\
+ & MLP & 0.991 & 0.984 & 0.993 & 0.005 & 0.007 & 0.006 \\
+\hline
+Ionosphere & VQC & 0.863 & 0.903 & -- & 0.054 & 0.024 & -- \\
+ & LR & 0.884 & 0.868 & 0.903 & 0.010 & 0.013 & 0.080 \\
+ & SVM & 0.917 & 0.933 & 0.982 & 0.027 & 0.008 & 0.008 \\
+ & RF & 0.931 & 0.936 & 0.979 & 0.069 & 0.059 & 0.021 \\
+ & XGBoost & 0.912 & 0.944 & 0.965 & 0.088 & 0.052 & 0.035 \\
+ & MLP & 0.896 & 0.893 & 0.921 & 0.049 & 0.032 & 0.077 \\
+\hline
+Synthetic & VQC & 0.757 & 0.711 & -- & 0.052 & 0.066 & -- \\
+ & LR & 0.679 & 0.732 & 0.723 & 0.011 & 0.018 & 0.070 \\
+ & SVM & 0.774 & 0.781 & 0.775 & 0.062 & 0.060 & 0.212 \\
+ & RF & 0.755 & 0.757 & 0.928 & 0.245 & 0.243 & 0.072 \\
+ & XGBoost & 0.741 & 0.753 & 0.928 & 0.251 & 0.240 & 0.072 \\
+ & MLP & 0.763 & 0.770 & 0.697 & 0.043 & 0.044 & 0.225 \\
+\hline
+\end{tabular}
+\end{table*}
+
+\textit{Part of the deficit of the VQC comes from the reduction.} On Ionosphere, the VQC with four components was 0.119 below the SVM with all the features (95\% interval $-0.134$ to $-0.106$); with the same four inputs, the difference with the SVM was $-0.053$ ($-0.067$ to $-0.040$), so the rest corresponded to the reduction. On the synthetic data, the VQC was 0.171 below the Random Forest with all the features ($-0.181$ to $-0.162$), whereas with the same four inputs the difference was $+0.003$, with an interval that included zero. On WDBC, the difference with logistic regression with all the features was $-0.010$, of which $-0.006$ remained with the same inputs.
+
+\textit{The choice of the reduction changes the VQC.} Replacing the principal components by the four features with the highest F-value raised the test AUC of the VQC on Ionosphere by 0.040 (interval 0.026 to 0.054), lowered it on the synthetic data by 0.047 ($-0.065$ to $-0.028$), and changed it by $-0.002$ on WDBC. On Ionosphere, the VQC also reduced its gap from 0.054 to 0.024 ($-0.031$, interval $-0.045$ to $-0.016$), and its difference with the MLP changed from $-0.033$ with principal components to $+0.010$ with the selected features, with an interval that included zero. On the synthetic data, the opposite occurred: the difference with the MLP went from $-0.006$ (interval including zero) to $-0.060$ ($-0.077$ to $-0.043$), probably because a univariate criterion cannot select features whose class structure is nonlinear. The sign and the size of the difference between the VQC and the classical models therefore depended on the representation.

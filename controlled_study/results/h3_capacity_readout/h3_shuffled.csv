@@ -1,0 +1,33 @@
+ds,model,tr,te
+Ionosphere,L1,0.62,0.478
+Ionosphere,L2,0.671,0.49
+Ionosphere,L2-noent,0.604,0.502
+Ionosphere,L2-nohead,0.632,0.483
+Ionosphere,L4,0.73,0.481
+Ionosphere,MLP h2 (13p),0.606,0.511
+Ionosphere,MLP h3 (19p),0.651,0.506
+Ionosphere,MLP h6 (37p),0.758,0.48
+Synthetic,L1,0.587,0.461
+Synthetic,L2,0.633,0.481
+Synthetic,L2-noent,0.572,0.45
+Synthetic,L2-nohead,0.598,0.447
+Synthetic,L4,0.696,0.487
+Synthetic,MLP h2 (13p),0.587,0.482
+Synthetic,MLP h3 (19p),0.627,0.496
+Synthetic,MLP h6 (37p),0.71,0.503
+Transfusion,L1,0.581,0.519
+Transfusion,L2,0.605,0.516
+Transfusion,L2-noent,0.565,0.509
+Transfusion,L2-nohead,0.591,0.504
+Transfusion,L4,0.628,0.501
+Transfusion,MLP h2 (13p),0.519,0.469
+Transfusion,MLP h3 (19p),0.537,0.455
+Transfusion,MLP h6 (37p),0.576,0.481
+WDBC,L1,0.59,0.557
+WDBC,L2,0.625,0.539
+WDBC,L2-noent,0.573,0.569
+WDBC,L2-nohead,0.598,0.558
+WDBC,L4,0.682,0.545
+WDBC,MLP h2 (13p),0.574,0.589
+WDBC,MLP h3 (19p),0.608,0.562
+WDBC,MLP h6 (37p),0.679,0.538

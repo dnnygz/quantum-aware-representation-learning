@@ -1,0 +1,59 @@
+\begin{table*}[t]
+\centering
+\caption{Test AUC (mean $\pm$ SD over 30 seeds) and generalization gap (training AUC minus test AUC, mean) for the VQC and the classical comparators, all receiving the same four inputs. Best test AUC per dataset in bold.}
+\label{tab:baseline}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccccc}
+\hline
+ & \multicolumn{2}{c}{WDBC} & \multicolumn{2}{c}{Ionosphere} & \multicolumn{2}{c}{Synthetic} & \multicolumn{2}{c}{Transfusion} \\
+ & Test AUC & Gap & Test AUC & Gap & Test AUC & Gap & Test AUC & Gap \\
+\hline
+VQC & 0.985$\pm$0.008 & 0.007 & 0.863$\pm$0.043 & 0.054 & 0.757$\pm$0.027 & 0.052 & 0.745$\pm$0.036 & 0.019 \\
+LR & \textbf{0.991$\pm$0.006} & 0.003 & 0.884$\pm$0.031 & 0.010 & 0.679$\pm$0.034 & 0.011 & \textbf{0.755$\pm$0.037} & $-$0.001 \\
+SVM & \textbf{0.991$\pm$0.004} & 0.004 & 0.917$\pm$0.030 & 0.027 & \textbf{0.774$\pm$0.028} & 0.062 & 0.705$\pm$0.040 & 0.017 \\
+RF & 0.984$\pm$0.008 & 0.016 & \textbf{0.931$\pm$0.024} & 0.069 & 0.755$\pm$0.030 & 0.245 & 0.690$\pm$0.032 & 0.283 \\
+XGBoost & 0.985$\pm$0.006 & 0.015 & 0.912$\pm$0.026 & 0.088 & 0.741$\pm$0.033 & 0.251 & 0.708$\pm$0.035 & 0.186 \\
+MLP & \textbf{0.991$\pm$0.005} & 0.005 & 0.896$\pm$0.032 & 0.049 & 0.763$\pm$0.036 & 0.043 & 0.750$\pm$0.041 & 0.004 \\
+\hline
+\end{tabular}
+\end{table*}
+
+\begin{table}[t]
+\centering
+\caption{Paired differences between the VQC and the MLP over the same 30 seeds: mean difference and 95\% bootstrap confidence interval. An asterisk marks differences that remain significant after Holm correction ($p<0.05$, Wilcoxon signed-rank test, 20 comparisons per metric).}
+\label{tab:paired}
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{lcccc}
+\hline
+ & \multicolumn{2}{c}{$\Delta$ test AUC} & \multicolumn{2}{c}{$\Delta$ gap} \\
+Dataset & Mean & 95\% CI & Mean & 95\% CI \\
+\hline
+WDBC & $-$0.006$^{*}$ & [$-$0.008, $-$0.005] & 0.003 & [0.001, 0.005] \\
+Ionosphere & $-$0.033$^{*}$ & [$-$0.049, $-$0.017] & 0.006 & [$-$0.010, 0.020] \\
+Synthetic & $-$0.006 & [$-$0.017, 0.005] & 0.009 & [$-$0.002, 0.020] \\
+Transfusion & $-$0.004 & [$-$0.013, 0.006] & 0.015$^{*}$ & [0.007, 0.022] \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Training AUC when the training labels are randomly permuted (mean over 30 seeds). A value of 0.5 means no memorization.}
+\label{tab:shuffled}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lcccc}
+\hline
+Model & WDBC & Ionosphere & Synthetic & Transfusion \\
+\hline
+VQC & 0.625 & 0.671 & 0.633 & 0.605 \\
+LR & 0.552 & 0.567 & 0.553 & 0.546 \\
+SVM & 0.690 & 0.706 & 0.687 & 0.629 \\
+RF & 1.000 & 1.000 & 1.000 & 0.959 \\
+XGBoost & 0.990 & 0.998 & 0.986 & 0.847 \\
+MLP & 0.608 & 0.651 & 0.627 & 0.537 \\
+\hline
+\end{tabular}
+\end{table}

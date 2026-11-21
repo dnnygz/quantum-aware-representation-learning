@@ -1,0 +1,10 @@
+ok
+VQC anova-pca ion/syn/wdbc: 0.04 -0.047 -0.002
+gap VQC anova-pca ion: -0.03
+VQC-MLP ion pca/anova: -0.033 0.009
+VQC-MLP syn pca/anova: -0.006 -0.06
+VQC[pca4]-SVM[all] ion; VQC-SVM pca4 ion: -0.119 -0.053
+VQC[pca4]-RF[all] syn; VQC-RF pca4 syn: -0.171 0.003
+VQC[pca4]-LR[all] wdbc; VQC-LR pca4 wdbc: -0.01 -0.006
+MLP gap all syn: 0.225
+MLP gap all ion: 0.077

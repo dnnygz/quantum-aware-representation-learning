@@ -1,0 +1,171 @@
+epochs                            25     50     100    200    400    800
+WDBC        base(lr.05,init.1)  0.979  0.979  0.982  0.985  0.985  0.985
+            lr.01               0.920  0.966  0.978  0.979  0.982  0.984
+            lr.2                0.982  0.986  0.987  0.986  0.986  0.985
+            init~N(0,1)         0.966  0.978  0.982  0.984  0.985  0.984
+            init~U(-pi,pi)      0.973  0.980  0.984  0.985  0.986  0.985
+            MLP(lr.05)          0.977  0.990  0.991  0.991  0.989  0.987
+Ionosphere  base(lr.05,init.1)  0.800  0.823  0.848  0.863  0.875  0.873
+            lr.01               0.691  0.771  0.810  0.836  0.861  0.871
+            lr.2                0.833  0.866  0.878  0.877  0.876  0.876
+            init~N(0,1)         0.816  0.837  0.866  0.874  0.874  0.872
+            init~U(-pi,pi)      0.810  0.841  0.868  0.872  0.872  0.869
+            MLP(lr.05)          0.860  0.885  0.898  0.896  0.893  0.892
+Synthetic   base(lr.05,init.1)  0.747  0.761  0.760  0.757  0.754  0.752
+            lr.01               0.725  0.736  0.746  0.758  0.758  0.758
+            lr.2                0.764  0.759  0.757  0.757  0.756  0.757
+            init~N(0,1)         0.738  0.762  0.762  0.760  0.758  0.756
+            init~U(-pi,pi)      0.752  0.763  0.762  0.760  0.757  0.756
+            MLP(lr.05)          0.693  0.721  0.757  0.763  0.760  0.752
+Transfusion base(lr.05,init.1)  0.707  0.726  0.737  0.745  0.747  0.747
+            lr.01               0.451  0.573  0.700  0.728  0.736  0.742
+            lr.2                0.730  0.739  0.744  0.743  0.743  0.734
+            init~N(0,1)         0.713  0.731  0.739  0.742  0.745  0.745
+            init~U(-pi,pi)      0.716  0.733  0.741  0.742  0.743  0.745
+            MLP(lr.05)          0.640  0.680  0.720  0.750  0.748  0.748
+
+GAP
+ epochs                            25     50     100    200    400    800
+WDBC        base(lr.05,init.1)  0.004  0.005  0.007  0.007  0.008  0.010
+            lr.01               0.003  0.004  0.004  0.005  0.006  0.006
+            lr.2                0.006  0.007  0.008  0.009  0.010  0.011
+            init~N(0,1)         0.004  0.005  0.007  0.008  0.009  0.011
+            init~U(-pi,pi)      0.004  0.005  0.006  0.007  0.009  0.010
+            MLP(lr.05)         -0.000  0.002  0.003  0.005  0.007  0.010
+Ionosphere  base(lr.05,init.1)  0.024  0.044  0.053  0.054  0.056  0.063
+            lr.01               0.011  0.017  0.024  0.033  0.037  0.049
+            lr.2                0.050  0.049  0.051  0.057  0.061  0.063
+            init~N(0,1)         0.014  0.028  0.038  0.052  0.060  0.066
+            init~U(-pi,pi)      0.020  0.029  0.040  0.052  0.058  0.065
+            MLP(lr.05)          0.018  0.025  0.035  0.049  0.056  0.062
+Synthetic   base(lr.05,init.1)  0.029  0.035  0.046  0.052  0.058  0.061
+            lr.01               0.010  0.024  0.030  0.035  0.046  0.051
+            lr.2                0.036  0.050  0.055  0.056  0.057  0.057
+            init~N(0,1)         0.015  0.022  0.037  0.047  0.052  0.056
+            init~U(-pi,pi)      0.020  0.029  0.041  0.051  0.056  0.059
+            MLP(lr.05)          0.020  0.028  0.032  0.043  0.052  0.062
+Transfusion base(lr.05,init.1)  0.005  0.014  0.018  0.019  0.026  0.029
+            lr.01               0.011  0.010  0.009  0.013  0.020  0.021
+            lr.2                0.014  0.021  0.026  0.033  0.035  0.036
+            init~N(0,1)         0.001  0.005  0.015  0.022  0.027  0.032
+            init~U(-pi,pi)      0.004  0.007  0.015  0.023  0.029  0.032
+            MLP(lr.05)          0.004  0.003  0.003  0.004  0.012  0.014
+
+TRAIN BCE
+ epochs                            25     50     100    200    400    800
+WDBC        base(lr.05,init.1)  0.270  0.178  0.139  0.116  0.099  0.086
+            lr.01               0.559  0.448  0.297  0.194  0.151  0.123
+            lr.2                0.141  0.111  0.095  0.084  0.078  0.074
+            init~N(0,1)         0.275  0.179  0.138  0.112  0.095  0.084
+            init~U(-pi,pi)      0.259  0.173  0.137  0.113  0.095  0.084
+            MLP(lr.05)          0.236  0.120  0.086  0.075  0.066  0.059
+Ionosphere  base(lr.05,init.1)  0.480  0.415  0.363  0.335  0.307  0.296
+            lr.01               0.620  0.561  0.474  0.417  0.372  0.333
+            lr.2                0.392  0.338  0.313  0.299  0.292  0.289
+            init~N(0,1)         0.474  0.416  0.362  0.322  0.301  0.292
+            init~U(-pi,pi)      0.470  0.411  0.354  0.320  0.305  0.297
+            MLP(lr.05)          0.396  0.333  0.287  0.253  0.235  0.222
+Synthetic   base(lr.05,init.1)  0.560  0.539  0.528  0.523  0.520  0.519
+            lr.01               0.651  0.606  0.566  0.544  0.531  0.524
+            lr.2                0.536  0.524  0.520  0.518  0.518  0.517
+            init~N(0,1)         0.581  0.550  0.534  0.526  0.522  0.520
+            init~U(-pi,pi)      0.563  0.542  0.530  0.522  0.519  0.517
+            MLP(lr.05)          0.591  0.552  0.524  0.509  0.503  0.499
+Transfusion base(lr.05,init.1)  0.505  0.480  0.470  0.462  0.454  0.451
+            lr.01               0.581  0.543  0.505  0.480  0.469  0.462
+            lr.2                0.477  0.465  0.457  0.453  0.451  0.456
+            init~N(0,1)         0.496  0.482  0.470  0.462  0.455  0.451
+            init~U(-pi,pi)      0.495  0.480  0.468  0.461  0.455  0.451
+            MLP(lr.05)          0.521  0.504  0.483  0.469  0.464  0.461
+
+PAIRED
+              ds                       cmp  epochs  metric  mean_diff     lo     hi  excl0
+0          WDBC  base(lr.05,init.1) - MLP     200  auc_te     -0.006 -0.008 -0.005   True
+1          WDBC  base(lr.05,init.1) - MLP     200     gap      0.003  0.001  0.005   True
+2          WDBC               lr.01 - MLP     200  auc_te     -0.012 -0.015 -0.010   True
+3          WDBC               lr.01 - MLP     200     gap      0.000 -0.002  0.003  False
+4          WDBC                lr.2 - MLP     200  auc_te     -0.004 -0.007 -0.002   True
+5          WDBC                lr.2 - MLP     200     gap      0.004  0.002  0.007   True
+6          WDBC         init~N(0,1) - MLP     200  auc_te     -0.007 -0.010 -0.005   True
+7          WDBC         init~N(0,1) - MLP     200     gap      0.004  0.002  0.006   True
+8          WDBC      init~U(-pi,pi) - MLP     200  auc_te     -0.006 -0.008 -0.004   True
+9          WDBC      init~U(-pi,pi) - MLP     200     gap      0.002  0.001  0.005   True
+10         WDBC  base(lr.05,init.1) - MLP     800  auc_te     -0.002 -0.005  0.001  False
+11         WDBC  base(lr.05,init.1) - MLP     800     gap     -0.000 -0.004  0.003  False
+12         WDBC               lr.01 - MLP     800  auc_te     -0.003 -0.006  0.000  False
+13         WDBC               lr.01 - MLP     800     gap     -0.003 -0.007 -0.000   True
+14         WDBC                lr.2 - MLP     800  auc_te     -0.002 -0.006  0.001  False
+15         WDBC                lr.2 - MLP     800     gap      0.002 -0.002  0.005  False
+16         WDBC         init~N(0,1) - MLP     800  auc_te     -0.003 -0.006 -0.000   True
+17         WDBC         init~N(0,1) - MLP     800     gap      0.001 -0.002  0.004  False
+18         WDBC      init~U(-pi,pi) - MLP     800  auc_te     -0.002 -0.005  0.001  False
+19         WDBC      init~U(-pi,pi) - MLP     800     gap      0.000 -0.003  0.003  False
+20         WDBC   base 800ep - base 200ep     800  auc_te      0.001 -0.000  0.002  False
+21         WDBC   base 800ep - base 200ep     800     gap      0.002  0.001  0.003   True
+22   Ionosphere  base(lr.05,init.1) - MLP     200  auc_te     -0.033 -0.049 -0.017   True
+23   Ionosphere  base(lr.05,init.1) - MLP     200     gap      0.006 -0.010  0.020  False
+24   Ionosphere               lr.01 - MLP     200  auc_te     -0.060 -0.072 -0.047   True
+25   Ionosphere               lr.01 - MLP     200     gap     -0.015 -0.032  0.001  False
+26   Ionosphere                lr.2 - MLP     200  auc_te     -0.019 -0.037 -0.000   True
+27   Ionosphere                lr.2 - MLP     200     gap      0.008 -0.009  0.026  False
+28   Ionosphere         init~N(0,1) - MLP     200  auc_te     -0.022 -0.039 -0.006   True
+29   Ionosphere         init~N(0,1) - MLP     200     gap      0.004 -0.012  0.019  False
+30   Ionosphere      init~U(-pi,pi) - MLP     200  auc_te     -0.024 -0.040 -0.007   True
+31   Ionosphere      init~U(-pi,pi) - MLP     200     gap      0.004 -0.012  0.020  False
+32   Ionosphere  base(lr.05,init.1) - MLP     800  auc_te     -0.019 -0.036 -0.001   True
+33   Ionosphere  base(lr.05,init.1) - MLP     800     gap      0.001 -0.018  0.019  False
+34   Ionosphere               lr.01 - MLP     800  auc_te     -0.020 -0.038 -0.002   True
+35   Ionosphere               lr.01 - MLP     800     gap     -0.013 -0.032  0.004  False
+36   Ionosphere                lr.2 - MLP     800  auc_te     -0.015 -0.036  0.005  False
+37   Ionosphere                lr.2 - MLP     800     gap      0.000 -0.021  0.021  False
+38   Ionosphere         init~N(0,1) - MLP     800  auc_te     -0.020 -0.037 -0.004   True
+39   Ionosphere         init~N(0,1) - MLP     800     gap      0.004 -0.013  0.021  False
+40   Ionosphere      init~U(-pi,pi) - MLP     800  auc_te     -0.022 -0.041 -0.003   True
+41   Ionosphere      init~U(-pi,pi) - MLP     800     gap      0.003 -0.017  0.022  False
+42   Ionosphere   base 800ep - base 200ep     800  auc_te      0.010 -0.002  0.023  False
+43   Ionosphere   base 800ep - base 200ep     800     gap      0.009 -0.002  0.019  False
+44    Synthetic  base(lr.05,init.1) - MLP     200  auc_te     -0.006 -0.017  0.005  False
+45    Synthetic  base(lr.05,init.1) - MLP     200     gap      0.009 -0.002  0.020  False
+46    Synthetic               lr.01 - MLP     200  auc_te     -0.006 -0.018  0.007  False
+47    Synthetic               lr.01 - MLP     200     gap     -0.008 -0.022  0.006  False
+48    Synthetic                lr.2 - MLP     200  auc_te     -0.007 -0.018  0.005  False
+49    Synthetic                lr.2 - MLP     200     gap      0.013  0.002  0.025   True
+50    Synthetic         init~N(0,1) - MLP     200  auc_te     -0.004 -0.013  0.006  False
+51    Synthetic         init~N(0,1) - MLP     200     gap      0.004 -0.006  0.014  False
+52    Synthetic      init~U(-pi,pi) - MLP     200  auc_te     -0.004 -0.015  0.008  False
+53    Synthetic      init~U(-pi,pi) - MLP     200     gap      0.008 -0.004  0.020  False
+54    Synthetic  base(lr.05,init.1) - MLP     800  auc_te      0.000 -0.014  0.016  False
+55    Synthetic  base(lr.05,init.1) - MLP     800     gap     -0.000 -0.013  0.013  False
+56    Synthetic               lr.01 - MLP     800  auc_te      0.006 -0.008  0.022  False
+57    Synthetic               lr.01 - MLP     800     gap     -0.011 -0.024  0.002  False
+58    Synthetic                lr.2 - MLP     800  auc_te      0.005 -0.010  0.021  False
+59    Synthetic                lr.2 - MLP     800     gap     -0.005 -0.018  0.009  False
+60    Synthetic         init~N(0,1) - MLP     800  auc_te      0.005 -0.008  0.019  False
+61    Synthetic         init~N(0,1) - MLP     800     gap     -0.006 -0.018  0.007  False
+62    Synthetic      init~U(-pi,pi) - MLP     800  auc_te      0.004 -0.009  0.018  False
+63    Synthetic      init~U(-pi,pi) - MLP     800     gap     -0.003 -0.016  0.011  False
+64    Synthetic   base 800ep - base 200ep     800  auc_te     -0.006 -0.010 -0.002   True
+65    Synthetic   base 800ep - base 200ep     800     gap      0.009  0.005  0.013   True
+66  Transfusion  base(lr.05,init.1) - MLP     200  auc_te     -0.004 -0.013  0.006  False
+67  Transfusion  base(lr.05,init.1) - MLP     200     gap      0.015  0.007  0.022   True
+68  Transfusion               lr.01 - MLP     200  auc_te     -0.022 -0.032 -0.010   True
+69  Transfusion               lr.01 - MLP     200     gap      0.008 -0.000  0.018  False
+70  Transfusion                lr.2 - MLP     200  auc_te     -0.006 -0.014  0.002  False
+71  Transfusion                lr.2 - MLP     200     gap      0.028  0.022  0.035   True
+72  Transfusion         init~N(0,1) - MLP     200  auc_te     -0.008 -0.016  0.003  False
+73  Transfusion         init~N(0,1) - MLP     200     gap      0.017  0.010  0.025   True
+74  Transfusion      init~U(-pi,pi) - MLP     200  auc_te     -0.008 -0.016  0.003  False
+75  Transfusion      init~U(-pi,pi) - MLP     200     gap      0.019  0.012  0.026   True
+76  Transfusion  base(lr.05,init.1) - MLP     800  auc_te     -0.001 -0.009  0.007  False
+77  Transfusion  base(lr.05,init.1) - MLP     800     gap      0.015  0.005  0.026   True
+78  Transfusion               lr.01 - MLP     800  auc_te     -0.006 -0.015  0.002  False
+79  Transfusion               lr.01 - MLP     800     gap      0.007 -0.002  0.016  False
+80  Transfusion                lr.2 - MLP     800  auc_te     -0.015 -0.030 -0.003   True
+81  Transfusion                lr.2 - MLP     800     gap      0.021  0.007  0.034   True
+82  Transfusion         init~N(0,1) - MLP     800  auc_te     -0.003 -0.010  0.003  False
+83  Transfusion         init~N(0,1) - MLP     800     gap      0.018  0.010  0.027   True
+84  Transfusion      init~U(-pi,pi) - MLP     800  auc_te     -0.003 -0.010  0.003  False
+85  Transfusion      init~U(-pi,pi) - MLP     800     gap      0.017  0.009  0.026   True
+86  Transfusion   base 800ep - base 200ep     800  auc_te      0.002 -0.003  0.006  False
+87  Transfusion   base 800ep - base 200ep     800     gap      0.010  0.006  0.015   True
+saved

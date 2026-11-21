@@ -1,0 +1,4 @@
+# local re-runs and the optional UCI download
+results_smoke/
+results_rerun/
+data/uci/

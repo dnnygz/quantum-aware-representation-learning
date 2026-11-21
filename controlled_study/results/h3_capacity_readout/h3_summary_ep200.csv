@@ -1,0 +1,33 @@
+ds,model,auc_te,gap,bce,brier
+Ionosphere,L1,0.804,0.03,0.455,0.156
+Ionosphere,L2,0.863,0.054,0.335,0.131
+Ionosphere,L2-noent,0.881,0.021,0.344,0.116
+Ionosphere,L2-nohead,0.815,0.024,0.458,0.154
+Ionosphere,L4,0.912,0.05,0.229,0.098
+Ionosphere,MLP h2 (13p),0.888,0.026,0.3,0.113
+Ionosphere,MLP h3 (19p),0.896,0.049,0.253,0.112
+Ionosphere,MLP h6 (37p),0.908,0.065,0.18,0.101
+Synthetic,L1,0.76,0.031,0.545,0.195
+Synthetic,L2,0.757,0.052,0.523,0.196
+Synthetic,L2-noent,0.757,0.027,0.548,0.195
+Synthetic,L2-nohead,0.763,0.02,0.553,0.194
+Synthetic,L4,0.755,0.086,0.485,0.199
+Synthetic,MLP h2 (13p),0.747,0.022,0.527,0.191
+Synthetic,MLP h3 (19p),0.763,0.043,0.509,0.191
+Synthetic,MLP h6 (37p),0.763,0.085,0.471,0.196
+Transfusion,L1,0.709,0.012,0.489,0.166
+Transfusion,L2,0.745,0.019,0.462,0.155
+Transfusion,L2-noent,0.741,0.002,0.477,0.157
+Transfusion,L2-nohead,0.74,0.011,0.475,0.158
+Transfusion,L4,0.743,0.034,0.452,0.155
+Transfusion,MLP h2 (13p),0.734,0.006,0.473,0.157
+Transfusion,MLP h3 (19p),0.75,0.004,0.469,0.156
+Transfusion,MLP h6 (37p),0.749,0.017,0.458,0.155
+WDBC,L1,0.969,0.008,0.196,0.065
+WDBC,L2,0.985,0.007,0.116,0.042
+WDBC,L2-noent,0.981,0.005,0.154,0.043
+WDBC,L2-nohead,0.977,0.003,0.253,0.07
+WDBC,L4,0.989,0.007,0.084,0.036
+WDBC,MLP h2 (13p),0.991,0.004,0.081,0.032
+WDBC,MLP h3 (19p),0.991,0.005,0.075,0.031
+WDBC,MLP h6 (37p),0.99,0.007,0.063,0.033

@@ -1,0 +1,113 @@
+ds,cmp,epochs,metric,mean_diff,lo,hi,excl0
+WDBC,L1 - L2,200,auc_te,-0.0158,-0.0188,-0.0131,True
+WDBC,L1 - L2,200,gap,0.0004,-0.0031,0.0039,False
+WDBC,L4 - L2,200,auc_te,0.0041,0.0027,0.0057,True
+WDBC,L4 - L2,200,gap,-0.0001,-0.0018,0.0017,False
+WDBC,L2-noent - L2,200,auc_te,-0.0034,-0.0065,-0.0005,True
+WDBC,L2-noent - L2,200,gap,-0.0022,-0.0052,0.0009,False
+WDBC,L2-nohead - L2,200,auc_te,-0.0075,-0.01,-0.0051,True
+WDBC,L2-nohead - L2,200,gap,-0.0044,-0.0069,-0.0019,True
+WDBC,L1 - MLP h2 (13p),200,auc_te,-0.0219,-0.0258,-0.0185,True
+WDBC,L1 - MLP h2 (13p),200,gap,0.0035,-0.0005,0.0081,False
+WDBC,L2 - MLP h3 (19p),200,auc_te,-0.0064,-0.0084,-0.0047,True
+WDBC,L2 - MLP h3 (19p),200,gap,0.0027,0.0007,0.0049,True
+WDBC,L4 - MLP h6 (37p),200,auc_te,-0.001,-0.0026,0.0004,False
+WDBC,L4 - MLP h6 (37p),200,gap,-0.0002,-0.0017,0.0015,False
+WDBC,L1 - L2,400,auc_te,-0.0176,-0.0207,-0.0144,True
+WDBC,L1 - L2,400,gap,0.0016,-0.0022,0.0055,False
+WDBC,L4 - L2,400,auc_te,0.003,0.0016,0.0044,True
+WDBC,L4 - L2,400,gap,-0.0,-0.0017,0.0017,False
+WDBC,L2-noent - L2,400,auc_te,-0.0036,-0.0069,-0.0007,True
+WDBC,L2-noent - L2,400,gap,-0.0027,-0.0058,0.0006,False
+WDBC,L2-nohead - L2,400,auc_te,-0.0082,-0.0111,-0.0055,True
+WDBC,L2-nohead - L2,400,gap,-0.0039,-0.0066,-0.0012,True
+WDBC,L1 - MLP h2 (13p),400,auc_te,-0.0221,-0.0262,-0.0186,True
+WDBC,L1 - MLP h2 (13p),400,gap,0.0049,0.0007,0.0095,True
+WDBC,L2 - MLP h3 (19p),400,auc_te,-0.0041,-0.0064,-0.002,True
+WDBC,L2 - MLP h3 (19p),400,gap,0.0014,-0.0012,0.0039,False
+WDBC,L4 - MLP h6 (37p),400,auc_te,0.0004,-0.001,0.002,False
+WDBC,L4 - MLP h6 (37p),400,gap,-0.0018,-0.0035,-0.0001,True
+Ionosphere,L1 - L2,200,auc_te,-0.0592,-0.0749,-0.0434,True
+Ionosphere,L1 - L2,200,gap,-0.0245,-0.0393,-0.0095,True
+Ionosphere,L4 - L2,200,auc_te,0.0494,0.0362,0.0631,True
+Ionosphere,L4 - L2,200,gap,-0.0037,-0.0164,0.0088,False
+Ionosphere,L2-noent - L2,200,auc_te,0.0184,-0.0003,0.0364,False
+Ionosphere,L2-noent - L2,200,gap,-0.0331,-0.053,-0.0133,True
+Ionosphere,L2-nohead - L2,200,auc_te,-0.048,-0.0653,-0.0307,True
+Ionosphere,L2-nohead - L2,200,gap,-0.0297,-0.0465,-0.0132,True
+Ionosphere,L1 - MLP h2 (13p),200,auc_te,-0.084,-0.1005,-0.0672,True
+Ionosphere,L1 - MLP h2 (13p),200,gap,0.0036,-0.0143,0.0206,False
+Ionosphere,L2 - MLP h3 (19p),200,auc_te,-0.033,-0.0487,-0.017,True
+Ionosphere,L2 - MLP h3 (19p),200,gap,0.0056,-0.0101,0.0206,False
+Ionosphere,L4 - MLP h6 (37p),200,auc_te,0.004,-0.0052,0.0128,False
+Ionosphere,L4 - MLP h6 (37p),200,gap,-0.0149,-0.0241,-0.005,True
+Ionosphere,L1 - L2,400,auc_te,-0.0738,-0.0905,-0.0571,True
+Ionosphere,L1 - L2,400,gap,-0.0216,-0.0378,-0.0057,True
+Ionosphere,L4 - L2,400,auc_te,0.0402,0.0276,0.0532,True
+Ionosphere,L4 - L2,400,gap,-0.0003,-0.0122,0.0113,False
+Ionosphere,L2-noent - L2,400,auc_te,0.0072,-0.012,0.0266,False
+Ionosphere,L2-noent - L2,400,gap,-0.0355,-0.0559,-0.0156,True
+Ionosphere,L2-nohead - L2,400,auc_te,-0.0543,-0.0717,-0.0366,True
+Ionosphere,L2-nohead - L2,400,gap,-0.0251,-0.0409,-0.0091,True
+Ionosphere,L1 - MLP h2 (13p),400,auc_te,-0.086,-0.1035,-0.0679,True
+Ionosphere,L1 - MLP h2 (13p),400,gap,0.0051,-0.0138,0.0232,False
+Ionosphere,L2 - MLP h3 (19p),400,auc_te,-0.0179,-0.0351,-0.0005,True
+Ionosphere,L2 - MLP h3 (19p),400,gap,-0.0003,-0.0174,0.0171,False
+Ionosphere,L4 - MLP h6 (37p),400,auc_te,0.011,-0.0004,0.0226,False
+Ionosphere,L4 - MLP h6 (37p),400,gap,-0.0214,-0.0341,-0.0092,True
+Synthetic,L1 - L2,200,auc_te,0.0021,-0.0045,0.0092,False
+Synthetic,L1 - L2,200,gap,-0.0214,-0.0298,-0.0137,True
+Synthetic,L4 - L2,200,auc_te,-0.0023,-0.0111,0.0065,False
+Synthetic,L4 - L2,200,gap,0.0336,0.0241,0.0431,True
+Synthetic,L2-noent - L2,200,auc_te,-0.0003,-0.0089,0.0079,False
+Synthetic,L2-noent - L2,200,gap,-0.0253,-0.0335,-0.0166,True
+Synthetic,L2-nohead - L2,200,auc_te,0.0055,-0.0003,0.0116,False
+Synthetic,L2-nohead - L2,200,gap,-0.0324,-0.0397,-0.0252,True
+Synthetic,L1 - MLP h2 (13p),200,auc_te,0.0126,-0.0031,0.0289,False
+Synthetic,L1 - MLP h2 (13p),200,gap,0.0092,-0.0054,0.0237,False
+Synthetic,L2 - MLP h3 (19p),200,auc_te,-0.0059,-0.0167,0.005,False
+Synthetic,L2 - MLP h3 (19p),200,gap,0.0094,-0.0015,0.0201,False
+Synthetic,L4 - MLP h6 (37p),200,auc_te,-0.0074,-0.0176,0.0022,False
+Synthetic,L4 - MLP h6 (37p),200,gap,0.0009,-0.009,0.0115,False
+Synthetic,L1 - L2,400,auc_te,0.0046,-0.0022,0.0116,False
+Synthetic,L1 - L2,400,gap,-0.0259,-0.0343,-0.0179,True
+Synthetic,L4 - L2,400,auc_te,-0.0058,-0.0134,0.0015,False
+Synthetic,L4 - L2,400,gap,0.0396,0.0309,0.0489,True
+Synthetic,L2-noent - L2,400,auc_te,0.0029,-0.0062,0.0112,False
+Synthetic,L2-noent - L2,400,gap,-0.0305,-0.0388,-0.0213,True
+Synthetic,L2-nohead - L2,400,auc_te,0.0084,0.0013,0.0153,True
+Synthetic,L2-nohead - L2,400,gap,-0.0341,-0.0424,-0.026,True
+Synthetic,L1 - MLP h2 (13p),400,auc_te,0.0093,-0.0075,0.0267,False
+Synthetic,L1 - MLP h2 (13p),400,gap,0.0101,-0.0047,0.0252,False
+Synthetic,L2 - MLP h3 (19p),400,auc_te,-0.0062,-0.0165,0.0049,False
+Synthetic,L2 - MLP h3 (19p),400,gap,0.0054,-0.0056,0.0165,False
+Synthetic,L4 - MLP h6 (37p),400,auc_te,-0.0035,-0.0133,0.007,False
+Synthetic,L4 - MLP h6 (37p),400,gap,-0.008,-0.0185,0.0021,False
+Transfusion,L1 - L2,200,auc_te,-0.0368,-0.0449,-0.0284,True
+Transfusion,L1 - L2,200,gap,-0.0073,-0.0159,0.0016,False
+Transfusion,L4 - L2,200,auc_te,-0.0023,-0.0078,0.0031,False
+Transfusion,L4 - L2,200,gap,0.0144,0.0091,0.02,True
+Transfusion,L2-noent - L2,200,auc_te,-0.0043,-0.0104,0.002,False
+Transfusion,L2-noent - L2,200,gap,-0.0176,-0.0251,-0.0106,True
+Transfusion,L2-nohead - L2,200,auc_te,-0.0053,-0.0109,0.0004,False
+Transfusion,L2-nohead - L2,200,gap,-0.0086,-0.0155,-0.002,True
+Transfusion,L1 - MLP h2 (13p),200,auc_te,-0.0249,-0.0507,0.0093,False
+Transfusion,L1 - MLP h2 (13p),200,gap,0.006,-0.0081,0.0187,False
+Transfusion,L2 - MLP h3 (19p),200,auc_te,-0.0041,-0.0127,0.0057,False
+Transfusion,L2 - MLP h3 (19p),200,gap,0.0148,0.0071,0.0227,True
+Transfusion,L4 - MLP h6 (37p),200,auc_te,-0.0061,-0.0107,-0.0016,True
+Transfusion,L4 - MLP h6 (37p),200,gap,0.0166,0.0107,0.0223,True
+Transfusion,L1 - L2,400,auc_te,-0.0314,-0.0399,-0.0227,True
+Transfusion,L1 - L2,400,gap,-0.0142,-0.0227,-0.0051,True
+Transfusion,L4 - L2,400,auc_te,-0.0039,-0.0089,0.0009,False
+Transfusion,L4 - L2,400,gap,0.0168,0.0121,0.022,True
+Transfusion,L2-noent - L2,400,auc_te,-0.006,-0.0124,0.0009,False
+Transfusion,L2-noent - L2,400,gap,-0.024,-0.0325,-0.0159,True
+Transfusion,L2-nohead - L2,400,auc_te,-0.0054,-0.0127,0.0019,False
+Transfusion,L2-nohead - L2,400,gap,-0.0153,-0.0238,-0.0072,True
+Transfusion,L1 - MLP h2 (13p),400,auc_te,-0.0367,-0.0492,-0.023,True
+Transfusion,L1 - MLP h2 (13p),400,gap,0.0106,-0.001,0.0222,False
+Transfusion,L2 - MLP h3 (19p),400,auc_te,-0.0016,-0.0086,0.0052,False
+Transfusion,L2 - MLP h3 (19p),400,gap,0.0144,0.0052,0.0232,True
+Transfusion,L4 - MLP h6 (37p),400,auc_te,0.0027,-0.0029,0.0084,False
+Transfusion,L4 - MLP h6 (37p),400,gap,0.0102,0.0028,0.0181,True

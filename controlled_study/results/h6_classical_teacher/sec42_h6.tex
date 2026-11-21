@@ -1,0 +1,46 @@
+\subsubsection{Classical teacher (H6)}
+
+We tested two ways of transferring information from a classical teacher to the VQC, and separated the contribution of the classical part from that of the circuit. In the first, the student received the soft labels of the teacher. The teacher was an RBF-SVM fitted on all the standardized features of the training split (on Blood Transfusion, which has four native features, it received the same four inputs as the student), and the student minimized the cross-entropy against the target $\alpha p_{\mathrm{teacher}}+(1-\alpha)y$ with $\alpha\in\{0.5,1\}$, using the same four-component inputs, learning rate, and number of epochs as in the base experiment. We distilled into the VQC and into the MLP with three hidden units, and compare each with its hard-label version from the base experiment (same seeds and splits). In the second, the teacher provided a representation. A classical encoder network (all features $\rightarrow$ 8 $\rightarrow$ 4 units with tanh, followed by an output unit) was trained on the training split, its four last hidden activations were rescaled to $[-\pi,\pi]$ with the training minimum and maximum, and we fitted on them a VQC and, as the ``classical encoder plus classical head'' control, a logistic regression \cite{kolle2024}. This arm was run on the three datasets with more than four features. Teacher and student never saw the test split.
+
+\textit{Soft labels from a stronger teacher did not close the gap to the teacher.} On Ionosphere the teacher reached a test AUC of 0.982, against 0.863 for the VQC trained on hard labels, but the distilled VQC reached 0.867 (change $+$0.004 (95\% interval $-$0.003 to $+$0.013)), and its difference with the teacher was $-$0.115 (95\% interval $-$0.129 to $-$0.103) (Table~\ref{tab:h6kd}). Distillation reduced the gap of the VQC by only 0.001 to 0.010 on the four datasets (the interval excluded zero on three of them) and did not raise its test AUC significantly on any dataset; on the synthetic data and Blood Transfusion it lowered it ($-$0.017 and $-$0.042), where the teacher was little or not better than the students (test AUC 0.775 and 0.707). The MLP behaved similarly (changes of the gap between $-$0.012 and $-$0.001), and mixing hard and soft labels ($\alpha=0.5$) did not change the conclusion. The student, not the labels, limited the result: the VQC with four inputs could not absorb what the teacher knew from all the features.
+
+\textit{A learned classical representation increased the gap, and the linear head on it did as much as the VQC.} The logistic regression on the four learned features reproduced the encoder network (difference in test AUC of at most 0.001 on all three datasets) and had a much larger gap than on principal components on Ionosphere and on the synthetic data ($+$0.063 (95\% interval $+$0.047 to $+$0.080) and $+$0.315 (95\% interval $+$0.293 to $+$0.338)), because the encoder fitted its training split almost perfectly (training AUC 0.996 and 0.998; Table~\ref{tab:h6enc}). It improved the test AUC of the linear head only on Ionosphere ($+$0.039 (95\% interval $+$0.028 to $+$0.051)) and not on the synthetic data ($-$0.008 (95\% interval $-$0.029 to $+$0.012)). With the base range of the angles, the VQC on the learned features was much worse than the linear head on the same features ($-$0.054, $-$0.131, $-$0.123 in test AUC on WDBC, Ionosphere, and the synthetic data) and than the VQC on principal components ($-$0.046, $-$0.071, $-$0.209). This was partly an encoding artifact: the learned features were concentrated near the two ends of their range (in the first five seeds, 82\% to 99\% of the values lay in the outer 10\% at either end, against 2\% to 5\% for the principal components), and with the range $[-\pi,\pi]$ both ends map to the same quantum state. With the range $[-\pi/2,\pi/2]$ the VQC came close to the linear head (differences in test AUC of $-$0.007, $-$0.012, $-$0.012) and its gap exceeded that of the linear head by only 0.006 to 0.012. Relative to the VQC on principal components, this version gained test AUC on Ionosphere ($+$0.049 (95\% interval $+$0.029 to $+$0.068)), lost it on the synthetic data ($-$0.098 (95\% interval $-$0.117 to $-$0.078)), and was equal on WDBC ($+$0.000 (95\% interval $-$0.004 to $+$0.004)), while its gap was larger on Ionosphere and on the synthetic data ($+$0.032 (95\% interval $+$0.013 to $+$0.052) and $+$0.284 (95\% interval $+$0.263 to $+$0.304)). Almost all of the gap of the model with a learned representation therefore came from the classical encoder, not from the circuit.
+
+\begin{table}[t]
+\centering
+\caption{Distillation (H6): test AUC of the teacher (RBF-SVM on all features) and paired difference in test AUC and in gap between students trained on the soft labels of the teacher and students trained on hard labels (mean over 30 seeds). A dagger marks a 95\% bootstrap interval that excludes zero (no multiple-comparison correction).}
+\label{tab:h6kd}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lcrrrr}
+\hline
+ & Teacher & \multicolumn{2}{c}{VQC} & \multicolumn{2}{c}{MLP} \\
+Dataset & AUC & $\Delta$AUC & $\Delta$gap & $\Delta$AUC & $\Delta$gap \\
+\hline
+WDBC & 0.994 & $+$0.000 & $-$0.001$^{\dagger}$ & $+$0.001$^{\dagger}$ & $-$0.001$^{\dagger}$ \\
+Ionosphere & 0.982 & $+$0.004 & $-$0.009$^{\dagger}$ & $+$0.004 & $-$0.012$^{\dagger}$ \\
+Synthetic & 0.775 & $-$0.017$^{\dagger}$ & $-$0.007$^{\dagger}$ & $-$0.026$^{\dagger}$ & $-$0.001 \\
+Transfusion & 0.707 & $-$0.042$^{\dagger}$ & $-$0.010 & $-$0.009 & $-$0.011$^{\dagger}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table*}[t]
+\centering
+\caption{Teacher representation (H6): test AUC and generalization gap (means over 30 seeds) of heads fitted on the four features learned by a classical encoder network (all features $\rightarrow$ 8 $\rightarrow$ 4, tanh), compared with the same heads on four principal components. ``Encoder net'' is the encoder network with its own output layer, and ``half'' rescales the learned features to $[-\pi/2,\pi/2]$ instead of $[-\pi,\pi]$.}
+\label{tab:h6enc}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccccc}
+\hline
+Dataset & Metric & LR, PCA-4 & VQC, PCA-4 & Encoder net & LR on enc. & VQC on enc. & VQC on enc., half \\
+\hline
+WDBC & Test AUC & 0.991 & 0.985 & 0.992 & 0.992 & 0.938 & 0.985 \\
+ & Gap & 0.003 & 0.007 & 0.005 & 0.005 & 0.052 & 0.011 \\
+Ionosphere & Test AUC & 0.884 & 0.863 & 0.924 & 0.923 & 0.792 & 0.912 \\
+ & Gap & 0.010 & 0.054 & 0.072 & 0.074 & 0.197 & 0.086 \\
+Synthetic & Test AUC & 0.679 & 0.757 & 0.673 & 0.672 & 0.548 & 0.660 \\
+ & Gap & 0.011 & 0.052 & 0.325 & 0.326 & 0.367 & 0.336 \\
+\hline
+\end{tabular}
+\end{table*}
