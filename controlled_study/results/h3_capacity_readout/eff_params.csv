@@ -1,0 +1,5 @@
+variant,nominal,eff_min,eff_max
+L1,8,4,4
+L2 (base),16,12,12
+L4,32,28,28
+L2 no entanglement,16,8,8

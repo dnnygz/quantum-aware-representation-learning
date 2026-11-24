@@ -1,46 +1,6 @@
-# Python
 __pycache__/
 *.py[cod]
-.pytest_cache/
-.coverage
-htmlcov/
-*.egg-info/
 .venv/
-
-# Editors / OS
 .DS_Store
 .idea/
 .vscode/
-
-# GDC and generated data. Raw is immutable and intentionally never versioned.
-data/raw/**
-data/interim/**
-data/processed/**
-!data/raw/.gitkeep
-!data/interim/.gitkeep
-!data/processed/.gitkeep
-
-# Generated reports; retain the directory and documentation only.
-reports/data/*.json
-reports/data/*.parquet
-reports/data/*.tsv
-reports/data/*.csv
-reports/data/**/*.svg
-!reports/data/.gitkeep
-
-# Partial downloads must never be mistaken for complete raw files.
-*.part
-
-# Experimental runs, generated figures, and executed notebook caches stay local.
-/runs/
-**/.ipynb_checkpoints/
-/reports/phase*/**/figures/
-
-# Historical presentation reviews and source snapshots are retained locally.
-/reports/phase*/**/language_review.json
-/reports/phase*/**/verification.json
-/reports/phase*/**/figure_selection.json
-/reports/phase*/**/analysis_source.py
-
-# Retain the small, reviewed D0 verification record with the report.
-!/reports/phase2/d0_v1_verified/verification.json

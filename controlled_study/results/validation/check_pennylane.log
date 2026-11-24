@@ -1,0 +1,4 @@
+max |expz diff|: 3.885780586188048e-16
+max |grad diff| vs finite diff of PennyLane: 3.52680107340575e-11
+no-ent diff: 7.771561172376096e-16
+pennylane 0.42.3

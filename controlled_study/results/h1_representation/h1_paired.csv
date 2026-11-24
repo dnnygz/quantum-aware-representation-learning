@@ -1,0 +1,157 @@
+ds,cmp,metric,mean_diff,lo,hi,excl0
+WDBC,LR: all - pca4,auc_te,0.0034,0.0026,0.0043,True
+WDBC,LR: anova4 - pca4,auc_te,-0.0052,-0.0069,-0.0036,True
+WDBC,SVM: all - pca4,auc_te,0.0022,0.0015,0.003,True
+WDBC,SVM: anova4 - pca4,auc_te,-0.0102,-0.0121,-0.0083,True
+WDBC,RF: all - pca4,auc_te,0.0042,0.0024,0.0059,True
+WDBC,RF: anova4 - pca4,auc_te,-0.0072,-0.0097,-0.0049,True
+WDBC,XGB: all - pca4,auc_te,0.005,0.0036,0.0063,True
+WDBC,XGB: anova4 - pca4,auc_te,-0.0144,-0.017,-0.0118,True
+WDBC,MLP: all - pca4,auc_te,0.0016,0.0006,0.0027,True
+WDBC,MLP: anova4 - pca4,auc_te,-0.0074,-0.009,-0.0058,True
+WDBC,VQC: anova4 - pca4,auc_te,-0.0024,-0.0046,-0.0001,True
+WDBC,VQC - LR [pca4],auc_te,-0.0062,-0.0084,-0.0044,True
+WDBC,VQC - SVM [pca4],auc_te,-0.0068,-0.0087,-0.005,True
+WDBC,VQC - RF [pca4],auc_te,0.0008,-0.0017,0.003,False
+WDBC,VQC - XGB [pca4],auc_te,-0.001,-0.0031,0.0009,False
+WDBC,VQC - MLP [pca4],auc_te,-0.0064,-0.0084,-0.0047,True
+WDBC,VQC - LR [anova4],auc_te,-0.0034,-0.0047,-0.0022,True
+WDBC,VQC - SVM [anova4],auc_te,0.001,-0.0,0.0021,False
+WDBC,VQC - RF [anova4],auc_te,0.0056,0.0038,0.0073,True
+WDBC,VQC - XGB [anova4],auc_te,0.0111,0.0091,0.0131,True
+WDBC,VQC - MLP [anova4],auc_te,-0.0014,-0.0027,-0.0001,True
+WDBC,VQC[pca4] - LR[all],auc_te,-0.0097,-0.0119,-0.0077,True
+WDBC,VQC[pca4] - SVM[all],auc_te,-0.009,-0.0112,-0.0072,True
+WDBC,VQC[pca4] - RF[all],auc_te,-0.0034,-0.0061,-0.0009,True
+WDBC,VQC[pca4] - XGB[all],auc_te,-0.006,-0.008,-0.0039,True
+WDBC,VQC[pca4] - MLP[all],auc_te,-0.0081,-0.0105,-0.0059,True
+WDBC,LR: all - pca4,gap,0.0006,-0.0005,0.0016,False
+WDBC,LR: anova4 - pca4,gap,-0.0002,-0.0024,0.002,False
+WDBC,SVM: all - pca4,gap,0.0003,-0.0006,0.0012,False
+WDBC,SVM: anova4 - pca4,gap,0.0017,-0.0012,0.0045,False
+WDBC,RF: all - pca4,gap,-0.0042,-0.0059,-0.0024,True
+WDBC,RF: anova4 - pca4,gap,0.0072,0.0049,0.0096,True
+WDBC,XGB: all - pca4,gap,-0.005,-0.0064,-0.0036,True
+WDBC,XGB: anova4 - pca4,gap,0.0144,0.0117,0.017,True
+WDBC,MLP: all - pca4,gap,0.0009,-0.0005,0.0021,False
+WDBC,MLP: anova4 - pca4,gap,0.0022,0.0001,0.0043,True
+WDBC,VQC: anova4 - pca4,gap,-0.0013,-0.0042,0.0015,False
+WDBC,VQC - LR [pca4],gap,0.0041,0.002,0.0064,True
+WDBC,VQC - SVM [pca4],gap,0.0029,0.0009,0.0052,True
+WDBC,VQC - RF [pca4],gap,-0.0089,-0.0112,-0.0064,True
+WDBC,VQC - XGB [pca4],gap,-0.0072,-0.0093,-0.0048,True
+WDBC,VQC - MLP [pca4],gap,0.0027,0.0006,0.0049,True
+WDBC,VQC - LR [anova4],gap,0.003,0.0015,0.0046,True
+WDBC,VQC - SVM [anova4],gap,-0.0001,-0.0014,0.0013,False
+WDBC,VQC - RF [anova4],gap,-0.0175,-0.0195,-0.0153,True
+WDBC,VQC - XGB [anova4],gap,-0.0229,-0.025,-0.0209,True
+WDBC,VQC - MLP [anova4],gap,-0.0009,-0.0025,0.0008,False
+WDBC,VQC[pca4] - LR[all],gap,0.0036,0.0012,0.0061,True
+WDBC,VQC[pca4] - SVM[all],gap,0.0026,0.0004,0.0051,True
+WDBC,VQC[pca4] - RF[all],gap,-0.0047,-0.0076,-0.0017,True
+WDBC,VQC[pca4] - XGB[all],gap,-0.0022,-0.0045,0.0002,False
+WDBC,VQC[pca4] - MLP[all],gap,0.0018,-0.0007,0.0044,False
+Ionosphere,LR: all - pca4,auc_te,0.0186,0.0064,0.0306,True
+Ionosphere,LR: anova4 - pca4,auc_te,-0.0163,-0.0319,-0.0019,True
+Ionosphere,SVM: all - pca4,auc_te,0.0657,0.0563,0.0747,True
+Ionosphere,SVM: anova4 - pca4,auc_te,0.0164,0.0069,0.0259,True
+Ionosphere,RF: all - pca4,auc_te,0.0477,0.0391,0.0563,True
+Ionosphere,RF: anova4 - pca4,auc_te,0.005,-0.0041,0.0146,False
+Ionosphere,XGB: all - pca4,auc_te,0.0528,0.0438,0.0613,True
+Ionosphere,XGB: anova4 - pca4,auc_te,0.0318,0.0223,0.0416,True
+Ionosphere,MLP: all - pca4,auc_te,0.0246,0.0093,0.0407,True
+Ionosphere,MLP: anova4 - pca4,auc_te,-0.0026,-0.0254,0.019,False
+Ionosphere,VQC: anova4 - pca4,auc_te,0.0397,0.0258,0.0542,True
+Ionosphere,VQC - LR [pca4],auc_te,-0.0211,-0.0371,-0.0045,True
+Ionosphere,VQC - SVM [pca4],auc_te,-0.0535,-0.0676,-0.0396,True
+Ionosphere,VQC - RF [pca4],auc_te,-0.0681,-0.0824,-0.0536,True
+Ionosphere,VQC - XGB [pca4],auc_te,-0.049,-0.0639,-0.0343,True
+Ionosphere,VQC - MLP [pca4],auc_te,-0.033,-0.0487,-0.0167,True
+Ionosphere,VQC - LR [anova4],auc_te,0.0349,0.0208,0.0493,True
+Ionosphere,VQC - SVM [anova4],auc_te,-0.0302,-0.0378,-0.023,True
+Ionosphere,VQC - RF [anova4],auc_te,-0.0334,-0.0424,-0.0247,True
+Ionosphere,VQC - XGB [anova4],auc_te,-0.0412,-0.0479,-0.0345,True
+Ionosphere,VQC - MLP [anova4],auc_te,0.0093,-0.0076,0.0268,False
+Ionosphere,VQC[pca4] - LR[all],auc_te,-0.0397,-0.0572,-0.0234,True
+Ionosphere,VQC[pca4] - SVM[all],auc_te,-0.1192,-0.1337,-0.1058,True
+Ionosphere,VQC[pca4] - RF[all],auc_te,-0.1158,-0.1299,-0.1026,True
+Ionosphere,VQC[pca4] - XGB[all],auc_te,-0.1018,-0.1158,-0.0886,True
+Ionosphere,VQC[pca4] - MLP[all],auc_te,-0.0575,-0.0774,-0.0385,True
+Ionosphere,LR: all - pca4,gap,0.07,0.0535,0.0858,True
+Ionosphere,LR: anova4 - pca4,gap,0.0032,-0.0179,0.0255,False
+Ionosphere,SVM: all - pca4,gap,-0.0193,-0.0307,-0.0071,True
+Ionosphere,SVM: anova4 - pca4,gap,-0.0188,-0.0313,-0.0061,True
+Ionosphere,RF: all - pca4,gap,-0.0477,-0.0563,-0.0392,True
+Ionosphere,RF: anova4 - pca4,gap,-0.0093,-0.0193,-0.0003,True
+Ionosphere,XGB: all - pca4,gap,-0.0528,-0.0612,-0.0437,True
+Ionosphere,XGB: anova4 - pca4,gap,-0.0356,-0.0455,-0.0258,True
+Ionosphere,MLP: all - pca4,gap,0.0286,0.0127,0.0442,True
+Ionosphere,MLP: anova4 - pca4,gap,-0.017,-0.0348,0.0009,False
+Ionosphere,VQC: anova4 - pca4,gap,-0.03,-0.0443,-0.0148,True
+Ionosphere,VQC - LR [pca4],gap,0.0439,0.024,0.0629,True
+Ionosphere,VQC - SVM [pca4],gap,0.0272,0.0135,0.0412,True
+Ionosphere,VQC - RF [pca4],gap,-0.0147,-0.0272,-0.0019,True
+Ionosphere,VQC - XGB [pca4],gap,-0.0337,-0.0469,-0.0205,True
+Ionosphere,VQC - MLP [pca4],gap,0.0056,-0.0099,0.0203,False
+Ionosphere,VQC - LR [anova4],gap,0.0108,-0.0104,0.0308,False
+Ionosphere,VQC - SVM [anova4],gap,0.016,0.0064,0.0261,True
+Ionosphere,VQC - RF [anova4],gap,-0.0353,-0.0469,-0.0241,True
+Ionosphere,VQC - XGB [anova4],gap,-0.028,-0.0373,-0.0187,True
+Ionosphere,VQC - MLP [anova4],gap,-0.0074,-0.0221,0.007,False
+Ionosphere,VQC[pca4] - LR[all],gap,-0.026,-0.0404,-0.0102,True
+Ionosphere,VQC[pca4] - SVM[all],gap,0.0465,0.0343,0.0594,True
+Ionosphere,VQC[pca4] - RF[all],gap,0.033,0.0201,0.0461,True
+Ionosphere,VQC[pca4] - XGB[all],gap,0.0191,0.0062,0.0318,True
+Ionosphere,VQC[pca4] - MLP[all],gap,-0.023,-0.0409,-0.0038,True
+Synthetic,LR: all - pca4,auc_te,0.044,0.0324,0.0556,True
+Synthetic,LR: anova4 - pca4,auc_te,0.0523,0.0456,0.0588,True
+Synthetic,SVM: all - pca4,auc_te,0.0011,-0.0125,0.0145,False
+Synthetic,SVM: anova4 - pca4,auc_te,0.0069,-0.0075,0.0246,False
+Synthetic,RF: all - pca4,auc_te,0.1735,0.163,0.1837,True
+Synthetic,RF: anova4 - pca4,auc_te,0.0019,-0.0153,0.0224,False
+Synthetic,XGB: all - pca4,auc_te,0.187,0.1744,0.1999,True
+Synthetic,XGB: anova4 - pca4,auc_te,0.0122,-0.0063,0.0325,False
+Synthetic,MLP: all - pca4,auc_te,-0.066,-0.0878,-0.043,True
+Synthetic,MLP: anova4 - pca4,auc_te,0.0068,-0.0159,0.0315,False
+Synthetic,VQC: anova4 - pca4,auc_te,-0.0469,-0.0657,-0.028,True
+Synthetic,VQC - LR [pca4],auc_te,0.0781,0.065,0.0907,True
+Synthetic,VQC - SVM [pca4],auc_te,-0.0162,-0.0227,-0.01,True
+Synthetic,VQC - RF [pca4],auc_te,0.0027,-0.0066,0.0126,False
+Synthetic,VQC - XGB [pca4],auc_te,0.0169,0.0049,0.0292,True
+Synthetic,VQC - MLP [pca4],auc_te,-0.0059,-0.0167,0.0052,False
+Synthetic,VQC - LR [anova4],auc_te,-0.0212,-0.0391,-0.0028,True
+Synthetic,VQC - SVM [anova4],auc_te,-0.0701,-0.0813,-0.0588,True
+Synthetic,VQC - RF [anova4],auc_te,-0.0461,-0.0607,-0.0323,True
+Synthetic,VQC - XGB [anova4],auc_te,-0.0423,-0.0577,-0.0266,True
+Synthetic,VQC - MLP [anova4],auc_te,-0.0597,-0.0772,-0.0425,True
+Synthetic,VQC[pca4] - LR[all],auc_te,0.0341,0.0201,0.0487,True
+Synthetic,VQC[pca4] - SVM[all],auc_te,-0.0174,-0.0312,-0.0032,True
+Synthetic,VQC[pca4] - RF[all],auc_te,-0.1708,-0.1809,-0.1615,True
+Synthetic,VQC[pca4] - XGB[all],auc_te,-0.1701,-0.1807,-0.1593,True
+Synthetic,VQC[pca4] - MLP[all],auc_te,0.0601,0.0386,0.0805,True
+Synthetic,LR: all - pca4,gap,0.0591,0.0442,0.0739,True
+Synthetic,LR: anova4 - pca4,gap,0.007,-0.0002,0.015,False
+Synthetic,SVM: all - pca4,gap,0.1496,0.1335,0.1661,True
+Synthetic,SVM: anova4 - pca4,gap,-0.0025,-0.0141,0.0083,False
+Synthetic,RF: all - pca4,gap,-0.1735,-0.1841,-0.163,True
+Synthetic,RF: anova4 - pca4,gap,-0.0019,-0.0218,0.0152,False
+Synthetic,XGB: all - pca4,gap,-0.1786,-0.1915,-0.1657,True
+Synthetic,XGB: anova4 - pca4,gap,-0.0112,-0.0313,0.0072,False
+Synthetic,MLP: all - pca4,gap,0.1819,0.1617,0.2009,True
+Synthetic,MLP: anova4 - pca4,gap,0.0007,-0.0168,0.0183,False
+Synthetic,VQC: anova4 - pca4,gap,0.0135,-0.0016,0.0288,False
+Synthetic,VQC - LR [pca4],gap,0.0411,0.0232,0.0591,True
+Synthetic,VQC - SVM [pca4],gap,-0.0098,-0.0169,-0.0031,True
+Synthetic,VQC - RF [pca4],gap,-0.1929,-0.2048,-0.1812,True
+Synthetic,VQC - XGB [pca4],gap,-0.1987,-0.2132,-0.1843,True
+Synthetic,VQC - MLP [pca4],gap,0.0094,-0.0016,0.0201,False
+Synthetic,VQC - LR [anova4],gap,0.0476,0.0306,0.0646,True
+Synthetic,VQC - SVM [anova4],gap,0.0063,-0.0044,0.0166,False
+Synthetic,VQC - RF [anova4],gap,-0.1775,-0.1947,-0.1587,True
+Synthetic,VQC - XGB [anova4],gap,-0.1739,-0.1928,-0.1541,True
+Synthetic,VQC - MLP [anova4],gap,0.0222,0.0073,0.0374,True
+Synthetic,VQC[pca4] - LR[all],gap,-0.0179,-0.037,0.0013,False
+Synthetic,VQC[pca4] - SVM[all],gap,-0.1595,-0.1759,-0.1429,True
+Synthetic,VQC[pca4] - RF[all],gap,-0.0194,-0.0313,-0.0069,True
+Synthetic,VQC[pca4] - XGB[all],gap,-0.0201,-0.0333,-0.0068,True
+Synthetic,VQC[pca4] - MLP[all],gap,-0.1725,-0.1935,-0.1512,True

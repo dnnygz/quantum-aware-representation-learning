@@ -1,0 +1,102 @@
+ds                    Ionosphere  Synthetic   WDBC
+cmp                                               
+LR: all - pca4             0.019      0.044  0.003
+LR: anova4 - pca4         -0.016      0.052 -0.005
+MLP: all - pca4            0.025     -0.066  0.002
+MLP: anova4 - pca4        -0.003      0.007 -0.007
+RF: all - pca4             0.048      0.174  0.004
+RF: anova4 - pca4          0.005      0.002 -0.007
+SVM: all - pca4            0.066      0.001  0.002
+SVM: anova4 - pca4         0.016      0.007 -0.010
+VQC - LR [anova4]          0.035     -0.021 -0.003
+VQC - LR [pca4]           -0.021      0.078 -0.006
+VQC - MLP [anova4]         0.009     -0.060 -0.001
+VQC - MLP [pca4]          -0.033     -0.006 -0.006
+VQC - RF [anova4]         -0.033     -0.046  0.006
+VQC - RF [pca4]           -0.068      0.003  0.001
+VQC - SVM [anova4]        -0.030     -0.070  0.001
+VQC - SVM [pca4]          -0.054     -0.016 -0.007
+VQC - XGB [anova4]        -0.041     -0.042  0.011
+VQC - XGB [pca4]          -0.049      0.017 -0.001
+VQC: anova4 - pca4         0.040     -0.047 -0.002
+VQC[pca4] - LR[all]       -0.040      0.034 -0.010
+VQC[pca4] - MLP[all]      -0.058      0.060 -0.008
+VQC[pca4] - RF[all]       -0.116     -0.171 -0.003
+VQC[pca4] - SVM[all]      -0.119     -0.017 -0.009
+VQC[pca4] - XGB[all]      -0.102     -0.170 -0.006
+XGB: all - pca4            0.053      0.187  0.005
+XGB: anova4 - pca4         0.032      0.012 -0.014
+             ds                   cmp  mean_diff     lo     hi
+10         WDBC    VQC: anova4 - pca4     -0.002 -0.005 -0.000
+11         WDBC       VQC - LR [pca4]     -0.006 -0.008 -0.004
+12         WDBC      VQC - SVM [pca4]     -0.007 -0.009 -0.005
+15         WDBC      VQC - MLP [pca4]     -0.006 -0.008 -0.005
+16         WDBC     VQC - LR [anova4]     -0.003 -0.005 -0.002
+18         WDBC     VQC - RF [anova4]      0.006  0.004  0.007
+19         WDBC    VQC - XGB [anova4]      0.011  0.009  0.013
+20         WDBC    VQC - MLP [anova4]     -0.001 -0.003 -0.000
+21         WDBC   VQC[pca4] - LR[all]     -0.010 -0.012 -0.008
+22         WDBC  VQC[pca4] - SVM[all]     -0.009 -0.011 -0.007
+23         WDBC   VQC[pca4] - RF[all]     -0.003 -0.006 -0.001
+24         WDBC  VQC[pca4] - XGB[all]     -0.006 -0.008 -0.004
+25         WDBC  VQC[pca4] - MLP[all]     -0.008 -0.010 -0.006
+62   Ionosphere    VQC: anova4 - pca4      0.040  0.026  0.054
+63   Ionosphere       VQC - LR [pca4]     -0.021 -0.037 -0.004
+64   Ionosphere      VQC - SVM [pca4]     -0.054 -0.068 -0.040
+65   Ionosphere       VQC - RF [pca4]     -0.068 -0.082 -0.054
+66   Ionosphere      VQC - XGB [pca4]     -0.049 -0.064 -0.034
+67   Ionosphere      VQC - MLP [pca4]     -0.033 -0.049 -0.017
+68   Ionosphere     VQC - LR [anova4]      0.035  0.021  0.049
+69   Ionosphere    VQC - SVM [anova4]     -0.030 -0.038 -0.023
+70   Ionosphere     VQC - RF [anova4]     -0.033 -0.042 -0.025
+71   Ionosphere    VQC - XGB [anova4]     -0.041 -0.048 -0.034
+73   Ionosphere   VQC[pca4] - LR[all]     -0.040 -0.057 -0.023
+74   Ionosphere  VQC[pca4] - SVM[all]     -0.119 -0.134 -0.106
+75   Ionosphere   VQC[pca4] - RF[all]     -0.116 -0.130 -0.103
+76   Ionosphere  VQC[pca4] - XGB[all]     -0.102 -0.116 -0.089
+77   Ionosphere  VQC[pca4] - MLP[all]     -0.058 -0.077 -0.038
+114   Synthetic    VQC: anova4 - pca4     -0.047 -0.066 -0.028
+115   Synthetic       VQC - LR [pca4]      0.078  0.065  0.091
+116   Synthetic      VQC - SVM [pca4]     -0.016 -0.023 -0.010
+118   Synthetic      VQC - XGB [pca4]      0.017  0.005  0.029
+120   Synthetic     VQC - LR [anova4]     -0.021 -0.039 -0.003
+121   Synthetic    VQC - SVM [anova4]     -0.070 -0.081 -0.059
+122   Synthetic     VQC - RF [anova4]     -0.046 -0.061 -0.032
+123   Synthetic    VQC - XGB [anova4]     -0.042 -0.058 -0.027
+124   Synthetic    VQC - MLP [anova4]     -0.060 -0.077 -0.042
+125   Synthetic   VQC[pca4] - LR[all]      0.034  0.020  0.049
+126   Synthetic  VQC[pca4] - SVM[all]     -0.017 -0.031 -0.003
+127   Synthetic   VQC[pca4] - RF[all]     -0.171 -0.181 -0.162
+128   Synthetic  VQC[pca4] - XGB[all]     -0.170 -0.181 -0.159
+129   Synthetic  VQC[pca4] - MLP[all]      0.060  0.039  0.080
+             ds                   cmp  mean_diff     lo     hi  excl0
+27         WDBC     LR: anova4 - pca4     -0.000 -0.002  0.002  False
+29         WDBC    SVM: anova4 - pca4      0.002 -0.001  0.004  False
+31         WDBC     RF: anova4 - pca4      0.007  0.005  0.010   True
+33         WDBC    XGB: anova4 - pca4      0.014  0.012  0.017   True
+34         WDBC       MLP: all - pca4      0.001 -0.000  0.002  False
+35         WDBC    MLP: anova4 - pca4      0.002  0.000  0.004   True
+36         WDBC    VQC: anova4 - pca4     -0.001 -0.004  0.002  False
+41         WDBC      VQC - MLP [pca4]      0.003  0.001  0.005   True
+46         WDBC    VQC - MLP [anova4]     -0.001 -0.002  0.001  False
+51         WDBC  VQC[pca4] - MLP[all]      0.002 -0.001  0.004  False
+79   Ionosphere     LR: anova4 - pca4      0.003 -0.018  0.026  False
+81   Ionosphere    SVM: anova4 - pca4     -0.019 -0.031 -0.006   True
+83   Ionosphere     RF: anova4 - pca4     -0.009 -0.019 -0.000   True
+85   Ionosphere    XGB: anova4 - pca4     -0.036 -0.046 -0.026   True
+86   Ionosphere       MLP: all - pca4      0.029  0.013  0.044   True
+87   Ionosphere    MLP: anova4 - pca4     -0.017 -0.035  0.001  False
+88   Ionosphere    VQC: anova4 - pca4     -0.030 -0.044 -0.015   True
+93   Ionosphere      VQC - MLP [pca4]      0.006 -0.010  0.020  False
+98   Ionosphere    VQC - MLP [anova4]     -0.007 -0.022  0.007  False
+103  Ionosphere  VQC[pca4] - MLP[all]     -0.023 -0.041 -0.004   True
+131   Synthetic     LR: anova4 - pca4      0.007 -0.000  0.015  False
+133   Synthetic    SVM: anova4 - pca4     -0.002 -0.014  0.008  False
+135   Synthetic     RF: anova4 - pca4     -0.002 -0.022  0.015  False
+137   Synthetic    XGB: anova4 - pca4     -0.011 -0.031  0.007  False
+138   Synthetic       MLP: all - pca4      0.182  0.162  0.201   True
+139   Synthetic    MLP: anova4 - pca4      0.001 -0.017  0.018  False
+140   Synthetic    VQC: anova4 - pca4      0.014 -0.002  0.029  False
+145   Synthetic      VQC - MLP [pca4]      0.009 -0.002  0.020  False
+150   Synthetic    VQC - MLP [anova4]      0.022  0.007  0.037   True
+155   Synthetic  VQC[pca4] - MLP[all]     -0.172 -0.194 -0.151   True

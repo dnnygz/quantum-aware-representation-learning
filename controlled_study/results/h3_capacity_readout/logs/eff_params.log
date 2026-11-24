@@ -1,0 +1,4 @@
+L1                     nominal circuit params=  8 effective rank min/max over 5 random points: 4/4
+L2 (base)              nominal circuit params= 16 effective rank min/max over 5 random points: 12/12
+L4                     nominal circuit params= 32 effective rank min/max over 5 random points: 28/28
+L2 no entanglement     nominal circuit params= 16 effective rank min/max over 5 random points: 8/8

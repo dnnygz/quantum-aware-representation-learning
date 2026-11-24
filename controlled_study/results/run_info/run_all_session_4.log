@@ -1,0 +1,33 @@
+All experiments ran on a Intel(R) Core(TM) Ultra 9 185H (22 logical cores, 15.4 GB of RAM) under Windows-10-10.0.26200-SP0, with Python 3.10.0, NumPy 2.2.6, SciPy 1.15.3, scikit-learn 1.7.2, and XGBoost 3.2.0; the data came from: uci.
+
+output: <local path> | seeds: 30 | jobs: 4 | stages: ['e1', 'h5', 'h3', 'h4', 'h1', 'h2', 'h6']
+[skip ] e1:run_e1.py (e1_results.csv exists)
+[skip ] e1:analyze_e1.py (e1_summary.csv exists)
+[skip ] e1:gen_sec42.py (tables_sec42.tex exists)
+[skip ] h5:run_h5.py (h5_results.csv exists)
+[skip ] h5:analyze_h5.py (h5_summary.csv exists)
+[skip ] h5:gen_sec42_h5.py (tab_h5.tex exists)
+[skip ] h3:eff_params.py (eff_params.csv exists)
+[skip ] h3:run_h3.py (h3_results.csv exists)
+[skip ] h3:analyze_h3.py (h3_paired.csv exists)
+[skip ] h3:gen_sec42_h3.py (sec42_h3.tex exists)
+[skip ] h4:run_h4.py (h4_results.csv exists)
+[skip ] h4:analyze_h4.py (h4_summary.csv exists)
+[skip ] h1:run_h1.py (h1_results.csv exists)
+[skip ] h1:analyze_h1.py (h1_summary.csv exists)
+[skip ] h1:gen_sec42_h4h1.py (sec42_h1.tex exists)
+[start] h2:run_h2.py B
+[done ] h2:run_h2.py B in 38.6 min (log: <local path>)
+[start] h2:run_h2.py A
+[done ] h2:run_h2.py A in 27.2 min (log: <local path>)
+[start] h2:analyze_h2.py
+[done ] h2:analyze_h2.py in 0.1 min (log: <local path>)
+[start] h2:gen_sec42_h2.py
+[done ] h2:gen_sec42_h2.py in 0.0 min (log: <local path>)
+[start] h6:run_h6.py
+[done ] h6:run_h6.py in 5.0 min (log: <local path>)
+[start] h6:analyze_h6.py
+[done ] h6:analyze_h6.py in 0.0 min (log: <local path>)
+[start] h6:gen_sec42_h6.py
+[done ] h6:gen_sec42_h6.py in 0.0 min (log: <local path>)
+ALL DONE in 70.8 min. Next: python compare_results.py --mine results

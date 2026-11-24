@@ -1,0 +1,19 @@
+{
+ "cpu": "Intel(R) Core(TM) Ultra 9 185H",
+ "logical_cores": 22,
+ "ram_gb": 15.4,
+ "os": "Windows-10-10.0.26200-SP0",
+ "python": "3.10.0",
+ "packages": {
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "sklearn": "1.7.2",
+  "xgboost": "3.2.0",
+  "pandas": "2.3.3",
+  "matplotlib": "3.10.9",
+  "pennylane": "0.42.3"
+ },
+ "data_source": "uci",
+ "jobs": "4",
+ "seeds": "30"
+}

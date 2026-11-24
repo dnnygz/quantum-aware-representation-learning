@@ -1,0 +1,1 @@
+All experiments ran on a Intel(R) Core(TM) Ultra 9 185H (22 logical cores, 15.4 GB of RAM) under Windows-10-10.0.26200-SP0, with Python 3.10.0, NumPy 2.2.6, SciPy 1.15.3, scikit-learn 1.7.2, and XGBoost 3.2.0; the data came from: uci.

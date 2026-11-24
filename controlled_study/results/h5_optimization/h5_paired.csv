@@ -1,0 +1,89 @@
+ds,cmp,epochs,metric,mean_diff,lo,hi,excl0
+WDBC,"base(lr.05,init.1) - MLP",200,auc_te,-0.0064,-0.0084,-0.0047,True
+WDBC,"base(lr.05,init.1) - MLP",200,gap,0.0027,0.0007,0.0049,True
+WDBC,lr.01 - MLP,200,auc_te,-0.0124,-0.0146,-0.0105,True
+WDBC,lr.01 - MLP,200,gap,0.0004,-0.0024,0.0034,False
+WDBC,lr.2 - MLP,200,auc_te,-0.0045,-0.0069,-0.0025,True
+WDBC,lr.2 - MLP,200,gap,0.0042,0.0022,0.0066,True
+WDBC,"init~N(0,1) - MLP",200,auc_te,-0.0072,-0.0096,-0.0052,True
+WDBC,"init~N(0,1) - MLP",200,gap,0.0039,0.002,0.006,True
+WDBC,"init~U(-pi,pi) - MLP",200,auc_te,-0.0057,-0.0076,-0.0041,True
+WDBC,"init~U(-pi,pi) - MLP",200,gap,0.0025,0.0006,0.0046,True
+WDBC,"base(lr.05,init.1) - MLP",800,auc_te,-0.0019,-0.0048,0.0011,False
+WDBC,"base(lr.05,init.1) - MLP",800,gap,-0.0002,-0.0035,0.003,False
+WDBC,lr.01 - MLP,800,auc_te,-0.0027,-0.0057,0.0005,False
+WDBC,lr.01 - MLP,800,gap,-0.0033,-0.0067,-0.0,True
+WDBC,lr.2 - MLP,800,auc_te,-0.0023,-0.0056,0.0006,False
+WDBC,lr.2 - MLP,800,gap,0.0015,-0.0015,0.0048,False
+WDBC,"init~N(0,1) - MLP",800,auc_te,-0.0029,-0.0056,-0.0001,True
+WDBC,"init~N(0,1) - MLP",800,gap,0.0012,-0.0017,0.0039,False
+WDBC,"init~U(-pi,pi) - MLP",800,auc_te,-0.0017,-0.0046,0.0012,False
+WDBC,"init~U(-pi,pi) - MLP",800,gap,0.0001,-0.0029,0.0031,False
+WDBC,base 800ep - base 200ep,800,auc_te,0.0007,-0.0002,0.0016,False
+WDBC,base 800ep - base 200ep,800,gap,0.0022,0.0013,0.0032,True
+Ionosphere,"base(lr.05,init.1) - MLP",200,auc_te,-0.033,-0.0488,-0.0169,True
+Ionosphere,"base(lr.05,init.1) - MLP",200,gap,0.0056,-0.0101,0.0204,False
+Ionosphere,lr.01 - MLP,200,auc_te,-0.0598,-0.0721,-0.047,True
+Ionosphere,lr.01 - MLP,200,gap,-0.0153,-0.0323,0.001,False
+Ionosphere,lr.2 - MLP,200,auc_te,-0.0188,-0.0366,-0.0005,True
+Ionosphere,lr.2 - MLP,200,gap,0.0084,-0.0093,0.0259,False
+Ionosphere,"init~N(0,1) - MLP",200,auc_te,-0.0224,-0.0389,-0.0062,True
+Ionosphere,"init~N(0,1) - MLP",200,gap,0.0038,-0.0115,0.0193,False
+Ionosphere,"init~U(-pi,pi) - MLP",200,auc_te,-0.0238,-0.0397,-0.0071,True
+Ionosphere,"init~U(-pi,pi) - MLP",200,gap,0.004,-0.0122,0.0202,False
+Ionosphere,"base(lr.05,init.1) - MLP",800,auc_te,-0.0187,-0.0364,-0.0014,True
+Ionosphere,"base(lr.05,init.1) - MLP",800,gap,0.0009,-0.0175,0.0192,False
+Ionosphere,lr.01 - MLP,800,auc_te,-0.0205,-0.0384,-0.002,True
+Ionosphere,lr.01 - MLP,800,gap,-0.0134,-0.0318,0.004,False
+Ionosphere,lr.2 - MLP,800,auc_te,-0.0154,-0.0357,0.0051,False
+Ionosphere,lr.2 - MLP,800,gap,0.0002,-0.0207,0.0213,False
+Ionosphere,"init~N(0,1) - MLP",800,auc_te,-0.02,-0.0371,-0.0036,True
+Ionosphere,"init~N(0,1) - MLP",800,gap,0.0036,-0.0132,0.0211,False
+Ionosphere,"init~U(-pi,pi) - MLP",800,auc_te,-0.0224,-0.0411,-0.0033,True
+Ionosphere,"init~U(-pi,pi) - MLP",800,gap,0.003,-0.0171,0.0218,False
+Ionosphere,base 800ep - base 200ep,800,auc_te,0.0097,-0.0022,0.0229,False
+Ionosphere,base 800ep - base 200ep,800,gap,0.0091,-0.0015,0.0193,False
+Synthetic,"base(lr.05,init.1) - MLP",200,auc_te,-0.0059,-0.0167,0.0052,False
+Synthetic,"base(lr.05,init.1) - MLP",200,gap,0.0094,-0.0016,0.0202,False
+Synthetic,lr.01 - MLP,200,auc_te,-0.0056,-0.0184,0.0072,False
+Synthetic,lr.01 - MLP,200,gap,-0.0076,-0.0217,0.0057,False
+Synthetic,lr.2 - MLP,200,auc_te,-0.0066,-0.018,0.0048,False
+Synthetic,lr.2 - MLP,200,gap,0.0133,0.002,0.025,True
+Synthetic,"init~N(0,1) - MLP",200,auc_te,-0.0037,-0.0131,0.0057,False
+Synthetic,"init~N(0,1) - MLP",200,gap,0.0042,-0.0059,0.0144,False
+Synthetic,"init~U(-pi,pi) - MLP",200,auc_te,-0.0038,-0.0149,0.0081,False
+Synthetic,"init~U(-pi,pi) - MLP",200,gap,0.008,-0.0038,0.0196,False
+Synthetic,"base(lr.05,init.1) - MLP",800,auc_te,0.0,-0.014,0.0158,False
+Synthetic,"base(lr.05,init.1) - MLP",800,gap,-0.0004,-0.0127,0.0126,False
+Synthetic,lr.01 - MLP,800,auc_te,0.0065,-0.0076,0.0215,False
+Synthetic,lr.01 - MLP,800,gap,-0.0109,-0.0236,0.0016,False
+Synthetic,lr.2 - MLP,800,auc_te,0.005,-0.0101,0.0207,False
+Synthetic,lr.2 - MLP,800,gap,-0.0047,-0.018,0.0093,False
+Synthetic,"init~N(0,1) - MLP",800,auc_te,0.0046,-0.0077,0.0188,False
+Synthetic,"init~N(0,1) - MLP",800,gap,-0.0056,-0.0177,0.0074,False
+Synthetic,"init~U(-pi,pi) - MLP",800,auc_te,0.0044,-0.0087,0.018,False
+Synthetic,"init~U(-pi,pi) - MLP",800,gap,-0.003,-0.0157,0.0106,False
+Synthetic,base 800ep - base 200ep,800,auc_te,-0.0058,-0.0097,-0.0023,True
+Synthetic,base 800ep - base 200ep,800,gap,0.0089,0.0049,0.0134,True
+Transfusion,"base(lr.05,init.1) - MLP",200,auc_te,-0.0041,-0.0128,0.0057,False
+Transfusion,"base(lr.05,init.1) - MLP",200,gap,0.0148,0.0073,0.0225,True
+Transfusion,lr.01 - MLP,200,auc_te,-0.0217,-0.032,-0.0101,True
+Transfusion,lr.01 - MLP,200,gap,0.0085,-0.0003,0.0175,False
+Transfusion,lr.2 - MLP,200,auc_te,-0.0065,-0.0138,0.002,False
+Transfusion,lr.2 - MLP,200,gap,0.0283,0.0215,0.035,True
+Transfusion,"init~N(0,1) - MLP",200,auc_te,-0.0076,-0.0163,0.003,False
+Transfusion,"init~N(0,1) - MLP",200,gap,0.0172,0.0098,0.0251,True
+Transfusion,"init~U(-pi,pi) - MLP",200,auc_te,-0.0075,-0.016,0.0029,False
+Transfusion,"init~U(-pi,pi) - MLP",200,gap,0.0189,0.0121,0.026,True
+Transfusion,"base(lr.05,init.1) - MLP",800,auc_te,-0.001,-0.0091,0.0068,False
+Transfusion,"base(lr.05,init.1) - MLP",800,gap,0.0153,0.0054,0.0255,True
+Transfusion,lr.01 - MLP,800,auc_te,-0.0064,-0.0147,0.0018,False
+Transfusion,lr.01 - MLP,800,gap,0.007,-0.0021,0.0163,False
+Transfusion,lr.2 - MLP,800,auc_te,-0.0148,-0.0299,-0.0027,True
+Transfusion,lr.2 - MLP,800,gap,0.0213,0.0074,0.0337,True
+Transfusion,"init~N(0,1) - MLP",800,auc_te,-0.0033,-0.0102,0.003,False
+Transfusion,"init~N(0,1) - MLP",800,gap,0.0179,0.0096,0.0266,True
+Transfusion,"init~U(-pi,pi) - MLP",800,auc_te,-0.0033,-0.0104,0.0034,False
+Transfusion,"init~U(-pi,pi) - MLP",800,gap,0.0174,0.0091,0.0259,True
+Transfusion,base 800ep - base 200ep,800,auc_te,0.0019,-0.0026,0.0064,False
+Transfusion,base 800ep - base 200ep,800,gap,0.0103,0.0058,0.0151,True

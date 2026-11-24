@@ -1,0 +1,11 @@
+numpy
+scipy
+scikit-learn
+xgboost
+pandas
+matplotlib
+psutil
+ucimlrepo
+# optional, only for checks/check_pennylane.py (validation of the numpy simulator against PennyLane):
+# pennylane
+# versions used for the run reported in results/: Python 3.10, numpy 2.2.6, scipy 1.15.3, scikit-learn 1.7.2, xgboost 3.2.0, pennylane 0.42.3

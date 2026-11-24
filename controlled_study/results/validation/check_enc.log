@@ -1,0 +1,8 @@
+grad max err (re-upload, 3 layers): 5.5615428928845745e-11
+base equivalence max |dlogit|: 1.9761969838327786e-14
+(True, False) freqs with weight>1e-8: [0, 1]
+(True, True) freqs with weight>1e-8: [0, 1, 2]
+2 (True, False) s/epoch 0.013
+2 (True, True) s/epoch 0.023
+4 (True, False, False, False) s/epoch 0.027
+4 (True, True, True, True) s/epoch 0.095

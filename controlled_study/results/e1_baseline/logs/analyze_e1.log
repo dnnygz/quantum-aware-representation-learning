@@ -1,0 +1,96 @@
+                 auc_tr  auc_te  sd_te    gap  sd_gap  brier
+WDBC        VQC   0.992   0.985  0.008  0.007   0.009  0.042
+            LR    0.994   0.991  0.006  0.003   0.008  0.033
+            SVM   0.996   0.991  0.004  0.004   0.005  0.033
+            RF    1.000   0.984  0.008  0.016   0.008  0.041
+            XGB   1.000   0.985  0.006  0.015   0.006  0.039
+            MLP   0.996   0.991  0.005  0.005   0.007  0.031
+Ionosphere  VQC   0.917   0.863  0.043  0.054   0.040  0.131
+            LR    0.894   0.884  0.031  0.010   0.046  0.113
+            SVM   0.944   0.917  0.030  0.027   0.039  0.094
+            RF    1.000   0.931  0.024  0.069   0.024  0.096
+            XGB   1.000   0.912  0.026  0.088   0.026  0.111
+            MLP   0.945   0.896  0.032  0.049   0.033  0.112
+Synthetic   VQC   0.810   0.757  0.027  0.052   0.035  0.196
+            LR    0.691   0.679  0.034  0.011   0.045  0.222
+            SVM   0.836   0.774  0.028  0.062   0.036  0.188
+            RF    1.000   0.755  0.030  0.245   0.030  0.198
+            XGB   0.992   0.741  0.033  0.251   0.034  0.211
+            MLP   0.806   0.763  0.036  0.043   0.037  0.191
+Transfusion VQC   0.765   0.745  0.036  0.019   0.049  0.155
+            LR    0.754   0.755  0.037 -0.001   0.052  0.155
+            SVM   0.722   0.705  0.040  0.017   0.060  0.168
+            RF    0.973   0.690  0.032  0.283   0.033  0.184
+            XGB   0.895   0.708  0.035  0.186   0.042  0.167
+            MLP   0.754   0.750  0.041  0.004   0.057  0.156
+
+SHUFFLED LABELS
+                     tr     te
+WDBC        VQC  0.625  0.539
+            LR   0.552  0.595
+            SVM  0.690  0.627
+            RF   1.000  0.533
+            XGB  0.990  0.513
+            MLP  0.608  0.562
+Ionosphere  VQC  0.671  0.490
+            LR   0.567  0.506
+            SVM  0.706  0.549
+            RF   1.000  0.506
+            XGB  0.998  0.478
+            MLP  0.651  0.506
+Synthetic   VQC  0.633  0.481
+            LR   0.553  0.483
+            SVM  0.687  0.464
+            RF   1.000  0.487
+            XGB  0.986  0.483
+            MLP  0.627  0.496
+Transfusion VQC  0.605  0.516
+            LR   0.546  0.464
+            SVM  0.629  0.511
+            RF   0.959  0.477
+            XGB  0.847  0.484
+            MLP  0.537  0.455
+
+PAIRED (VQC minus model)
+              ds   vs  metric  mean_diff  ci_lo  ci_hi  p_wilcoxon  p_holm  excl0
+0          WDBC   LR  auc_te     -0.006 -0.008 -0.004       0.000   0.000   True
+1          WDBC   LR     gap      0.004  0.002  0.006       0.000   0.002   True
+2          WDBC  SVM  auc_te     -0.007 -0.009 -0.005       0.000   0.000   True
+3          WDBC  SVM     gap      0.003  0.001  0.005       0.011   0.064   True
+4          WDBC   RF  auc_te      0.001 -0.002  0.003       0.475   1.000  False
+5          WDBC   RF     gap     -0.009 -0.011 -0.006       0.000   0.000   True
+6          WDBC  XGB  auc_te     -0.001 -0.003  0.001       0.789   1.000  False
+7          WDBC  XGB     gap     -0.007 -0.009 -0.005       0.000   0.000   True
+8          WDBC  MLP  auc_te     -0.006 -0.008 -0.005       0.000   0.000   True
+9          WDBC  MLP     gap      0.003  0.001  0.005       0.008   0.057   True
+10   Ionosphere   LR  auc_te     -0.021 -0.038 -0.005       0.024   0.170   True
+11   Ionosphere   LR     gap      0.044  0.024  0.063       0.000   0.003   True
+12   Ionosphere  SVM  auc_te     -0.053 -0.068 -0.039       0.000   0.000   True
+13   Ionosphere  SVM     gap      0.027  0.013  0.041       0.001   0.005   True
+14   Ionosphere   RF  auc_te     -0.068 -0.083 -0.054       0.000   0.000   True
+15   Ionosphere   RF     gap     -0.015 -0.027 -0.002       0.029   0.117   True
+16   Ionosphere  XGB  auc_te     -0.049 -0.064 -0.034       0.000   0.000   True
+17   Ionosphere  XGB     gap     -0.034 -0.047 -0.020       0.000   0.001   True
+18   Ionosphere  MLP  auc_te     -0.033 -0.049 -0.017       0.001   0.009   True
+19   Ionosphere  MLP     gap      0.006 -0.010  0.020       0.289   0.579  False
+20    Synthetic   LR  auc_te      0.078  0.065  0.091       0.000   0.000   True
+21    Synthetic   LR     gap      0.041  0.023  0.059       0.000   0.002   True
+22    Synthetic  SVM  auc_te     -0.016 -0.023 -0.010       0.000   0.001   True
+23    Synthetic  SVM     gap     -0.010 -0.017 -0.003       0.013   0.064   True
+24    Synthetic   RF  auc_te      0.003 -0.007  0.013       0.700   1.000  False
+25    Synthetic   RF     gap     -0.193 -0.205 -0.181       0.000   0.000   True
+26    Synthetic  XGB  auc_te      0.017  0.005  0.029       0.015   0.116   True
+27    Synthetic  XGB     gap     -0.199 -0.213 -0.184       0.000   0.000   True
+28    Synthetic  MLP  auc_te     -0.006 -0.017  0.005       0.309   1.000  False
+29    Synthetic  MLP     gap      0.009 -0.002  0.020       0.084   0.252  False
+30  Transfusion   LR  auc_te     -0.010 -0.018 -0.002       0.050   0.298   True
+31  Transfusion   LR     gap      0.020  0.012  0.029       0.000   0.001   True
+32  Transfusion  SVM  auc_te      0.040  0.031  0.049       0.000   0.000   True
+33  Transfusion  SVM     gap      0.003 -0.008  0.013       0.570   0.579  False
+34  Transfusion   RF  auc_te      0.056  0.044  0.067       0.000   0.000   True
+35  Transfusion   RF     gap     -0.264 -0.277 -0.251       0.000   0.000   True
+36  Transfusion  XGB  auc_te      0.037  0.028  0.046       0.000   0.000   True
+37  Transfusion  XGB     gap     -0.167 -0.177 -0.156       0.000   0.000   True
+38  Transfusion  MLP  auc_te     -0.004 -0.013  0.006       0.135   0.674  False
+39  Transfusion  MLP     gap      0.015  0.007  0.022       0.001   0.006   True
+saved fig
